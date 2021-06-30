@@ -120,8 +120,8 @@
                                             <th class="text-center"><?php echo display('quantity') ?> <i class="text-danger">*</i></th>
                                             <th class="text-center"><?php echo display('rate') ?><i class="text-danger">*</i></th>
 
-                                           
-
+                                            <th class="text-center"><?php echo "Received Qnty" ?></th>
+                                            <th class="text-center"><?php echo "Pending Purchase" ?></th>
                                             <th class="text-center"><?php echo display('total') ?></th>
                                             <th class="text-center"><?php echo display('action') ?></th>
                                         </tr>
@@ -148,12 +148,16 @@
                                                 <input type="text" name="product_rate[]" onkeyup="calculate_store(<?php echo $purchases['sl']?>);" onchange="calculate_store(<?php echo $purchases['sl']?>);" id="product_rate_<?php echo $purchases['sl']?>" class="form-control product_rate_<?php echo $purchases['sl']?> text-right" placeholder="0.00" value="<?php echo $purchases['rate']?>" min="0" tabindex="7"/>
                                             </td>
                                            
-
+                                            <td class="text-right">
+                                                <input class="form-control text-right" name="product_quantity_received[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" />
+                                            </td>
+                                            <td class="text-right">
+                                                <input class="form-control text-right" name="product_quantity_pending[]"  type="text" name="" id="pending_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_pending']?>" readonly="readonly" />
+                                            </td>
                                             <td class="text-right">
                                                 <input class="form-control total_price text-right" type="text" name="total_price[]" id="total_price_<?php echo $purchases['sl']?>" value="<?php echo $purchases['total_amount']?>" readonly="readonly" />
                                             </td>
                                             <td>
-
                                                
 
                                                 <button  class="btn btn-danger text-right red" type="button" value="<?php echo display('delete')?>" onclick="deleteRow(this)" tabindex="8"><i class="fa fa-close"></i></button>
@@ -162,55 +166,56 @@
                                 <?php }?>
                                 </tbody>
                                 <tfoot>
-                                      <tfoot>
-                                    <tr>
-                                        
-                                        <td class="text-right" colspan="4"><b><?php echo display('total') ?>:</b></td>
-                                        <td class="text-right">
-                                            <input type="text" id="Total" class="text-right form-control" name="total" value="<?php echo $total;?>" readonly="readonly" />
-                                        </td>
-                                        <td> <button type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addPurchaseOrderField1('addPurchaseItem')"  tabindex="9"><i class="fa fa-plus"></i></button>
-
-                                            <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url();?>"/></td>
-                                    </tr>
+                                    <tfoot>
                                         <tr>
-                                       
-                                        <td class="text-right" colspan="4"><b><?php echo display('discounts') ?>:</b></td>
-                                        <td class="text-right">
-                                            <input type="text" id="discount" class="text-right form-control discount" onkeyup="calculate_store(1)" name="discount" placeholder="0.00" value="<?php echo $total_discount;?>" />
-                                        </td>
-                                        <td> 
+                                            
+                                            <td class="text-right" colspan="6"><b><?php echo display('total') ?>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="Total" class="text-right form-control" name="total" value="<?php echo $total;?>" readonly="readonly" />
+                                            </td>
+                                            <td> 
+                                                <button type="button" id="add_invoice_item" class="btn btn-info" name="add-invoice-item"  onClick="addPurchaseOrderField1('addPurchaseItem')"  tabindex="9"><i class="fa fa-plus"></i></button>
+                                                <input type="hidden" name="baseUrl" class="baseUrl" value="<?php echo base_url();?>"/>
+                                            </td>
+                                        </tr>
+                                            <tr>
+                                        
+                                            <td class="text-right" colspan="6"><b><?php echo display('discounts') ?>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="discount" class="text-right form-control discount" onkeyup="calculate_store(1)" name="discount" placeholder="0.00" value="<?php echo $total_discount;?>" />
+                                            </td>
+                                            <td> 
 
-                                           </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
+                                            <tr>
+                                            
+                                            <td class="text-right" colspan="6"><b><?php echo display('grand_total') ?>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="grandTotal" class="text-right form-control" name="grand_total_price" value="<?php echo $grand_total;?>" readonly="readonly" />
+                                            </td>
+                                            <td> </td>
+                                        </tr>
+                                            <tr>
+                                            
+                                            <td class="text-right" colspan="6"><b><?php echo display('paid_amount') ?>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="paidAmount" class="text-right form-control" onKeyup="invoice_paidamount()" name="paid_amount" value="<?php echo $paid_amount;?>" />
+                                            </td>
+                                            <td> </td>
+                                        </tr>
                                         <tr>
-                                        
-                                        <td class="text-right" colspan="4"><b><?php echo display('grand_total') ?>:</b></td>
-                                        <td class="text-right">
-                                            <input type="text" id="grandTotal" class="text-right form-control" name="grand_total_price" value="<?php echo $grand_total;?>" readonly="readonly" />
-                                        </td>
-                                        <td> </td>
-                                    </tr>
-                                         <tr>
-                                        
-                                        <td class="text-right" colspan="4"><b><?php echo display('paid_amount') ?>:</b></td>
-                                        <td class="text-right">
-                                            <input type="text" id="paidAmount" class="text-right form-control" onKeyup="invoice_paidamount()" name="paid_amount" value="<?php echo $paid_amount;?>" />
-                                        </td>
-                                        <td> </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="text-right">
-                                             <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="16" onClick="full_paid()"/>
-                                        </td>
-                                        <td class="text-right" colspan="2"><b><?php echo display('due_amount') ?>:</b></td>
-                                        <td class="text-right">
-                                            <input type="text" id="dueAmmount" class="text-right form-control" name="due_amount" value="<?php echo $due_amount;?>" readonly="readonly" />
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
+                                            <td colspan="4" class="text-right">
+                                                <input type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="16" onClick="full_paid()"/>
+                                            </td>
+                                            <td class="text-right" colspan="2"><b><?php echo display('due_amount') ?>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="dueAmmount" class="text-right form-control" name="due_amount" value="<?php echo $due_amount;?>" readonly="readonly" />
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </tfoot>
                             </table>
                         </div>
