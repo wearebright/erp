@@ -435,12 +435,16 @@ public function bdtask_purchase_edit_form($purchase_id = null){
         $rate     = $this->input->post('product_rate',TRUE);
         $p_id     = $this->input->post('product_id',TRUE);
         $quantity = $this->input->post('product_quantity',TRUE);
+        $quantity_pending = $this->input->post('product_quantity_pending',TRUE);
+        $quantity_received = $this->input->post('product_quantity_received',TRUE);
         $t_price  = $this->input->post('total_price',TRUE);
 
         $discount = $this->input->post('discount',TRUE);
 
         for ($i = 0, $n = count($p_id); $i < $n; $i++) {
             $product_quantity = $quantity[$i];
+            $product_quantity_pending = $quantity_pending[$i];
+            $product_quantity_received = $quantity_received[$i];
             $product_rate     = $rate[$i];
             $product_id       = $p_id[$i];
             $total_price      = $t_price[$i];
@@ -451,6 +455,8 @@ public function bdtask_purchase_edit_form($purchase_id = null){
                 'purchase_id'        => $purchase_id,
                 'product_id'         => $product_id,
                 'quantity'           => $product_quantity,
+                'quantity_received'  => $product_quantity_received,
+                'quantity_pending'   => $product_quantity_pending,
                 'rate'               => $product_rate,
                 'total_amount'       => $total_price,
                 'discount'           => $disc,
