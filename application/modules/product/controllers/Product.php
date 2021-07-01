@@ -572,7 +572,7 @@ public function bdtask_product_details($product_id = null){
             }
         }
 
-        $salesData = $this->product_model->invoice_data($product_id);
+        $salesData = $this->product_model->all_invoice_data($product_id);
 
         $totalSales = 0;
         $totaSalesAmt = 0;

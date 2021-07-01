@@ -317,5 +317,20 @@ public function check_product($id){
         return false;
     }
 
+    public function all_invoice_data($product_id) {
+        $this->db->select('a.*,b.*,c.customer_name');
+        $this->db->from('invoice a');
+        $this->db->join('invoice_details b', 'b.invoice_id = a.invoice_id');
+        $this->db->join('customer_information c', 'c.customer_id = a.customer_id');
+        $this->db->where('b.product_id', $product_id);
+        $this->db->order_by('a.date', 'desc');
+        $this->db->limit(30);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
 }
 
