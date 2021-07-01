@@ -561,12 +561,14 @@ public function bdtask_product_details($product_id = null){
         $purchaseData = $this->product_model->product_purchase_info($product_id);
         $totalPurchase = 0;
         $totalPrcsAmnt = 0;
+        $totalReceived = 0;
 
         if (!empty($purchaseData)) {
             foreach ($purchaseData as $k => $v) {
                 $purchaseData[$k]['final_date'] = $purchaseData[$k]['purchase_date'];
                 $totalPrcsAmnt = ($totalPrcsAmnt + $purchaseData[$k]['total_amount']);
                 $totalPurchase = ($totalPurchase + $purchaseData[$k]['quantity']);
+                $totalReceived = ($totalReceived + $purchaseData[$k]['quantity_received']);
             }
         }
 
@@ -582,7 +584,8 @@ public function bdtask_product_details($product_id = null){
             }
         }
 
-        $stock = ($totalPurchase - $totalSales);
+        $stock = ($totalReceived - $totalSales);
+        $totalPending = $totalPurchase - $totalReceived;
        $data = array(
             'title'               => display('product_details'),
             'product_name'        => $details_info[0]['product_name'],
@@ -596,6 +599,8 @@ public function bdtask_product_details($product_id = null){
             'purchaseData'        => $purchaseData,
             'salesData'           => $salesData,
             'stock'               => $stock,
+            'totalPending'        => $totalPending,
+            'totalReceived'       => $totalReceived
         );
 
         $data['module']        = "product";
