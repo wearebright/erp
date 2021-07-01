@@ -206,6 +206,108 @@ class Purchase_model extends CI_Model {
          return $response; 
     }
 
+
+    public function getPurchaseListNoAmount($postData=null){
+        $response = array();
+        $fromdate = $this->input->post('fromdate');
+        $todate   = $this->input->post('todate');
+        if(!empty($fromdate)){
+           $datbetween = "(a.purchase_date BETWEEN '$fromdate' AND '$todate')";
+        }else{
+           $datbetween = "";
+        }
+        ## Read value
+        $draw = $postData['draw'];
+        $start = $postData['start'];
+        $rowperpage = $postData['length']; // Rows display per page
+        $columnIndex = $postData['order'][0]['column']; // Column index
+        $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+        $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+        $searchValue = $postData['search']['value']; // Search value
+
+        ## Search 
+        $searchQuery = "";
+        if($searchValue != ''){
+           $searchQuery = " (b.supplier_name like '%".$searchValue."%' or a.chalan_no like '%".$searchValue."%' or a.purchase_date like'%".$searchValue."%')";
+        }
+
+        ## Total number of records without filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_purchase a');
+        $this->db->join('supplier_information b', 'b.supplier_id = a.supplier_id','left');
+        if(!empty($fromdate) && !empty($todate)){
+            $this->db->where($datbetween);
+        }
+        if($searchValue != '')
+        $this->db->where($searchQuery);
+         
+        $records = $this->db->get()->result();
+        $totalRecords = $records[0]->allcount;
+
+        ## Total number of record with filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_purchase a');
+        $this->db->join('supplier_information b', 'b.supplier_id = a.supplier_id','left');
+        if(!empty($fromdate) && !empty($todate)){
+            $this->db->where($datbetween);
+        }
+        if($searchValue != '')
+           $this->db->where($searchQuery);
+         
+        $records = $this->db->get()->result();
+        $totalRecordwithFilter = $records[0]->allcount;
+
+        ## Fetch records
+        $this->db->select('a.*,b.supplier_name');
+        $this->db->from('product_purchase a');
+        $this->db->join('supplier_information b', 'b.supplier_id = a.supplier_id','left');
+        if(!empty($fromdate) && !empty($todate)){
+            $this->db->where($datbetween);
+        }
+        if($searchValue != '')
+        $this->db->where($searchQuery);
+      
+        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->limit($rowperpage, $start);
+        $records = $this->db->get()->result();
+        $data = array();
+        $sl =1;
+        foreach($records as $record ){
+            $button = '';
+            $base_url = base_url();
+            $jsaction = "return confirm('Are You Sure ?')";
+
+            // $button .='  <a href="'.$base_url.'purchase_details/'.$record->purchase_id.'" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="'.display('purchase_details').'"><i class="fa fa-window-restore" aria-hidden="true"></i></a>';
+            if($this->permission1->method('manage_purchase','update')->access()){
+                $button .=' <a href="'.$base_url.'audit_purchase/'.$record->purchase_id.'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="'. display('audit').'"><i class="fa fa-pencil" aria-hidden="true"></i></a> ';
+            }
+
+    
+
+            $purchase_ids ='<a href="'.$base_url.'purchase_details/'.$record->purchase_id.'">'.$record->purchase_id.'</a>';
+              
+            $data[] = array( 
+                        'sl'               =>$sl,
+                        'chalan_no'        =>$record->chalan_no,
+                        'purchase_id'      =>$purchase_ids,
+                        'supplier_name'    =>$record->supplier_name,
+                        'purchase_date'    =>$record->purchase_date,
+                        'button'           =>$button,
+                    ); 
+            $sl++;
+        }
+
+        ## Response
+        $response = array(
+           "draw" => intval($draw),
+           "iTotalRecords" => $totalRecordwithFilter,
+           "iTotalDisplayRecords" => $totalRecords,
+           "aaData" => $data
+        );
+
+        return $response; 
+   }
+
     public function purchase_details_data($purchase_id) {
         $this->db->select('a.*,b.*,c.*,e.purchase_details,d.product_id,d.product_name,d.product_model');
         $this->db->from('product_purchase a');

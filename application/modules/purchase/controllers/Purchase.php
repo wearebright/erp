@@ -111,6 +111,12 @@ public function bdtask_purchase_edit_form($purchase_id = null){
         echo json_encode($data);
     }
 
+    public function CheckPurchaseListNoAmount(){
+        $postData = $this->input->post();
+        $data = $this->purchase_model->getPurchaseListNoAmount($postData);
+        echo json_encode($data);
+    }
+
     public function bdtask_save_purchase(){
     $this->form_validation->set_rules('supplier_id', display('supplier') ,'required|max_length[15]');
     $this->form_validation->set_rules('paytype', display('payment_type') ,'required|max_length[20]');
