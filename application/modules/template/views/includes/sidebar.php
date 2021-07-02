@@ -284,14 +284,16 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                 <?php if($this->permission1->method('stock_report','read')->access()){ ?>
-                <li class="treeview <?php if ($this->uri->segment('1') == ("stock")){
-                        echo "active";
-                    } else {
-                        echo " ";
-                    }?>"><a href="<?php echo base_url('stock') ?>"><?php echo display('stock_report') ?></a></li>
-            <?php }?>
-
+                <?php if($this->permission1->method('stock_report','read')->access()){ ?>
+                    <li class="treeview <?= $this->uri->segment('1') == ("stock")? "active" : '' ?>">
+                        <a href="<?php echo base_url('stock') ?>"><?php echo display('stock_report') ?></a>
+                    </li>
+                <?php } ?>
+                <?php if($this->permission1->method('audit_purchase','read')->access()){ ?>
+                    <li class="treeview <?= $this->uri->segment('1') == ("stock")? "active" : '' ?>">
+                        <a href="<?php echo base_url('audit_purchase') ?>"><?php echo display('receive_stock') ?></a>
+                    </li>
+                <?php } ?>
             </ul>
         </li>
     <?php }?>
