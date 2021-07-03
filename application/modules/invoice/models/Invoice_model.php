@@ -288,7 +288,7 @@ public function invoice_taxinfo($invoice_id){
         $product_id          = $this->input->post('product_id');
         $currency_details    = $this->db->select('*')->from('web_setting')->get()->result_array();
         $quantity            = $this->input->post('product_quantity',TRUE);
-        $invoice_no_generated= $this->input->post('invoic_no');
+        $invoice_no_generated= $this->input->post('invoice_no');
         $changeamount        = $this->input->post('change',TRUE);
         $sales_channel       = $this->input->post('sales_channel');
         if($changeamount > 0){
@@ -371,15 +371,10 @@ public function invoice_taxinfo($invoice_id){
             'sales_by'        => $this->session->userdata('id'),
             'status'          => 1,
             'payment_type'    =>  $this->input->post('paytype',TRUE),
-            'bank_id'         =>  (!empty($this->input->post('bank_id',TRUE))?$this->input->post('bank_id',TRUE):null),
-            'sales_channel'   => $this->input->post('sales_channel',TRUE),
+            'sales_channel'   =>  $this->input->post('sales_channel'),
         );
-
-           
-          
-
         $this->db->insert('invoice', $datainv);
-        $prinfo  = $this->db->select('product_id,Avg(rate) as product_rate')->from('product_purchase_details')->where_in('product_id',$product_id)->group_by('product_id')->get()->result(); 
+        $prinfo  = $this->db->select('product_id,MAX(rate) as product_rate')->from('product_purchase_details')->where_in('product_id',$product_id)->group_by('product_id')->get()->result(); 
     $purchase_ave = [];
     $i=0;
     foreach ($prinfo as $avg) {
@@ -628,7 +623,8 @@ public function invoice_taxinfo($invoice_id){
             'total_discount'  => $this->input->post('total_discount',TRUE),
             'prevous_due'     => $this->input->post('previous',TRUE),
             'shipping_cost'   => $this->input->post('shipping_cost',TRUE),
-            'payment_type'    =>  $this->input->post('paytype',TRUE),
+            'payment_type'    =>  $this->input->post('paytype',TRUE),          
+            'sales_channel'   =>  $this->input->post('sales_channel',TRUE),
             'bank_id'         =>  (!empty($this->input->post('bank_id',TRUE))?$this->input->post('bank_id',TRUE):null),
         );
       

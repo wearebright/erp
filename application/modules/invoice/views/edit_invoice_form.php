@@ -28,9 +28,9 @@
                                         ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-6">
                                         <select name="paytype" class="form-control" required="" onchange="bank_paymet(this.value)">
-                                            <option value="">Select Payment Option</option>
-                                            <option value="1" <?php if($paytype ==1){echo 'selected';}?>>Cash Payment</option>
-                                            <option value="2"  <?php if($paytype ==2){echo 'selected';}?>>Bank Payment</option> 
+                                            <option value="1" <?php if($paytype ==1){echo 'selected';}?> >Cash On Delivery</option>
+                                            <option value="2" <?php if($paytype ==2){echo 'selected';}?> >Cash On Pick-up</option> 
+                                            <option value="3" <?php if($paytype ==3){echo 'selected';}?> >Online Payment</option> 
                                         </select>
                                       
 
@@ -42,6 +42,20 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group row">
+                                    <label for="sales_channel" class="col-sm-3 col-form-label">Sales Channel<i class="text-danger">*</i>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <select name="sales_channel" class="form-control">
+                                            <option value="Website" <?php if($sales_channel == "Website"){echo 'selected';}?> >Website</option>
+                                            <option value="Social Media" <?php if($sales_channel == "Social Media"){echo 'selected';}?> >Social Media</option> 
+                                            <option value="Lazada" <?php if($sales_channel == "Lazada"){echo 'selected';}?> >Lazada</option> 
+                                            <option value="Shopee" <?php if($sales_channel == "Shopee"){echo 'selected';}?> >Shopee</option> 
+                                        </select> 
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="product_name" class="col-sm-3 col-form-label"><?php echo display('date') ?> <i class="text-danger">*</i></label>
@@ -86,18 +100,8 @@
                                     <th class="text-center"><?php echo display('item_information') ?> <i class="text-danger">*</i></th>
                                     <th class="text-center"><?php echo display('item_description')?></th>
                                         <th class="text-center"><?php echo display('available_qnty') ?></th>
-                                        <th class="text-center"><?php echo display('unit') ?></th>
                                         <th class="text-center"><?php echo display('quantity') ?>  <i class="text-danger">*</i></th>
                                         <th class="text-center"><?php echo display('rate') ?> <i class="text-danger">*</i></th>
-
-                                        <?php if ($discount_type == 1) { ?>
-                                            <th class="text-center"><?php echo display('discount_percentage') ?> %</th>
-                                        <?php } elseif ($discount_type == 2) { ?>
-                                            <th class="text-center"><?php echo display('discount') ?> </th>
-                                        <?php } elseif ($discount_type == 3) { ?>
-                                            <th class="text-center"><?php echo display('fixed_dis') ?> </th>
-                                        <?php } ?>
-
                                         <th class="text-center"><?php echo display('total') ?> <i class="text-danger">*</i></th>
                                         <th class="text-center"><?php echo display('action') ?></th>
                                     </tr>
@@ -116,9 +120,7 @@
                                        <td>
                                             <input type="text" name="available_quantity[]" class="form-control text-right available_quantity_<?php echo $details['sl']?>" value="<?php echo $details['stock_qty']?>" readonly="" />
                                         </td>
-                                        <td>
-                                            <input type="text" name="unit[]" class="form-control text-right " readonly="" value="<?php echo $details['unit']?>" />
-                                        </td>
+                                            <input type="hidden" name="unit[]" class="form-control text-right " readonly="" value="<?php echo $details['unit']?>" />
                                         <td>
                                             <input type="text" name="product_quantity[]" onkeyup="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);" onchange="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);" value="<?php echo $details['quantity']?>" class="total_qntt_<?php echo $details['sl']?> form-control text-right" id="total_qntt_<?php echo $details['sl']?>" min="0" placeholder="0.00" tabindex="4" required="required"/>
                                         </td>
@@ -127,12 +129,8 @@
                                             <input type="text" name="product_rate[]" onkeyup="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);" onchange="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);" value="<?php echo $details['rate']?>" id="price_item_<?php echo $details['sl']?>" class="price_item<?php echo $details['sl']?> form-control text-right" min="0" tabindex="5" required="" placeholder="0.00"/>
                                         </td>
                                         <!-- Discount -->
-                                        <td>
-                                            <input type="text" name="discount[]" onkeyup="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);"  onchange="(<?php echo $details['sl']?>);" id="discount_<?php echo $details['sl']?>" class="form-control text-right" placeholder="0.00" value="<?php echo $details['discount_per']?>" min="0" tabindex="6"/>
-
+                                            <input type="hidden" name="discount[]" onkeyup="bdtask_invoice_quantity_calculate(<?php echo $details['sl']?>);"  onchange="(<?php echo $details['sl']?>);" id="discount_<?php echo $details['sl']?>" class="form-control text-right" placeholder="0.00" value="<?php echo $details['discount_per']?>" min="0" tabindex="6"/>
                                             <input type="hidden" value="<?php echo $discount_type ?>" name="discount_type" id="discount_type_<?php echo $details['sl']?>">
-                                        </td>
-
                                         <td>
                                             <input class="total_price form-control text-right" type="text" name="total_price[]" id="total_price_<?php echo $details['sl']?>" value="<?php echo $details['total_price']?>" readonly="readonly" />
 
@@ -161,7 +159,7 @@
                                 </tbody>
  <tfoot>
                                      <tr>
-                                        <td colspan="6" rowspan="2">
+                                        <td colspan="4" rowspan="2">
                                 <center><label sclass="text-center" for="details" class="  col-form-label"><?php echo display('invoice_details') ?></label></center>
                                 <textarea name="inva_details" id="details" class="form-control" placeholder="<?php echo display('invoice_details') ?>"><?php echo $invoice_details;?></textarea>
                                 </td>
@@ -189,25 +187,25 @@
                                 </tr>
                                
                                  <tr>
-                                    <td class="text-right" colspan="7"><b><?php echo display('shipping_cost') ?>:</b></td>
+                                    <td class="text-right" colspan="5"><b><?php echo display('shipping_cost') ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="shipping_cost" class="form-control text-right" name="shipping_cost" onkeyup="quantity_calculate(1);"  onchange="quantity_calculate(1);"  placeholder="0.00"  value="<?php echo $shipping_cost?>"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="7"  class="text-right"><b><?php echo display('grand_total') ?>:</b></td>
+                                    <td colspan="5"  class="text-right"><b><?php echo display('grand_total') ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="grandTotal" class="form-control text-right" name="grand_total_price" value="<?php echo $total_amount?>" readonly="readonly" />
                                     </td>
                                 </tr>
                                  <tr class="hideableRow hiddenRow">
-                                    <td colspan="7"  class="text-right"><b><?php echo display('previous'); ?>:</b></td>
+                                    <td colspan="6"  class="text-right"><b><?php echo display('previous'); ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="previous" class="form-control text-right" name="previous" value="<?php echo $prev_due?>" readonly="readonly" />
                                     </td>
                                 </tr>
                                 <tr class="hideableRow hiddenRow">
-                                    <td colspan="7"  class="text-right"><b><?php echo display('net_total'); ?>:</b></td>
+                                    <td colspan="6"  class="text-right"><b><?php echo display('net_total'); ?>:</b></td>
                                     <td class="text-right">
                                         <input type="text" id="n_total" class="form-control text-right" name="n_total" value="<?php echo $net_total;?>" readonly="readonly" placeholder="" />
                                     </td>
@@ -233,7 +231,7 @@
                                     </td>
                                 </tr>
                                  <tr>
-                                 <td colspan="8" align="right">
+                                 <td colspan="6" align="right">
                                         <input style="display:none;" type="button" id="full_paid_tab" class="btn btn-warning" value="<?php echo display('full_paid') ?>" tabindex="14" onClick="invoicee_full_paid()"/>
 
                                         <input type="submit" id="add_invoice" class="btn btn-success" name="add-invoice" value="<?php echo display('save_changes') ?>" tabindex="15"/>
@@ -251,30 +249,6 @@
                     <?php echo form_close() ?>
                 </div>
             </div>
-
-                  <div class="modal fade" id="printconfirmodal" tabindex="-1" role="dialog" aria-labelledby="printconfirmodal" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel"><?php echo display('print') ?></h4>
-          </div>
-          <div class="modal-body">
-            <?php echo form_open('invoice_print', array('class' => 'form-vertical', 'id' => '', 'name' => '')) ?>
-            <div id="outputs" class="hide alert alert-danger"></div>
-            <h3> <?php echo display('successfully_inserted') ?></h3>
-            <h4><?php echo display('do_you_want_to_print') ?> ??</h4>
-            <input type="hidden" name="invoice_id" id="inv_id">
-          </div>
-          <div class="modal-footer">
-            <a href="<?php echo base_url('invoice_list')?>" class="btn btn-default"><?php echo display('no') ?></a>
-            
-            <button type="submit" class="btn btn-primary" id="yes"><?php echo display('yes') ?></button>
-            <?php echo form_close() ?>
-          </div>
-        </div>
-      </div>
-    </div>
 
         </div>
 

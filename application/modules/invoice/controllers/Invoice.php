@@ -603,6 +603,7 @@ class Invoice extends MX_Controller {
             'discount_type'   => $currency_details[0]['discount_type'],
             'bank_id'         => $invoice_detail[0]['bank_id'],
             'paytype'         => $invoice_detail[0]['payment_type'],
+            'sales_channel'   => $invoice_detail[0]['sales_channel'],
         );
         $data['module']     = "invoice";
         $data['page']       = "edit_invoice_form"; 
