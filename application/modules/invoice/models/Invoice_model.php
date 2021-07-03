@@ -962,7 +962,7 @@ if(!empty($this->input->post('paid_amount',TRUE))){
     }
         //Get Supplier rate of a product
     public function supplier_rate($product_id) {
-        $this->db->select('supplier_price');
+        $this->db->select('MAX(supplier_price) as supplier_price');
         $this->db->from('supplier_product');
         $this->db->where(array('product_id' => $product_id));
         $query = $this->db->get();
@@ -976,13 +976,13 @@ if(!empty($this->input->post('paid_amount',TRUE))){
     }
 
      public function supplier_price($product_id) {
-        $this->db->select('supplier_price');
+        $this->db->select('MAX(supplier_price) as supplier_price');
         $this->db->from('supplier_product');
         $this->db->where(array('product_id' => $product_id));
         $supplier_product = $this->db->get()->row();
    
 
-        $this->db->select('Avg(rate) as supplier_price');
+        $this->db->select('MAX(rate) as supplier_price');
         $this->db->from('product_purchase_details');
         $this->db->where(array('product_id' => $product_id));
         $purchasedetails = $this->db->get()->row();
