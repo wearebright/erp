@@ -106,6 +106,117 @@ function announcementdelete(id){
   });
 }
 
+
+function sliderdelete(id){
+  var base_url     = $("#base_url").val();
+
+  var form_url = base_url+'delete_slider';
+
+  let form_data = new FormData();
+  form_data.append('id', id)
+
+  $.ajax({
+      url : form_url,
+      method : 'POST',
+      data : form_data,
+      cache: false, 
+      contentType: false,
+      processData: false,
+      success: function(r) 
+      {
+        var r = JSON.parse(r);
+        console.log(r);
+          if(r.status === 1){
+            if(id ==''){
+              window.location = '/manage_slider'
+            }else{
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            }
+            toastr["success"](r.msg);
+          }else{
+            toastr["error"](r.msg);
+          }
+      },
+      error: function(xhr)
+      {
+          alert('failed!');
+      }
+  });
+}
+
+function slider_form(){
+  var id    = $("#slider_id").val();
+  var banner = $('#banner')[0].files[0];
+  var link = $("#link").val();
+  var base_url     = $("#base_url").val();
+
+  if(id !==''){
+    var form_url = base_url+'edit_slider/'+id;
+  }else{
+    var form_url = base_url+'add_slider';
+  }
+
+  if (banner == '') {
+    $("#banner").focus();
+    toastr["error"]("Banner/Slider Image must be required");
+    setTimeout(function () {
+    }, 500);
+    return false;
+  }
+
+  if (link == '') {
+    $("#link").focus();
+    toastr["error"]("Link must be required");
+    setTimeout(function () {
+    }, 500);
+    return false;
+  }
+
+  let form_data = new FormData();
+  form_data.append('link', link)
+  form_data.append('slider_id', id);
+  form_data.append('banner', $('#banner')[0].files[0])
+  form_data.append('old_banner', $('#old_banner').val())
+  if ($('#featured').prop('checked')) {
+    featured = 1;
+  }else{
+    featured = 0;
+  }
+
+  form_data.append('featured', featured)
+  $.ajax({
+      url : form_url,
+      method : 'POST',
+      data : form_data,
+      cache: false, 
+      contentType: false,
+      processData: false,
+      success: function(r) 
+      {
+        var r = JSON.parse(r);
+        console.log(r);
+          if(r.status === 1){
+            if(id ==''){
+              window.location = '/manage_slider'
+            }else{
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            }
+            toastr["success"](r.msg);
+          }else{
+            toastr["error"](r.msg);
+          }
+      },
+      error: function(xhr)
+      {
+          alert('failed!');
+      }
+  });
+}
+
 $(document).ready(function() { 
   // customer list
   var CSRF_TOKEN = $('#CSRF_TOKEN').val();
@@ -140,9 +251,9 @@ $(document).ready(function() {
 
   $('#SliderList').DataTable({
       responsive: true,
-      "aaSorting": [[ 2, "desc" ]],
+      "aaSorting": [[ 3, "desc" ]],
       "columnDefs": [
-          { "bSortable": false, "aTargets": [0,1,3] },
+          { "bSortable": false, "aTargets": [0,1,4] },
 
       ],
       'processing': true,
@@ -159,6 +270,7 @@ $(document).ready(function() {
       'columns': [
         { data: 'image' },
         { data: 'link'},
+        { data: 'featured'},
         { data: 'created_at' },
         { data: 'button'},
       ],

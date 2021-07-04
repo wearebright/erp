@@ -90,13 +90,15 @@ class Announcement_model extends CI_Model {
  
         foreach($records as $record ){
             $button = '';
-            $banner = '';
+            $banner = 'N/A';
             $base_url = base_url();
 
   
             $button .=' <a href="'.$base_url.'edit_announcement/'.$record->id.'" class="btn btn-info btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="left" title="Update"><i class="pe-7s-note" aria-hidden="true"></i></a>';
             $button .=' <a onclick="announcementdelete('.$record->id.')" href="javascript:void(0)"  class="btn btn-danger btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="right" title="Delete "><i class="pe-7s-trash" aria-hidden="true"></i></a>';
-            $banner .= '<img src="'.$base_url.$record->banner.'" width="90" height="60">';
+            if($record->banner){
+                $banner = '<img src="'.$base_url.$record->banner.'" width="90" height="60">';
+            }
 
             $data[] = array( 
                'title'          => $record->title,
@@ -128,23 +130,19 @@ class Announcement_model extends CI_Model {
 
     public function create($data = array())
 	{
-		$add =  $this->db->insert('bulletin_announcement', $data);
-        return true;
+		return $this->db->insert('bulletin_announcement', $data);
 	}
 
     public function update($data = array())
 	{
-		$update =  $this->db->where('id', $data["id"])
+		return $this->db->where('id', $data["id"])
 			->update("bulletin_announcement", $data);
-    
-        return true;
+
 	}
 
     public function delete($id)
 	{
-		$update =  $this->db->where('id', $id)->delete("bulletin_announcement");
-    
-        return true;
+		return $this->db->where('id', $id)->delete("bulletin_announcement");
 	}
 }
 

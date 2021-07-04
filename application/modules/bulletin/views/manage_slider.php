@@ -12,6 +12,7 @@
                         <tr>
                             <th><?php echo display('slider_image') ?></th>
                             <th><?php echo display('attachment'); ?></th>
+                            <th><?php echo display('featured'); ?></th>
                             <th><?php echo display('created_at'); ?></th>
                             <th width="50px;"><?php echo display('action') ?> 
                             </th>

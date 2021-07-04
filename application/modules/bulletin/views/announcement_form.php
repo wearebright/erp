@@ -36,15 +36,9 @@
                             <input type="file" name="banner" class="form-control" id="banner" placeholder="<?php echo display('banner')?>" value="<?php echo $customer->fax?>">
                             <input type="hidden" name="old_banner" id="old_banner" value="<?php echo $announcement->banner;?>">
                         </div>
-                        <?php 
-                            if($announcement->banner){
-                        ?>
                         <div style="margin: 15px 0px 15px 0px;">
-                            <img width="400" src="<?php echo base_url().''.$announcement->banner;?>" id="banner_preview">
+                            <img width="400" src="<?= $announcement->banner?  base_url().''.$announcement->banner: '';?>" id="banner_preview">
                         </div>
-                        <?php 
-                            }
-                        ?>
                     </div>
                 </div>
                 <div class="form-group row"> 
@@ -71,7 +65,7 @@
                 <div class="col-sm-6 text-right">
                     <div class="">
                         <button type="button" onclick="announcement_form()" class="btn btn-success">
-                            <?php echo (empty($customer->customer_id)?display('save'):display('update')) ?></button>
+                            <?php echo (empty($announcement->id)?display('save'):display('update')) ?></button>
                     </div>
                 </div>
             </div>
