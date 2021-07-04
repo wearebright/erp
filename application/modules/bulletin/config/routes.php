@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['manage_announcement']        = "bulletin/announcement/index";
+$route['bulletin_board']        = "bulletin/bulletin/index";
 
 $route['manage_announcement']        = "bulletin/announcement/index";
 $route['add_announcement']        = "bulletin/announcement/announcement_form";

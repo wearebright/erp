@@ -16,9 +16,9 @@ class Bulletin extends MX_Controller {
     }
    
     function index() {
-        $data['title']             = display('manage_announcement');
+        $data['title']             = display('bulletin_board');
         $data['module']            = "bulletin";
-        $data['page']              = "manage_announcement"; 
+        $data['page']              = "bulletin_board"; 
         echo modules::run('template/layout', $data);
     }
 

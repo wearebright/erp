@@ -451,7 +451,7 @@
     <!-- Bulletin menu start -->
     <?php if($this->permission1->method('bulletin','read')->access()){?>
             <li class="treeview <?php
-            if ($this->uri->segment('1') == ("bulletin")) {
+            if ($this->uri->segment('1') == ("bulletin") || $this->uri->segment('1') == ("add_announcement") || $this->uri->segment('1') == ("add_slider") || $this->uri->segment('1') == ("manage_announcement") || $this->uri->segment('1') == ("manage_slider" || $this->uri->segment('1') == ("edit_announcement") || $this->uri->segment('1') == ("edit_slider"))) {
                 echo "active";
             } else {
                 echo " ";
@@ -464,6 +464,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <li class="treeview <?= $this->uri->segment('1') == ("bulletin_board")? "active" : '' ?>">
+                        <a href="<?php echo base_url('bulletin_board') ?>"><?php echo display('bulletin_board') ?></a>
+                    </li>
                     <?php if($this->permission1->method('add_bulletin_announcement','create')->access()){ ?>
                         <li class="treeview <?= $this->uri->segment('1') == ("add_announcement")? "active" : '' ?>">
                             <a href="<?php echo base_url('add_announcement') ?>"><?php echo display('add_announcement') ?></a>
