@@ -54,18 +54,23 @@ class Announcement extends MX_Controller {
 
             $banner_image  = !is_null($banner_url) ? $banner_url : $this->input->post('old_banner') ;
             $attachment_url  = !is_null($attachment_url)? $attachment_url: $this->input->post('old_attachment');
-            /* var_dump($banner_image); die; */
+
+            
+            $random_banner = ['background_default_5.jpg','background_default_4.jpg','background_default_3.jpg','background_default_2.jpg','background_default_1.jpg'];
+            $seleced_banner = 'my-assets/image/announcement/'.$random_banner[rand(0, count($random_banner) - 1)] ;
+
             $data['announcement'] = (object)$postData = [
                 'id' => $this->input->post('announcement_id',true),
-                'title'       => $this->input->post('title',true),
-                'banner'      => !is_null($banner_image) ? $banner_image : 'my-assets/image/product.png',
-                'attachment'  => !is_null($attachment_url) ? $attachment_url : '',
-                'description' => $this->input->post('description', true),
+                'title'         => $this->input->post('title',true),
+                'banner'        => !is_null($banner_image) ? $banner_image : $seleced_banner,
+                'attachment'    => !is_null($attachment_url) ? $attachment_url : '',
+                'description'   => $this->input->post('description', true),
                 'user_id'     => $this->session->userdata('id'),
             ]; 
 
             #if empty $id then insert data
             if (empty($postData['id'])) {
+                $postData['random_banner'] = $seleced_banner;
                 if ($this->announcement_model->create($postData)) {
                     #set success message
                         $info['msg']    = display('save_successfully');
