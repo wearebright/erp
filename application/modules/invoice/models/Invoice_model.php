@@ -1054,7 +1054,7 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         $this->db->join('supplier_product b', 'a.product_id=b.product_id');
         $this->db->where(array('a.product_id' => $product_id, 'a.status' => 1));
         $product_information = $this->db->get()->row();
-        var_dump($total_sale->total_sale);
+        
         $available_quantity = ($total_purchase->total_purchase - $total_sale->total_sale);
         $tablecolumn = $this->db->list_fields('tax_collection');
                $num_column = count($tablecolumn)-4;
