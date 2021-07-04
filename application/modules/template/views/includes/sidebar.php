@@ -448,6 +448,47 @@
 <!-- return menu end -->
 
 
+    <!-- Bulletin menu start -->
+    <?php if($this->permission1->method('bulletin','read')->access()){?>
+            <li class="treeview <?php
+            if ($this->uri->segment('1') == ("bulletin")) {
+                echo "active";
+            } else {
+                echo " ";
+            }
+            ?>">
+                <a href="#">
+                    <i class="ti-bar-chart"></i><span><?php echo display('bulletin_board') ?></span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php if($this->permission1->method('add_bulletin_announcement','create')->access()){ ?>
+                        <li class="treeview <?= $this->uri->segment('1') == ("add_announcement")? "active" : '' ?>">
+                            <a href="<?php echo base_url('add_announcement') ?>"><?php echo display('add_announcement') ?></a>
+                        </li>
+                    <?php } ?>
+                    <?php if($this->permission1->method('manage_bulletin_announcement','read')->access()){ ?>
+                        <li class="treeview <?= $this->uri->segment('1') == ("manage_announcement")? "active" : '' ?>">
+                            <a href="<?php echo base_url('manage_announcement') ?>"><?php echo display('manage_announcement') ?></a>
+                        </li>
+                    <?php } ?>
+                    <?php if($this->permission1->method('add_bulletin_slider','create')->access()){ ?>
+                        <li class="treeview <?= $this->uri->segment('1') == ("add_slider")? "active" : '' ?>">
+                            <a href="<?php echo base_url('add_slider') ?>"><?php echo display('add_slider') ?></a>
+                        </li>
+                    <?php } ?>
+                    <?php if($this->permission1->method('manage_bulletin_slider','read')->access()){ ?>
+                        <li class="treeview <?= $this->uri->segment('1') == ("manage_slider")? "active" : '' ?>">
+                            <a href="<?php echo base_url('manage_slider') ?>"><?php echo display('manage_slider') ?></a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </li>
+        <?php }?>
+
+
             <!-- Software Settings menu start -->
               <?php if($this->permission1->method('manage_company','read')->access() ||$this->permission1->method('manage_company','create')->access() || $this->permission1->method('add_user','create')->access() || $this->permission1->method('add_user','read')->access() || $this->permission1->method('add_language','create')->access() || $this->permission1->method('add_currency','create')->access() || $this->permission1->method('soft_setting','create')->access() || $this->permission1->method('add_role','create')->access() ||$this->permission1->method('role_list','read')->access() || $this->permission1->method('user_assign','create')->access() || $this->permission1->method('sms_configure','create')->access()){?>
             <li class="treeview <?php
