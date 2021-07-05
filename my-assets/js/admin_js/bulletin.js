@@ -158,7 +158,7 @@ function slider_form(){
     var form_url = base_url+'add_slider';
   }
 
-  if (banner == '') {
+  if (typeof banner == 'undefined') {
     $("#banner").focus();
     toastr["error"]("Banner/Slider Image must be required");
     setTimeout(function () {
