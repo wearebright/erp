@@ -42,7 +42,7 @@
             <?php
                 if($totalPosts > 5){
             ?>
-            <h2 class="load-more btn btn-success text-white">Load More</h2>
+            <h2 class="load-more">Load More</h2>
             <?php
                 }
             ?>
