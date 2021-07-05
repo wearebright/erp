@@ -350,7 +350,9 @@ $(document).ready(function() {
     navigation: false,	// Enabled navigation buttons
     singleItem: true,	// Show only one item at a time (prevents flash of upcoming content)
     pagination: true,	// Prevent loading of pagination bullets
-    autoHeight: true	// Auto-height
+    autoHeight: true,	// Auto-height
+    autoPlay:true,
+    loop:true,
   });
 
   $('.load-more').click(function(){
