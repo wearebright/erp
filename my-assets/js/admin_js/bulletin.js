@@ -284,4 +284,68 @@ $(document).ready(function() {
       URL.revokeObjectURL(output.src) // free memory
     }
   })
+
+  $("#carousel").owlCarousel({
+    items: 1,			// Maximum number of items to show at a time
+    lazyLoad: true,		// Do not load image content until frame is in focus
+    navigation: false,	// Enabled navigation buttons
+    singleItem: true,	// Show only one item at a time (prevents flash of upcoming content)
+    pagination: true,	// Prevent loading of pagination bullets
+    autoHeight: true	// Auto-height
+  });
+
+  $('.load-more').click(function(){
+    var row = Number($('#row').val());
+    var allcount = Number($('#all').val());
+    var rowperpage = 5;
+    row = row + rowperpage;
+
+    if(row <= allcount){
+        $("#row").val(row);
+
+        $.ajax({
+            url: base_url + 'bulletin/bulletin/getPaginateData',
+            type: 'post',
+            data: {row:row},
+            beforeSend:function(){
+                $(".load-more").text("Loading...");
+            },
+            success: function(response){
+                // Setting little delay while displaying new content
+                setTimeout(function() {
+                    // appending posts after last post with class="post"
+                    $(".post:last").after(response).show().fadeIn("slow");
+
+                    var rowno = row + rowperpage;
+
+                    // checking row value is greater than allcount or not
+                    if(rowno > allcount){
+                        // Change the text and background
+                        $('.load-more').remove();
+                        $('.load-more').css("background","darkorchid");
+                    }else{
+                        $(".load-more").text("Load more");
+                    }
+                }, 2000);
+
+            }
+        });
+    }
+  });
+});
+
+var fixmeTop = $('.fixme').offset().top;
+$(window).scroll(function() {
+    var currentScroll = $(window).scrollTop();
+    if (currentScroll >= fixmeTop) {
+        $('.fixme').css({
+            position: 'fixed',
+            top: '0',
+            left: '0'
+        });
+    } else {
+        $('.fixme').css({
+            position: 'static'
+        });
+    }
 });

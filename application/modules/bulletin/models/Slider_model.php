@@ -118,5 +118,13 @@ class Slider_model extends CI_Model {
 		return $this->db->where('id', $id)->delete("bulletin_slider");
 	}
 
+    public function getFeaturedSliderBanner(){
+        return $this->db->select('*')
+            ->from('bulletin_slider')
+            ->where('featured', 1)
+            ->get()
+            ->result();
+    }
+
 }
 

@@ -120,6 +120,31 @@ class Announcement_model extends CI_Model {
         return $response; 
     }
 
+    public function getAnnoucementsPaginate($offset = 0){
+
+
+        ## Read value
+        ## Search 
+        ## Total number of records without filtering
+        
+
+        ## Fetch records
+        $this->db->select("a.*, CONCAT(b.first_name, ' ', b.last_name) AS name");
+        $this->db->from('bulletin_announcement a');
+        $this->db->join('users b','a.user_id = b.user_id','left');
+        $this->db->limit(5, $offset);
+                
+        $records = $this->db->get()->result();
+
+        return $records; 
+    }
+
+    public function getTotalAnnouncement(){
+        $this->db->select("*");
+        $this->db->from('bulletin_announcement');
+        return $this->db->get()->num_rows();
+    }
+
     public function getAnnouncementById($id){
         return $this->db->select('*')
             ->from('bulletin_announcement')
