@@ -7,6 +7,7 @@ $route['manage_announcement']        = "bulletin/announcement/index";
 $route['add_announcement']        = "bulletin/announcement/announcement_form";
 $route['edit_announcement/(:num)']        = "bulletin/announcement/announcement_form/$1";
 $route['delete_announcement']        = "bulletin/announcement/delete";
+$route['announcement/(:num)'] = "bulletin/bulletin/announcementDetails/$1";
 
 $route['manage_slider']        = "bulletin/slider/index";
 $route['add_slider']        = "bulletin/slider/slider_form";

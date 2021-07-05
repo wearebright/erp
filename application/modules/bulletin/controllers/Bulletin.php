@@ -35,7 +35,7 @@ class Bulletin extends MX_Controller {
             }
             $html .= '<div class="main_slides post">';
             $html .=     '<div class="placeHolder" style="left: 0px;">';
-            $html .=         '<a href="https://manilastandard.net/news/top-stories/358857/pump-price-hike-for-7th-time-looms.html">';
+            $html .=         '<a href="'.base_url().'/announcement/'.$record->id.'">';
             $html .=             '<img class="object-fit-cover" src="'. $banner .'">';
             $html .=             '<div class="title_Container" style="margin-top: -85px;">';
             $html .=                 '<p class="title">'.$record->title.'</p>';
@@ -48,6 +48,14 @@ class Bulletin extends MX_Controller {
 
         echo $html;
         die;
+    }
+
+    function announcementDetails($id){
+        $data['title']            = display('announcement_details');
+        $data['module']           = "bulletin";
+        $data['page']             = "announcement_details"; 
+        $data['postDetails']      = $this->announcement_model->getAnnouncementById($id);
+        echo modules::run('template/layout', $data);
     }
 
 }

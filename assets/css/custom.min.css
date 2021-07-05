@@ -5839,3 +5839,16 @@ pre .arg {
 	  top: 04em;
 	}
 }
+.flex{
+	display: flex;
+}
+.flex.align-item-center{
+	align-items: center;
+}
+
+.fs-18{
+	font-size: 18px;
+}
+.mr-10{
+	margin-right: 10px;
+}

@@ -26,7 +26,7 @@
             ?>
             <div class="main_slides post">
                 <div class="placeHolder" style="left: 0px;">
-                    <a href="https://manilastandard.net/news/top-stories/358857/pump-price-hike-for-7th-time-looms.html">
+                    <a href="<?= base_url().'/announcement/'.$post->id ?>">
                         <img class="object-fit-cover" src="<?= $post->banner ? base_url().$post->banner : base_url().$post->random_banner ?>">
                         <div class="title_Container" style="margin-top: -85px;">
                             <p class="title"><?= $post->title ?></p>
