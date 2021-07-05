@@ -10,17 +10,17 @@
             <div class="panel-body">
                 <?php echo form_open_multipart('','class="" id="slider_form"')?>
                 
-                <input type="hidden" name="slider_id" id="slider_id" value="<?php echo $slider->id?>">
+                <input type="hidden" name="sticky_image_id" id="sticky_image_id" value="<?php echo $sticky_image->id?>">
                 
                 <div class="form-group row"> 
                     <label for="sticky_image" class="col-sm-2 text-right col-form-label"><?php echo display('image')?> <i class="text-danger"> * </i>:</label>
                     <div class="col-sm-4">
                         <div class="">
                             <input type="file" name="sticky_image" class="form-control" id="sticky_image">
-                            <input type="hidden" name="old_banner" id="old_banner" value="<?php echo $slider->image;?>">
+                            <input type="hidden" name="old_sticky_image" id="old_sticky_image" value="<?php echo $sticky_image->image;?>">
                         </div>
                         <div style="margin: 15px 0px 15px 0px;">
-                        <img width="400" src="<?= $slider->image?  base_url().''.$slider->image: '';?>" id="banner_preview">
+                        <img width="400" src="<?= $sticky_image->image?  base_url().''.$sticky_image->image: '';?>" id="banner_preview">
                         </div>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="col-sm-6 text-right">
                     <div class="">
-                        <button type="button" onclick="slider_form()" class="btn btn-success">
-                            <?php echo (empty($slider->id)?display('save'):display('update')) ?></button>
+                        <button type="button" onclick="sticky_image_form()" class="btn btn-success">
+                            <?php echo (empty($sticky_image->id)?display('save'):display('update')) ?></button>
                     </div>
                 </div>
             </div>

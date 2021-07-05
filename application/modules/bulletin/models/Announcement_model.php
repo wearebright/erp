@@ -169,5 +169,20 @@ class Announcement_model extends CI_Model {
 	{
 		return $this->db->where('id', $id)->delete("bulletin_announcement");
 	}
+
+    public function updateStickyImage($data = array())
+	{
+		return $this->db->where('id', $data["id"])
+			->update("bulletin_sticky_image", $data);
+	}
+
+    public function getStickyImage(){
+        return $this->db->select('*')
+            ->from('bulletin_sticky_image')
+            ->where('id', 1)
+            ->get()
+            ->row();
+    }
+
 }
 

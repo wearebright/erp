@@ -22,6 +22,7 @@ class Bulletin extends MX_Controller {
         $data['sliders']          = $this->slider_model->getFeaturedSliderBanner();
         $data['posts']            = $this->announcement_model->getAnnoucementsPaginate();
         $data['totalPosts']       = $this->announcement_model->getTotalAnnouncement();
+        $data['stickyImage']       = $this->announcement_model->getStickyImage();
         echo modules::run('template/layout', $data);
     }
 
@@ -62,10 +63,30 @@ class Bulletin extends MX_Controller {
         $id = $this->input->post('id',true);
 
         if(!empty($id)){
-            
+
+            $sticky_image_url = $this->fileupload->do_upload(
+                'my-assets/image/sticky/', 
+                'sticky_image'
+            );
+
+            $data['sticky'] = (object)$postData = [
+                'id'    => $this->input->post('id',true),
+                'image' => !is_null($sticky_image_url) ? $sticky_image_url : $this->input->post('old_sticky_image'),
+            ]; 
+
+            if ($this->announcement_model->updateStickyImage($postData)) {
+                #set success message
+                    $info['msg']    = display('save_successfully');
+                    $info['status'] = 1;
+            } else {
+                #set exception message
+                    $info['msg']    = display('please_try_again');
+                    $info['status'] = 0;
+            }
+            echo json_encode($info);
         }else{
             $data['title']    = display('update_sticky');
-            // $data['slider'] = $this->slider_model->getSliderById($id);  
+            $data['sticky_image'] = $this->announcement_model->getStickyImage();  
             $data['module']   = "bulletin";  
             $data['page']     = "update_sticky_image";  
             echo Modules::run('template/layout', $data); 

@@ -487,6 +487,12 @@
                             <a href="<?php echo base_url('manage_slider') ?>"><?php echo display('manage_slider') ?></a>
                         </li>
                     <?php } ?>
+                    <?php if($this->permission1->method('update_sticky_image','read')->access()){ ?>
+                        <li class="treeview <?= $this->uri->segment('1') == ("update_sticky_image")? "active" : '' ?>">
+                            <a href="<?php echo base_url('update_sticky_image') ?>"><?php echo display('update_sticky') ?></a>
+                        </li>
+                    <?php } ?>
+                    
                 </ul>
             </li>
         <?php }?>

@@ -217,6 +217,57 @@ function slider_form(){
   });
 }
 
+function sticky_image_form(){
+  var id    = $("#sticky_image_id").val();
+  var image = $('#sticky_image')[0].files[0];
+  var base_url     = $("#base_url").val();
+
+  var form_url = base_url+'update_sticky_image';
+
+
+  if (image == '') {
+    $("#banner").focus();
+    toastr["error"]("Banner/Slider Image must be required");
+    setTimeout(function () {
+    }, 500);
+    return false;
+  }
+
+  let form_data = new FormData();
+  form_data.append('id', id);
+  form_data.append('sticky_image', image);
+  form_data.append('old_sticky_image', $('#old_sticky_image').val());
+
+  $.ajax({
+      url : form_url,
+      method : 'POST',
+      data : form_data,
+      cache: false, 
+      contentType: false,
+      processData: false,
+      success: function(r) 
+      {
+          var r = JSON.parse(r);
+          if(r.status === 1){
+            if(id ==''){
+              window.location = '/update_sticky_image'
+            }else{
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            }
+            toastr["success"](r.msg);
+          }else{
+            toastr["error"](r.msg);
+          }
+      },
+      error: function(xhr)
+      {
+          alert('failed!');
+      }
+  });
+}
+
 $(document).ready(function() { 
   // customer list
   var CSRF_TOKEN = $('#CSRF_TOKEN').val();
@@ -278,6 +329,14 @@ $(document).ready(function() {
   
 
   $('#banner').on('change', function (event){
+    var output = document.getElementById('banner_preview');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  })
+
+  $('#sticky_image').on('change', function (event){
     var output = document.getElementById('banner_preview');
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function() {
