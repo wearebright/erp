@@ -58,5 +58,20 @@ class Bulletin extends MX_Controller {
         echo modules::run('template/layout', $data);
     }
 
+    function update_sticky_image(){
+        $id = $this->input->post('id',true);
+
+        if(!empty($id)){
+            
+        }else{
+            $data['title']    = display('update_sticky');
+            // $data['slider'] = $this->slider_model->getSliderById($id);  
+            $data['module']   = "bulletin";  
+            $data['page']     = "update_sticky_image";  
+            echo Modules::run('template/layout', $data); 
+        }
+        
+    }
+
 }
 

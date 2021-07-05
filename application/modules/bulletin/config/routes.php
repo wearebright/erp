@@ -13,4 +13,5 @@ $route['manage_slider']        = "bulletin/slider/index";
 $route['add_slider']        = "bulletin/slider/slider_form";
 $route['edit_slider/(:num)']        = "bulletin/slider/slider_form/$1";
 $route['delete_slider']        = "bulletin/slider/delete";
+$route['update_sticky_image']        = "bulletin/bulletin/update_sticky_image";
 

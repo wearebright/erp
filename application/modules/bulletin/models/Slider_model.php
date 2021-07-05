@@ -126,5 +126,13 @@ class Slider_model extends CI_Model {
             ->result();
     }
 
+    public function updateStickyImage(){
+        return $this->db->select('*')
+            ->from('bulletin_slider')
+            ->where('featured', 1)
+            ->get()
+            ->result();
+    }
+
 }
 
