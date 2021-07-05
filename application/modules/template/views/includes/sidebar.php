@@ -458,7 +458,7 @@
             }
             ?>">
                 <a href="#">
-                    <i class="ti-bar-chart"></i><span><?php echo display('bulletin_board') ?></span>
+                    <i class="ti-announcement"></i><span><?php echo display('bulletin_board') ?></span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
