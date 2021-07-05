@@ -122,6 +122,7 @@ class Slider_model extends CI_Model {
         return $this->db->select('*')
             ->from('bulletin_slider')
             ->where('featured', 1)
+            ->order_by('created_at', 'DESC')
             ->get()
             ->result();
     }

@@ -133,6 +133,7 @@ class Announcement_model extends CI_Model {
         $this->db->from('bulletin_announcement a');
         $this->db->join('users b','a.user_id = b.user_id','left');
         $this->db->limit(5, $offset);
+        $this->db->order_by('created_at', 'DESC');
                 
         $records = $this->db->get()->result();
 
