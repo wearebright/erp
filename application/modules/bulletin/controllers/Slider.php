@@ -52,7 +52,7 @@ class Slider extends MX_Controller {
             /* var_dump($banner_image); die; */
             $data['slider'] = (object)$postData = [
                 'id' => $this->input->post('slider_id', true),
-                'featured' => $this->input->post('featured', true), 
+                'enabled' => $this->input->post('enabled', true), 
                 'image'      => !is_null($banner_image) ? $banner_image : 'my-assets/image/product.png',
                 'link' => $this->input->post('link', true),
                 'user_id'     => $this->session->userdata('id'),

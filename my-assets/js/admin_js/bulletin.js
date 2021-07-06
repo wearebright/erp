@@ -4,6 +4,7 @@ function announcement_form(){
   var announcement_title = $("#title").val();
   var description = $("#description").val();
   var base_url     = $("#base_url").val();
+  var banner = $('#banner')[0].files[0];
 
   if(id !==''){
     var form_url = base_url+'edit_announcement/'+id;
@@ -27,10 +28,18 @@ function announcement_form(){
     return false;
   }
 
+  var size = $('#attachment')[0].files[0].size;
+  if(size > 10000000){
+    toastr["error"]("Attachment should be maximum of 10MB");
+    setTimeout(function () {
+    }, 500);
+    return false;
+  }
+
   let form_data = new FormData();
   form_data.append('title', announcement_title)
   form_data.append('description', description)
-  form_data.append('banner', $('#banner')[0].files[0])
+  form_data.append('banner', banner)
   form_data.append('attachment', $('#attachment')[0].files[0])
   form_data.append('old_banner', $('#old_banner').val())
   form_data.append('old_attachment', $('#old_attachment').val())
@@ -45,7 +54,7 @@ function announcement_form(){
       processData: false,
       success: function(r) 
       {
-        var r = JSON.parse(r);
+        /* var r = JSON.parse(r);
         console.log(r);
           if(r.status === 1){
             if(id ==''){
@@ -58,7 +67,7 @@ function announcement_form(){
             toastr["success"](r.msg);
           }else{
             toastr["error"](r.msg);
-          }
+          } */
       },
       error: function(xhr)
       {
@@ -158,7 +167,7 @@ function slider_form(){
     var form_url = base_url+'add_slider';
   }
 
-  if (typeof banner == 'undefined') {
+  if (typeof banner == 'undefined' && $('#old_banner').val()  == '' ) {
     $("#banner").focus();
     toastr["error"]("Banner/Slider Image must be required");
     setTimeout(function () {
@@ -166,14 +175,14 @@ function slider_form(){
     return false;
   }
 
-  if (link == '') {
+  /* if (link == '') {
     $("#link").focus();
     toastr["error"]("Link must be required");
     setTimeout(function () {
     }, 500);
     return false;
   }
-
+ */
   let form_data = new FormData();
   form_data.append('link', link)
   form_data.append('slider_id', id);
@@ -185,7 +194,7 @@ function slider_form(){
     featured = 0;
   }
 
-  form_data.append('featured', featured)
+  form_data.append('enabled', featured)
   $.ajax({
       url : form_url,
       method : 'POST',
@@ -321,7 +330,7 @@ $(document).ready(function() {
       'columns': [
         { data: 'image' },
         { data: 'link'},
-        { data: 'featured'},
+        { data: 'enabled'},
         { data: 'created_at' },
         { data: 'button'},
       ],

@@ -13,7 +13,7 @@
                 <input type="hidden" name="announcement_id" id="announcement_id" value="<?php echo $announcement->id?>">
                 <div class="form-group row">
                     <label for="title" class="col-sm-2 text-right col-form-label"><?php echo display('title')?> <i class="text-danger"> * </i>:</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="">
                             <input type="text" name="title" class="form-control" id="title" placeholder="<?php echo display('title')?>" value="<?php echo $announcement->title?>">
                             <!-- <input type="hidden" name="old_title" value="<?php echo $announcement->title?>"> -->
@@ -23,15 +23,15 @@
                 
                 <div class="form-group row">
                     <label for="address1" class="col-sm-2 text-right col-form-label"><?php echo display('description')?> <i class="text-danger"> * </i>:</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="">
-                            <textarea row="7" name="description" id="description" class="form-control" placeholder="<?php echo display('description')?>"><?php echo $announcement->description?></textarea>
+                            <textarea rows="7" name="description" id="description" class="form-control" placeholder="<?php echo display('description')?>"><?php echo $announcement->description?></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row"> 
                     <label for="banner" class="col-sm-2 text-right col-form-label"><?php echo display('banner')?>:</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="">
                             <input type="file" name="banner" class="form-control" id="banner" placeholder="<?php echo display('banner')?>" value="<?php echo $customer->fax?>">
                             <input type="hidden" name="old_banner" id="old_banner" value="<?php echo $announcement->banner;?>">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group row"> 
                     <label for="attachment" class="col-sm-2 text-right col-form-label"><?php echo display('attachment')?>:</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="flex">
                             <input type="file" name="attachment" class="form-control" id="attachment" placeholder="<?php echo display('attachment')?>">
                             <input type="hidden" name="old_attachment" id="old_attachment" value="<?php echo $announcement->attachment;?>">

@@ -77,7 +77,7 @@ class Slider_model extends CI_Model {
             $data[] = array( 
                'image'          => $banner,
                'link'           => $attachment,
-               'featured'       => $record->featured?"Yes": "No",
+               'enabled'       => $record->enabled?"Yes": "No",
                'created_at'     => date('Y-m-d', strtotime($record->created_at)).' at '. date('h:i A', strtotime($record->created_at)),
                'button'         => $button,
             ); 
@@ -118,10 +118,10 @@ class Slider_model extends CI_Model {
 		return $this->db->where('id', $id)->delete("bulletin_slider");
 	}
 
-    public function getFeaturedSliderBanner(){
+    public function getEnabledSliderBanner(){
         return $this->db->select('*')
             ->from('bulletin_slider')
-            ->where('featured', 1)
+            ->where('enabled', 1)
             ->order_by('created_at', 'DESC')
             ->get()
             ->result();
@@ -130,7 +130,7 @@ class Slider_model extends CI_Model {
     public function updateStickyImage(){
         return $this->db->select('*')
             ->from('bulletin_slider')
-            ->where('featured', 1)
+            ->where('enabled', 1)
             ->get()
             ->result();
     }

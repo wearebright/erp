@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="link" class="col-sm-2 text-right col-form-label"><?php echo display('link')?> <i class="text-danger"> * </i>:</label>
+                    <label for="link" class="col-sm-2 text-right col-form-label"><?php echo display('link')?> :</label>
                     <div class="col-sm-4">
                         <div class="">
                             <input type="text" name="link" class="form-control" id="link" placeholder="<?php echo display('link')?>" value="<?php echo $slider->link?>">
@@ -35,10 +35,10 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="link" class="col-sm-2 text-right col-form-label"><?php echo display('featured')?>:</label>
+                    <label for="link" class="col-sm-2 text-right col-form-label"><?php echo display('enabled')?>:</label>
                     <div class="col-sm-4">
                         <div class="">
-                            <input type="checkbox" value="1" <?=  $slider->featured? 'checked': '' ?> name="link" class="checkbox checkbox-success text-center" id="featured" >
+                            <input type="checkbox" value="1" <?=  $slider->enabled? 'checked': '' ?> name="link" class="checkbox checkbox-success text-center" id="featured" >
                         </div>
                     </div>
                 </div>

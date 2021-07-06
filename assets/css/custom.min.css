@@ -5841,6 +5841,9 @@ pre .arg {
 	object-fit: cover;
 
 }
+.post-details{
+	padding: 30px;
+}
 
 @supports (position: sticky) {
 	.is-sticky {

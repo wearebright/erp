@@ -5,9 +5,9 @@ $route['bulletin_board']        = "bulletin/bulletin/index";
 
 $route['manage_announcement']        = "bulletin/announcement/index";
 $route['add_announcement']        = "bulletin/announcement/announcement_form";
-$route['edit_announcement/(:num)']        = "bulletin/announcement/announcement_form/$1";
+$route['edit_announcement/(:any)']        = "bulletin/announcement/announcement_form/$1";
 $route['delete_announcement']        = "bulletin/announcement/delete";
-$route['announcement/(:num)'] = "bulletin/bulletin/announcementDetails/$1";
+$route['announcement/(:any)'] = "bulletin/bulletin/announcementDetails/$1";
 
 $route['manage_slider']        = "bulletin/slider/index";
 $route['add_slider']        = "bulletin/slider/slider_form";

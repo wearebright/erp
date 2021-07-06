@@ -28,7 +28,7 @@ class Announcement extends MX_Controller {
         echo json_encode($data);
     }
 
-    public function announcement_form($id = null)
+    public function announcement_form($slug = null)
     {
         $data['title'] = display('add_announcement');
         #-------------------------------#
@@ -55,22 +55,31 @@ class Announcement extends MX_Controller {
             $banner_image  = !is_null($banner_url) ? $banner_url : $this->input->post('old_banner') ;
             $attachment_url  = !is_null($attachment_url)? $attachment_url: $this->input->post('old_attachment');
 
-            
             $random_banner = ['background_default_5.jpg','background_default_4.jpg','background_default_3.jpg','background_default_2.jpg','background_default_1.jpg'];
             $seleced_banner = 'my-assets/image/announcement/'.$random_banner[rand(0, count($random_banner) - 1)] ;
+
+            $slug = url_title($this->input->post('title',true), 'dash', true);
+
+            #check slug if exist
+            $slugExist = $this->announcement_model->checkSlug($slug);
+            if($slugExist){
+                $slug = $slugExist->slug.'c';
+            }
+
 
             $data['announcement'] = (object)$postData = [
                 'id' => $this->input->post('announcement_id',true),
                 'title'         => $this->input->post('title',true),
-                'banner'        => !is_null($banner_image) ? $banner_image : $seleced_banner,
+                'banner'        => !is_null($banner_image) ? $banner_image : '',
                 'attachment'    => !is_null($attachment_url) ? $attachment_url : '',
                 'description'   => $this->input->post('description', true),
-                'user_id'     => $this->session->userdata('id'),
+                'user_id'       => $this->session->userdata('id'),
             ]; 
-
+            
             #if empty $id then insert data
             if (empty($postData['id'])) {
                 $postData['random_banner'] = $seleced_banner;
+                $postData['slug'] = $slug;
                 if ($this->announcement_model->create($postData)) {
                     #set success message
                         $info['msg']    = display('save_successfully');
@@ -91,13 +100,13 @@ class Announcement extends MX_Controller {
                     $info['status'] = 0;
                 } 
             }
- 
+            
             echo json_encode($info);
         } else { 
             if(empty($this->input->post('title',true))){
-                if(!empty($id)){
+                if(!empty($slug)){
                     $data['title']    = display('edit_announcement');
-                    $data['announcement'] = $this->announcement_model->getAnnouncementById($id);  
+                    $data['announcement'] = $this->announcement_model->getAnnouncementBySlug($slug);  
                 }
                 $data['module']   = "bulletin";  
                 $data['page']     = "announcement_form";  

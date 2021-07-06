@@ -19,7 +19,7 @@ class Bulletin extends MX_Controller {
         $data['title']            = display('bulletin_board');
         $data['module']           = "bulletin";
         $data['page']             = "bulletin_board"; 
-        $data['sliders']          = $this->slider_model->getFeaturedSliderBanner();
+        $data['sliders']          = $this->slider_model->getEnabledSliderBanner();
         $data['posts']            = $this->announcement_model->getAnnoucementsPaginate();
         $data['totalPosts']       = $this->announcement_model->getTotalAnnouncement();
         $data['stickyImage']       = $this->announcement_model->getStickyImage();
@@ -51,11 +51,11 @@ class Bulletin extends MX_Controller {
         die;
     }
 
-    function announcementDetails($id){
+    function announcementDetails($slug){
         $data['title']            = display('announcement_details');
         $data['module']           = "bulletin";
         $data['page']             = "announcement_details"; 
-        $data['postDetails']      = $this->announcement_model->getAnnouncementById($id);
+        $data['postDetails']      = $this->announcement_model->getAnnouncementBySlug($slug);
         echo modules::run('template/layout', $data);
     }
 
