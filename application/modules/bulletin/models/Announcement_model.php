@@ -94,7 +94,7 @@ class Announcement_model extends CI_Model {
             $base_url = base_url();
 
   
-            $button .=' <a href="'.$base_url.'edit_announcement/'.$record->id.'" class="btn btn-info btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="left" title="Update"><i class="pe-7s-note" aria-hidden="true"></i></a>';
+            $button .=' <a href="'.$base_url.'edit_announcement/'.$record->slug.'" class="btn btn-info btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="left" title="Update"><i class="pe-7s-note" aria-hidden="true"></i></a>';
             $button .=' <a onclick="announcementdelete('.$record->id.')" href="javascript:void(0)"  class="btn btn-danger btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="right" title="Delete "><i class="pe-7s-trash" aria-hidden="true"></i></a>';
             if($record->banner){
                 $banner = '<img src="'.$base_url.$record->banner.'" width="90" height="60">';
@@ -139,6 +139,7 @@ class Announcement_model extends CI_Model {
 
         return $records; 
     }
+    
 
     public function getTotalAnnouncement(){
         $this->db->select("*");
@@ -147,15 +148,35 @@ class Announcement_model extends CI_Model {
     }
 
     public function getAnnouncementById($id){
-        return $this->db->select('*')
-            ->from('bulletin_announcement')
-            ->where('id', $id)
+        return $this->db->select("a.*, CONCAT(first_name, ' ', last_name) AS name")
+            ->from('bulletin_announcement a')
+            ->join('users b','a.user_id = b.user_id','left')
+            ->where('a.id', $id)
+            ->order_by('created_at', 'DESC')
+            ->get()
+            ->row();
+    }
+
+    public function checkSlug($slug){
+        return $this->db->select("a.*")
+            ->from('bulletin_announcement a')
+            ->where('a.slug', $slug)
+            ->get()
+            ->row();
+    }
+
+    public function getAnnouncementBySlug($slug){
+        return $this->db->select("a.*, CONCAT(first_name, ' ', last_name) AS name")
+            ->from('bulletin_announcement a')
+            ->join('users b','a.user_id = b.user_id','left')
+            ->where('a.slug', $slug)
             ->get()
             ->row();
     }
 
     public function create($data = array())
 	{
+        // var_dump($data ); die;
 		return $this->db->insert('bulletin_announcement', $data);
 	}
 

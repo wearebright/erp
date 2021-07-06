@@ -5,6 +5,7 @@ function announcement_form(){
   var description = $("#description").val();
   var base_url     = $("#base_url").val();
   var banner = $('#banner')[0].files[0];
+  var attachment = $('#attachment')[0].files[0];
 
   if(id !==''){
     var form_url = base_url+'edit_announcement/'+id;
@@ -28,12 +29,14 @@ function announcement_form(){
     return false;
   }
 
-  var size = $('#attachment')[0].files[0].size;
-  if(size > 10000000){
-    toastr["error"]("Attachment should be maximum of 10MB");
-    setTimeout(function () {
-    }, 500);
-    return false;
+  if(typeof attachment != 'undefined'){
+    var size = attachment.size;
+    if(size > 10000000){
+      toastr["error"]("Attachment should be maximum of 10MB");
+      setTimeout(function () {
+      }, 500);
+      return false;
+    }
   }
 
   let form_data = new FormData();
@@ -44,7 +47,7 @@ function announcement_form(){
   form_data.append('old_banner', $('#old_banner').val())
   form_data.append('old_attachment', $('#old_attachment').val())
   form_data.append('announcement_id', $('#announcement_id').val())
-
+  form_data.append('defaultBanner', $('input[name=defaultBanner]:checked').val())
   $.ajax({
       url : form_url,
       method : 'POST',
@@ -54,7 +57,7 @@ function announcement_form(){
       processData: false,
       success: function(r) 
       {
-        /* var r = JSON.parse(r);
+        var r = JSON.parse(r);
         console.log(r);
           if(r.status === 1){
             if(id ==''){
@@ -67,7 +70,7 @@ function announcement_form(){
             toastr["success"](r.msg);
           }else{
             toastr["error"](r.msg);
-          } */
+          }
       },
       error: function(xhr)
       {
@@ -229,6 +232,7 @@ function slider_form(){
 function sticky_image_form(){
   var id    = $("#sticky_image_id").val();
   var image = $('#sticky_image')[0].files[0];
+  var link = $('#link').val();
   var base_url     = $("#base_url").val();
 
   var form_url = base_url+'update_sticky_image';
@@ -245,6 +249,7 @@ function sticky_image_form(){
   let form_data = new FormData();
   form_data.append('id', id);
   form_data.append('sticky_image', image);
+  form_data.append('link', link);
   form_data.append('old_sticky_image', $('#old_sticky_image').val());
 
   $.ajax({
@@ -283,7 +288,7 @@ $(document).ready(function() {
   var base_url  = $('#base_url').val();
   var mydatatable = $('#AnnouncementList').DataTable({
           responsive: true,
-          "aaSorting": [[ 0, "asc" ]],
+          "aaSorting": [[ 3, "desc" ]],
           "columnDefs": [
               { "bSortable": false, "aTargets": [2,4] },
 
@@ -336,6 +341,16 @@ $(document).ready(function() {
       ],
   });
   
+  $('input[name=defaultBanner]').click( function(){
+    if($(this).prop("checked") == true){
+      var base_url     = $("#base_url").val();
+      var output = document.getElementById('banner_preview');
+      output.src = base_url+$(this).val()
+      output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+      }
+    }
+});
 
   $('#banner').on('change', function (event){
     var output = document.getElementById('banner_preview');
@@ -343,6 +358,7 @@ $(document).ready(function() {
     output.onload = function() {
       URL.revokeObjectURL(output.src) // free memory
     }
+    $('.default-options').hide();
   })
 
   $('#sticky_image').on('change', function (event){

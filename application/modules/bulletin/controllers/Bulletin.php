@@ -71,6 +71,7 @@ class Bulletin extends MX_Controller {
 
             $data['sticky'] = (object)$postData = [
                 'id'    => $this->input->post('id',true),
+                'link'  => $this->input->post('link'),
                 'image' => !is_null($sticky_image_url) ? $sticky_image_url : $this->input->post('old_sticky_image'),
             ]; 
 

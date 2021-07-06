@@ -52,11 +52,11 @@ class Announcement extends MX_Controller {
                 'attachment'
             );
 
-            $banner_image  = !is_null($banner_url) ? $banner_url : $this->input->post('old_banner') ;
+            $seleced_banner = $this->input->post('defaultBanner',true);
+            $banner_image  = !is_null($banner_url) ? $banner_url : $this->input->post('old_banner');
             $attachment_url  = !is_null($attachment_url)? $attachment_url: $this->input->post('old_attachment');
 
-            $random_banner = ['background_default_5.jpg','background_default_4.jpg','background_default_3.jpg','background_default_2.jpg','background_default_1.jpg'];
-            $seleced_banner = 'my-assets/image/announcement/'.$random_banner[rand(0, count($random_banner) - 1)] ;
+            
 
             $slug = url_title($this->input->post('title',true), 'dash', true);
 
@@ -75,10 +75,11 @@ class Announcement extends MX_Controller {
                 'description'   => $this->input->post('description', true),
                 'user_id'       => $this->session->userdata('id'),
             ]; 
+
             
+            $postData['random_banner'] = $seleced_banner;
             #if empty $id then insert data
             if (empty($postData['id'])) {
-                $postData['random_banner'] = $seleced_banner;
                 $postData['slug'] = $slug;
                 if ($this->announcement_model->create($postData)) {
                     #set success message

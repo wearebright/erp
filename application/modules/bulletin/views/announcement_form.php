@@ -36,9 +36,22 @@
                             <input type="file" name="banner" class="form-control" id="banner" placeholder="<?php echo display('banner')?>" value="<?php echo $customer->fax?>">
                             <input type="hidden" name="old_banner" id="old_banner" value="<?php echo $announcement->banner;?>">
                         </div>
+                        <div class="default-options">
+                            <input type="radio" name="defaultBanner" id="defaultOption1" value="my-assets/image/announcement/background_default_1.jpg">
+                            <label class="options one" for="defaultOption1"></label>
+                            <input type="radio" name="defaultBanner" id="defaultOption2" value="my-assets/image/announcement/background_default_2.jpg">
+                            <label class="options two" for="defaultOption2"></label>
+                            <input type="radio" name="defaultBanner" id="defaultOption3" value="my-assets/image/announcement/background_default_3.jpg">
+                            <label class="options three" for="defaultOption3"></label>
+                            <input type="radio" name="defaultBanner" id="defaultOption4" value="my-assets/image/announcement/background_default_4.jpg">
+                            <label class="options four" for="defaultOption4"></label>
+                            <input type="radio" name="defaultBanner" id="defaultOption5" value="my-assets/image/announcement/background_default_5.jpg">
+                            <label class="options five" for="defaultOption5"></label>
+                        </div>
                         <div style="margin: 15px 0px 15px 0px;">
                             <img width="400" src="<?= $announcement->banner?  base_url().''.$announcement->banner: '';?>" id="banner_preview">
                         </div>
+                        
                     </div>
                 </div>
                 <div class="form-group row"> 

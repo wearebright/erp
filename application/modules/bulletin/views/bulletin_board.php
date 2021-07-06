@@ -26,12 +26,30 @@
             ?>
             <div class="main_slides post">
                 <div class="placeHolder" style="left: 0px;">
-                    <a href="<?= base_url().'/announcement/'.$post->id ?>">
-                        <img class="object-fit-cover" src="<?= $post->banner ? base_url().$post->banner : base_url().$post->random_banner ?>">
-                        <div class="title_Container" style="margin-top: -85px;">
-                            <p class="title"><?= $post->title ?></p>
-                            <p class="datePosted">Posted at <?= date('F d, Y h:i A', strtotime($post->created_at)) ?> by <?= $post->name ?></p>
-                        </div>
+                    <a href="<?= base_url().'/announcement/'.$post->slug ?>">
+
+                        <?php
+                            if($post->banner){
+                        ?>
+                            <img class="object-fit-cover" src="<?= base_url().$post->banner ?>">
+                            <div class="title_Container" style="margin-top: -85px;">
+                                <p class="title"><?= $post->title ?></p>
+                                <p class="datePosted">Posted on <?= date('F d, Y h:i A', strtotime($post->created_at)) ?> by <?= $post->name ?></p>
+                            </div>
+                        <?php
+                            }else{
+                        ?>
+                            <img class="object-fit-cover" src="<?= base_url().$post->random_banner ?>">
+                            <div class="title_Container2" style="margin-top: -85px;">
+                                <div class="detailsContainer">
+                                    <p class="title"><?= $post->title ?></p>
+                                    <p class="description"><?= $post->description ?></p>
+                                    <p class="datePosted">Posted on <?= date('F d, Y h:i A', strtotime($post->created_at)) ?> by <?= $post->name ?></p>
+                                </div>
+                            </div>
+                        <?php
+                            }
+                        ?>
                     </a>
                 </div>
             </div>
