@@ -54,23 +54,57 @@
                                     <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
                                     <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
                                     <?php echo form_open_multipart('invoice/invoice/update_order_status',array('class' => 'form-vertical', 'id' => 'insert_sale','name' => 'insert_sale'))?>
-                                    <label for="order_status" class="col-form-label">Order Status<i class="text-danger">*</i>
-                                            </label>
-                                    <div class="form-group row">
-                                        <div class="col-md-8">
-                                    
-                                            <select name="order_status" class="form-control" required="">
-                                                <option <?php $order_status="NEW" ? "selected" : "" ?> value="NEW">New Order</option>
-                                                <option <?php $order_status="WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
-                                                <option <?php $order_status="READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
-                                                <option <?php $order_status="SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
-                                            </select> 
+                                        <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
+                                        <label for="order_status" class="col-form-label">Order Status<i class="text-danger">*</i>
+                                        </label>
+                                        <div class="form-group row">
+                                            <div class="col-md-8">
+                                                <select name="order_status" class="form-control" required="" onchange="selectStatus()">
+                                                    <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> value="NEW">New Order</option>
+                                                    <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
+                                                    <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
+                                                    <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
+                                                </select> 
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <button type="submit" class="btn btn-success btn-justify">Update</button>
+                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status == 'NEW' || $invoice_order_status == 'WAREHOUSE' ? 'block': 'none'; ?>">
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="order_status" class="col-form-label">Attachment</label>
+                                                        <!-- <input type="file" name="orderAttachment"/> -->
+                                                        <div class="customFileInputWrapper">
+                                                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
+                                                            <input name="orderAttachment" type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
+                                                            <input name="orderAttachment_old" type="hidden" value="<?= $invoice_attachment ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                    if($invoice_attachment){
+                                                ?>
+                                                    <div class="col-md-8">
+                                                        <a target="_blank" style="margin-top: 40px;" href="<?= base_url().$invoice_attachment ?>">View Attachement</a>
+                                                    </div>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="order_status" class="col-form-label">Comment</label>
+                                                        <textarea rows="4" class="form-control" name="comment"><?= $invoice_comment ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <?php echo form_close()?>
-                                    </div>
+                                        <div class="form-group row" style="margin-bottom:40px">
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-success btn-justify">Update</button>
+                                            </div>
+                                        </div>
+                                    <?php echo form_close()?>
                                 </div>
                             </div> 
 
@@ -202,3 +236,47 @@
                 </div>
             </div>
         </div>
+<script>
+    function selectStatus(){
+        let order_status = $('select[name=order_status] option').filter(":selected").val();
+        console.log(order_status);
+        if(order_status == 'NEW' || order_status == 'WAREHOUSE'){
+            $('#invoiceAdditionalFields').show();
+        }else{
+            $('#invoiceAdditionalFields').hide();
+        }
+    }
+
+    $(document).ready(function() {
+        $('input[type="file"]').on('click', function() {
+            $(".file_names").html("");
+        })
+        if ($('input[type="file"]')[0]) {
+            var fileInput = document.querySelector('label[for="et_pb_contact_brand_file_request_0"]');
+            fileInput.ondragover = function() {
+                this.className = "et_pb_contact_form_label changed";
+                return false;
+            }
+            fileInput.ondragleave = function() {
+                this.className = "et_pb_contact_form_label";
+                return false;
+            }
+            fileInput.ondrop = function(e) {
+                e.preventDefault();
+                var fileNames = e.dataTransfer.files;
+                for (var x = 0; x < fileNames.length; x++) {
+                    console.log(fileNames[x].name);
+                    $=jQuery.noConflict();
+                    $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>"+ fileNames[x].name +"</div>");
+                }
+            }
+            $('#et_pb_contact_brand_file_request_0').change(function() {
+                var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
+                $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>"+ fileNames +"</div>");
+                $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
+            });
+            }
+        });
+
+
+</script>
