@@ -21,6 +21,12 @@
    
     <div class="col-md-8">
         <div style="margin-top: 40px; "></div>
+        <h3><i class="ti-announcement" style="margin-right: 10px;"></i> Announcements</h3>
+        <hr>
+        <?php
+            if(count($posts) > 0){
+        ?>
+            
             <?php
                 foreach($posts as $post){
             ?>
@@ -66,11 +72,29 @@
             ?>
             <input type="hidden" id="row" value="0">
             <input type="hidden" id="all" value="<?php echo $totalPosts; ?>">
+        <?php
+            }else{
+        ?>     
+            <div class="empty-state">
+                <img width="100" src="/my-assets/image/empty.svg">
+                <h4 class="text-center"> No posted announcement yet </h4>
+            </div>
+        <?php
+            }
+        ?>
     </div> 
     <div class="col-md-4">
         <div style="margin-top: 40px; "></div>
         <div class="advertisement-image ">
-            <img class="object-fit-cover fixme" src="<?= base_url().$stickyImage->image ?>">
+            <?php
+                if($stickyImage->image){
+            ?>
+            <a target="_blank" href="<?= $stickyImage->link ?>">
+                <img class="object-fit-cover fixme" src="<?= base_url().$stickyImage->image ?>">
+            </a>
+            <?php
+                }
+            ?>
         </div>
     </div>
 </div>

@@ -53,6 +53,9 @@
                         </div>
                         
                     </div>
+                    <div class="col-md-4">
+                        <small class="text-muted"><i>Recommended Size : 1250x103</i></small>
+                    </div>
                 </div>
                 <div class="form-group row"> 
                     <label for="attachment" class="col-sm-2 text-right col-form-label"><?php echo display('attachment')?>:</label>

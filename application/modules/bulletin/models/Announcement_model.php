@@ -97,7 +97,7 @@ class Announcement_model extends CI_Model {
             $button .=' <a href="'.$base_url.'edit_announcement/'.$record->slug.'" class="btn btn-info btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="left" title="Update"><i class="pe-7s-note" aria-hidden="true"></i></a>';
             $button .=' <a onclick="announcementdelete('.$record->id.')" href="javascript:void(0)"  class="btn btn-danger btn-xs m-b-5 custom_btn" data-toggle="tooltip" data-placement="right" title="Delete "><i class="pe-7s-trash" aria-hidden="true"></i></a>';
             if($record->banner){
-                $banner = '<img src="'.$base_url.$record->banner.'" width="90" height="60">';
+                $banner = '<img class="object-fit-cover" src="'.$base_url.$record->banner.'" width="90" height="60">';
             }
 
             $data[] = array( 

@@ -23,6 +23,9 @@
                         <img width="400" src="<?= $slider->image?  base_url().''.$slider->image: '';?>" id="banner_preview">
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <small class="text-muted"><i>Recommended Size : 1200x400</i></small>
+                    </div>
                 </div>
 
                 <div class="form-group row">
