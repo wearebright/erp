@@ -35,6 +35,8 @@
                         <table class="table">
                             <tr>
                                 <th><?php echo display('total_purchase') ?> = <span class="text-danger"><?php echo $total_purchase;?></span></th>
+                                <th><?php echo display('received_purchase') ?> = <span class="text-danger"><?php echo $totalReceived;?></span></th>
+                                <th><?php echo display('pending_purchase') ?> = <span class="text-danger"><?php echo $totalPending;?></span></th>
                                 <th><?php echo display('total_sales') ?> = <span class="text-danger"> <?php echo $total_sales;?></span></th>
                                 <th><?php echo display('stock') ?> = <span class="text-danger"> <?php echo $stock;?></span></th>
                             </tr>
