@@ -1250,5 +1250,10 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         }
         return false;
     }
+
+    public function updateOrderStatus($data){
+        return $this->db->where('invoice_id', $data["invoice_id"])
+			->update("invoice", $data);
+    }
 }
 

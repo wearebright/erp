@@ -114,6 +114,9 @@ class Invoice extends MX_Controller {
         'customer_email'    => $invoice_detail[0]['customer_email'],
         'final_date'        => $invoice_detail[0]['final_date'],
         'invoice_details'   => $invoice_detail[0]['invoice_details'],
+        'invoice_order_status'    => $invoice_detail[0]['order_status'],
+        'invoice_attachment'        => $invoice_detail[0]['attachment'],
+        'invoice_comment'   => $invoice_detail[0]['comment'],
         'total_amount'      => number_format($invoice_detail[0]['total_amount']+$invoice_detail[0]['prevous_due'], 2, '.', ','),
         'subTotal_quantity' => $subTotal_quantity,
         'total_discount'    => number_format($invoice_detail[0]['total_discount'], 2, '.', ','),
@@ -137,6 +140,34 @@ class Invoice extends MX_Controller {
         echo modules::run('template/layout', $data);
     }
 
+    public function update_order_status(){
+        $id = $this->input->post('invoice_id',true);
+
+        if(!empty($id)){
+
+            $attachment = $this->fileupload->do_upload(
+                'uploads/invoices/attachement/', 
+                'orderAttachment'
+            );
+
+            $postData = [
+                'invoice_id' => $this->input->post('invoice_id',true),
+                'order_status'    => $this->input->post('order_status',true),
+                'comment'  => $this->input->post('comment'),
+                'attachment' => !is_null($attachment) ? $attachment : $this->input->post('orderAttachment_old'),
+            ]; 
+            
+
+            if ($this->invoice_model->updateOrderStatus($postData)) {
+                #set success message
+                $this->session->set_flashdata('message', display('save_successfully'));
+            } else {
+                #set exception message
+                $this->session->set_flashdata('exception', display('please_try_again'));
+            }
+            redirect(base_url('invoice_details/'.$id));
+        }
+    }
 
     public function bdtask_invoice_pad_print($invoice_id){
            $invoice_detail = $this->invoice_model->retrieve_invoice_html_data($invoice_id);

@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Jul 06, 2021 at 04:03 PM
+=======
+-- Generation Time: Jul 08, 2021 at 04:27 PM
+>>>>>>> tracking-order
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -557,13 +561,20 @@ CREATE TABLE `invoice` (
   `payment_type` int(11) NOT NULL,
   `is_online` int(11) NOT NULL DEFAULT 1,
   `sales_channel` enum('Website','Social Media','Lazada','Shopee') NOT NULL,
+<<<<<<< HEAD
   `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED') NOT NULL DEFAULT 'NEW'
+=======
+  `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED') NOT NULL DEFAULT 'NEW',
+  `attachment` text DEFAULT NULL,
+  `comment` text DEFAULT NULL
+>>>>>>> tracking-order
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `invoice`
 --
 
+<<<<<<< HEAD
 INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`) VALUES
 (1, 9271513142, 2, '2021-03-20', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE'),
 (2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE'),
@@ -574,6 +585,18 @@ INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`
 (7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW'),
 (8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW'),
 (9, 6112845356, 3, '2021-06-23', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Lazada', 'SHIPPED');
+=======
+INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`, `attachment`, `comment`) VALUES
+(1, 9271513142, 2, '2021-03-20', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
+(2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
+(3, 1642631776, 3, '2021-05-27', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', 'uploads/invoices/attachement/2021-07-08/f22d148641dbdd46150fa1812a826e49.pdf', 'testTest'),
+(4, 2969364686, 1, '2021-05-27', '3000.00', '3000.00', '0.00', '0.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
+(5, 2257121656, 2, '2021-06-10', '30000.00', '0.00', '30000.00', '0.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'READY', NULL, NULL),
+(6, 8764564874, 3, '2021-06-18', '350.00', '0.00', '350.00', '30000.00', '0.00', 1005, NULL, '50.00', '50.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
+(7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
+(8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
+(9, 6112845356, 3, '2021-06-23', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Lazada', 'SHIPPED', NULL, NULL);
+>>>>>>> tracking-order
 
 -- --------------------------------------------------------
 
