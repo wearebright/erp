@@ -3,7 +3,7 @@
 
 class Home_model extends CI_Model {
 
- public function total_sales_amount($date=null) {
+    public function total_sales_amount($date=null) {
         $date = (!empty($date)?$date:date('F Y'));
         $days = $this->yearmonthval($date);
         $this->db->select("sum(total_amount) as totalsales");
@@ -302,7 +302,7 @@ class Home_model extends CI_Model {
         return $this->db->query("UPDATE `users` AS `a`,`user_login` AS `b` SET `a`.`first_name` = '$first_name', `a`.`last_name` = '$last_name', `b`.`username` = '$user_name',`a`.`logo` = '$new_logo' WHERE `a`.`user_id` = '$user_id' AND `a`.`user_id` = `b`.`user_id`");
     }
 
-        public function change_password($email, $old_password, $new_password) {
+    public function change_password($email, $old_password, $new_password) {
         $user_name = md5("gef" . $new_password);
         $password = md5("gef" . $old_password);
         $this->db->where(array('username' => $email, 'password' => $password, 'status' => 1));
@@ -318,6 +318,99 @@ class Home_model extends CI_Model {
             return true;
         }
         return false;
+    }
+
+    public function overall_sales_yearly(){
+        $first_day = date('Y-m-d', strtotime('first day of january this year'));
+        $last_day = date('Y-12-31');
+        $this->db->select("sum(total_amount) as total");
+        $this->db->from('invoice');
+        $this->db->where('date >=', $first_day);
+        $this->db->where('date <=', $last_day);
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+
+    public function overall_sales_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("sum(total_amount) as total");
+        $this->db->from('invoice');
+        $this->db->where('date =', $current_date);
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+
+    public function total_post_current_month(){
+        $first_day = date('01-m-Y'); 
+        $last_day = date('Y-m-t', strtotime(date('Y-m-d')));
+
+        $this->db->select("count(id) as total");
+        $this->db->from('bulletin_announcement');
+        $this->db->where('created_at >=', $first_day);
+        $this->db->where('created_at <=', $last_day);
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+
+    public function total_shipped_orders_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("count(id) as total");
+        $this->db->from('invoice');
+        $this->db->where('shipped_date =', $current_date);
+        $this->db->where('order_status', 'SHIPPED');
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+    public function total_lazada_sales_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("count(id) as total");
+        $this->db->from('invoice');
+        $this->db->where('date =', $current_date);
+        $this->db->where('sales_channel', 'Lazada');
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+    public function total_shopee_sales_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("count(id) as total");
+        $this->db->from('invoice');
+        $this->db->where('date =', $current_date);
+        $this->db->where('sales_channel', 'Shopee');
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+
+    public function total_return_item_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("count(return_id) as total");
+        $this->db->from('product_return');
+        $this->db->where('date_return =', $current_date);
+        $query = $this->db->get()->row();
+
+        return $query->total;
+    }
+
+    public function total_purchase_order_today(){
+        $current_date = date('Y-m-d');
+
+        $this->db->select("sum( (b.quantity_received * rate) ) as total");
+        $this->db->from('product_purchase a');
+        $this->db->join('product_purchase_details b', 'b.purchase_id = a.purchase_id');
+        $this->db->where('a.purchase_date =', $current_date);
+        $result = $this->db->get()->row();
+
+        return $result->total;
     }
 
 }

@@ -149,12 +149,17 @@ class Invoice extends MX_Controller {
                 'uploads/invoices/attachement/', 
                 'orderAttachment'
             );
-
+            $order_status = $this->input->post('order_status',true);
+            $shipped_date = NULL;
+            if($order_status === 'SHIPPED'){
+                $shipped_date = date('Y-m-d');
+            }
             $postData = [
-                'invoice_id' => $this->input->post('invoice_id',true),
-                'order_status'    => $this->input->post('order_status',true),
-                'comment'  => $this->input->post('comment'),
-                'attachment' => !is_null($attachment) ? $attachment : $this->input->post('orderAttachment_old'),
+                'invoice_id'    => $this->input->post('invoice_id',true),
+                'order_status'  => $order_status,
+                'comment'       => $this->input->post('comment'),
+                'attachment'    => !is_null($attachment) ? $attachment : $this->input->post('orderAttachment_old'),
+                'shipped_date'  => $shipped_date,
             ]; 
             
 

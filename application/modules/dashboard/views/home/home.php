@@ -10,76 +10,137 @@ $searchdate =(!empty($postdate)?$postdate:date('F Y'));
         
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                 <div class="small-box bg-yellow whitecolor">
-            <div class="inner">
-              <h4><span class="count-number"><?php echo html_escape($total_customer) ?></span></h4>
-              <p><?php echo display('total_customer')?></p>
-            </div>
-            <div class="icon">
-             <i class="fa fa-users"></i>
-            </div>
-            <?php if($this->permission1->method('manage_customer','read')->access()){ ?>
-            <a href="<?php echo base_url('customer_list') ?>" class="small-box-footer"><?php echo display('total_customer')?></a>
-        <?php }else{?>
-             <a href="javascript:void(0)" class="small-box-footer"><?php echo display('total_customer')?></a>
-        <?php }?>
-          </div>
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $overall_sales_yearly ? $currency .' '. html_escape(number_format($overall_sales_yearly)) : 0; ?></span></h4>
+                        <p><?php echo display('overall_sales')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-pie-chart"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_customer','read')->access()){ ?>
+                        <a href="<?php echo base_url('invoice_list') ?>" class="small-box-footer"><?php echo display('overall_sales')?></a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer">Year to Date</a>
+                    <?php }?>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                 <div class="small-box bg-yellow whitecolor">
-            <div class="inner">
-              <h4><span class="count-number"><?php echo html_escape($total_product) ?></span></h4>
-
-              <p><?php echo display('total_product')?></p>
-            </div>
-            <div class="icon">
-             <i class="fa fa-shopping-bag"></i>
-            </div>
-             <?php if($this->permission1->method('manage_product','read')->access()){ ?>
-            <a href="<?php echo base_url('product_list') ?>" class="small-box-footer"><?php echo display('total_product')?></a>
-            <?php }else{?>
-             <a href="javascript:void(0)" class="small-box-footer"><?php echo display('total_product')?></a>
-        <?php }?>
-          </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-         <div class="small-box bg-yellow whitecolor">
-            <div class="inner">
-              <h4><span class="count-number"><?php echo html_escape($total_suppliers)?></span></h4>
-
-              <p><?php echo display('total_supplier')?></p>
-            </div>
-            <div class="icon">
-             <i class="fa fa-user"></i>
-            </div>
-            <?php if($this->permission1->method('manage_supplier','read')->access()){ ?>
-            <a href="<?php echo base_url('supplier_list') ?>" class="small-box-footer"><?php echo display('total_supplier')?> </a>
-            <?php }else{?>
-             <a href="javascript:void(0)" class="small-box-footer"><?php echo display('total_supplier')?></a>
-        <?php }?>
-          </div>
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $overall_sales_today ? $currency .' '. html_escape(number_format($overall_sales_today)) : 0; ?></span></h4>
+                        <p><?php echo display('website_sales')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-signal"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_product','read')->access()){ ?>
+                        <a href="<?php echo base_url('invoice_list') ?>" class="small-box-footer"><?php echo display('website_sales')?></a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer">Total Sales Today</a>
+                    <?php }?>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-            <div class="small-box bg-yellow whitecolor">
-            <div class="inner">
-              <h4><span class="count-number"><?php echo html_escape($total_sales) ?></span> </h4>
-
-              <p><?php echo display('total_invoice')?></p>
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_lazada_sales_today ? html_escape($total_lazada_sales_today) : 0  ?></span></h4>
+                        <p><?php echo display('lazada_sales')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-bag"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_supplier','read')->access()){ ?>
+                        <a href="<?php echo base_url('invoice_list') ?>" class="small-box-footer"><?php echo display('lazada_sales')?> </a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer">Total Sales Today</a>
+                    <?php }?>
+                </div>
             </div>
-            <div class="icon">
-             <i class="fa fa-money"></i>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_shopee_sales_today ? html_escape($total_shopee_sales_today) : 0  ?></span> </h4>
+                        <p><?php echo display('shopee_sales')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-bag"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_invoice','read')->access()){ ?>
+                        <a href="<?php echo base_url('invoice_list') ?>" class="small-box-footer"><?php echo display('shopee_sales')?> </a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer">Total Sales Today</a>
+                    <?php }?>
+                </div>
             </div>
-             <?php if($this->permission1->method('manage_invoice','read')->access()){ ?>
-            <a href="<?php echo base_url('invoice_list') ?>" class="small-box-footer"><?php echo display('total_invoice')?> </a>
-             <?php }else{?>
-             <a href="javascript:void(0)" class="small-box-footer"><?php echo display('total_invoice')?></a>
-        <?php }?>
-          </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_post_current_month ? html_escape($total_post_current_month) : 0  ?></span></h4>
+                        <p><?php echo display('announcements')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bullhorn"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_customer','read')->access()){ ?>
+                        <a href="<?php echo base_url('bulletin_board') ?>" class="small-box-footer"><?php echo display('announcements')?></a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer"><?php echo 'New Posts this Month'?></a>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_shipped_orders_today ? html_escape($total_shipped_orders_today) : 0; ?></span></h4>
+                        <p><?php echo display('shipped_orders')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-truck"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_product','read')->access()){ ?>
+                        <a href="<?php echo base_url('orders') ?>" class="small-box-footer"><?php echo display('shipped_orders')?></a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer"><?php echo 'Total '.display('shipped_orders').' Today'?></a>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_purchase_order_today ? $currency .' '. html_escape(number_format($total_purchase_order_today)) : 0; ?></span></h4>
+                        <p><?php echo display('purchased_order_arrived')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_supplier','read')->access()){ ?>
+                        <a href="<?php echo base_url('purchase_list') ?>" class="small-box-footer"><?php echo display('purchased_order_arrived')?> </a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer"><?php echo 'Total '.display('purchased_order_arrived').' Today'?></a>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="small-box bg-yellow whitecolor">
+                    <div class="inner">
+                        <h4><span class="count-number"><?= $total_return_item_today ? html_escape($total_return_item_today) : 0; ?></span> </h4>
+                        <p><?php echo display('returned_items')?></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-handshake-o"></i>
+                    </div>
+                    <?php if($this->permission1->method('manage_invoice','read')->access()){ ?>
+                        <a href="<?php echo base_url('invoice_return_list') ?>" class="small-box-footer"><?php echo display('returned_items')?> </a>
+                    <?php }else{?>
+                        <a href="javascript:void(0)" class="small-box-footer"><?php echo 'Total '.display('returned_items').' Today' ?></a>
+                    <?php }?>
+                </div>
             </div>
         </div>
         <hr>
-       
-          <?php if ($this->session->userdata('isAdmin')){?>
+
+        <?php if ($this->session->userdata('isAdmin')){?>
         <div class="row">
                 <div class="col-sm-12 col-md-8">
                 <!-- Monthly Chart -->
