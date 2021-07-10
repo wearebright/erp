@@ -32,5 +32,6 @@
 <script src="<?php echo base_url() ?>assets/js/print.js" ></script>
 
  <script src="<?php echo base_url() ?>assets/js/jstree.min.js" ></script>
+ <script src="<?php echo base_url() ?>assets/js/owl.carousel.js" ></script>
 
 
