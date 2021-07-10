@@ -76,7 +76,7 @@
             }else{
         ?>     
             <div class="empty-state">
-                <img width="100" src="/my-assets/image/empty.svg">
+                <img width="100" src="<?= base_url() ?>/my-assets/image/empty.svg">
                 <h4 class="text-center"> No posted announcement yet </h4>
             </div>
         <?php
