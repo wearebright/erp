@@ -272,6 +272,37 @@ class Report extends MX_Controller {
         }
 
 
+        public function bdtask_customer_sales_report(){
+            $customer_id = (!empty($this->input->get('customer_id'))?$this->input->get('customer_id'):'');
+            $star_date = (!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-d'));
+            $end_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
+            $sales_report = $this->report_model->customer_sales_report($star_date,$end_date,$customer_id);
+            $sales_amount = 0;
+            if (!empty($sales_report)) {
+                $i = 0;
+                foreach ($sales_report as $k => $v) {
+                    $i++;
+                    $sales_report[$k]['sl'] = $i;
+                   
+                    $sales_amount += $sales_report[$k]['amount'];
+                }
+            }
+            $customer_list = $this->report_model->customerList();
+            $data = array(
+                'title'         => display('customer_sales_report'),
+                'sales_amount'  => number_format($sales_amount, 2, '.', ','),
+                'sales_report'  => $sales_report,
+                'from'          => $this->occational->dateConvert($star_date),
+                'to'            => $this->occational->dateConvert($end_date),
+                'customer_list'     => $customer_list,
+                'customer_id'       => $customer_id,
+            );
+            $data['module']   = "report";
+            $data['page']     = "customer_sales_report"; 
+            echo modules::run('template/layout', $data); 
+        }
+
+
         public function bdtask_invoice_wise_due_report(){
         $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-d')) ;
         $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
