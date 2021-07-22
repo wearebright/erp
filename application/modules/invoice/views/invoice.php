@@ -3,12 +3,22 @@
              <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body"> 
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                         <?php echo form_open('', array('class' => 'form-inline', 'method' => 'get')) ?>
                         <?php
                       
                         $today = date('Y-m-d');
                         ?>
+                        <div class="form-group col-md-4" style="display: flex; align-items:center;">
+                            <label class="" style="margin-right: 2px;" for="from_date"><?php echo display('department') ?></label>
+                            <select name="sales_channel" class="form-control" required="">
+                                <option value="">Select Option</option>
+                                <option value="Website">Website</option>
+                                <option value="Social Media">Social Media</option> 
+                                <option value="Lazada">Lazada</option> 
+                                <option value="Shopee">Shopee</option> 
+                            </select> 
+                        </div>   
                         <div class="form-group">
                             <label class="" for="from_date"><?php echo display('start_date') ?></label>
                             <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="" placeholder="<?php echo display('start_date') ?>" >

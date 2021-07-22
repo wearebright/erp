@@ -136,6 +136,8 @@ class Invoice_model extends CI_Model {
          $usertype = $this->session->userdata('user_type');
          $fromdate = $this->input->post('fromdate',TRUE);
          $todate   = $this->input->post('todate',TRUE);
+         $sales_channel = $this->input->post('sales_channel',TRUE);
+         
          if(!empty($fromdate)){
             $datbetween = "(a.date BETWEEN '$fromdate' AND '$todate')";
          }else{
@@ -163,6 +165,10 @@ class Invoice_model extends CI_Model {
          $this->db->join('users u', 'u.user_id = a.sales_by','left');
          if($usertype == 2){
           $this->db->where('a.sales_by',$this->session->userdata('user_id'));
+         }
+
+         if(!empty($sales_channel)){
+            $this->db->where('a.sales_channel', $sales_channel);
          }
           if(!empty($fromdate) && !empty($todate)){
              $this->db->where($datbetween);
@@ -197,6 +203,9 @@ class Invoice_model extends CI_Model {
          $this->db->join('users u', 'u.user_id = a.sales_by','left');
          if($usertype == 2){
           $this->db->where('a.sales_by',$this->session->userdata('user_id'));
+         }
+         if(!empty($sales_channel)){
+            $this->db->where('a.sales_channel', $sales_channel);
          }
           if(!empty($fromdate) && !empty($todate)){
              $this->db->where($datbetween);
