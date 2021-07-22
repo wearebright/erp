@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Jul 06, 2021 at 04:03 PM
-=======
--- Generation Time: Jul 08, 2021 at 04:27 PM
->>>>>>> tracking-order
+-- Generation Time: Jul 11, 2021 at 03:10 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -182,13 +178,14 @@ INSERT INTO `acc_transaction` (`ID`, `VNo`, `Vtype`, `VDate`, `COAID`, `Narratio
 (68, '4879514698', 'INV', '2021-06-24', '102030000004', 'Customer debit For Invoice No -   Customer Ian Dela Cruz', '2150.00', '0.00', '1', 0, '1', '2021-06-24 09:08:57', NULL, NULL, '1'),
 (69, '4879514698', 'INVOICE', '2021-06-24', '303', 'Sale Income For Invoice NO -  Customer Ian Dela Cruz', '0.00', '1750.00', '1', 0, '1', '2021-06-24 09:08:57', NULL, NULL, '1'),
 (70, '4879514698', 'INVOICE', '2021-06-24', '50203', 'Sale Income For Invoice NO -  Customer Ian Dela Cruz', '0.00', '0.00', '1', 0, '1', '2021-06-24 09:08:57', NULL, NULL, '1'),
-(71, '6112845356', 'INV', '2021-06-24', '10107', 'Inventory credit For Invoice No1008', '0.00', '0.00', '1', 0, '1', '2021-06-24 09:21:28', NULL, NULL, '1'),
-(72, '6112845356', 'INVOICE', '2021-06-24', '303', 'Sale Income From Invoice NO - 1008 Customer Nicole Lumagui', '0.00', '9000.00', '1', 0, '1', '2021-06-24 09:21:28', NULL, NULL, '1'),
-(73, '6112845356', 'INV', '2021-06-24', '102030000003', 'Customer debit For Invoice NO - 1008 customer-  Nicole Lumagui', '9000.00', '0.00', '1', 0, '1', '2021-06-24 09:21:28', NULL, NULL, '1'),
 (94, '20210610124249', 'Purchase', '2021-06-19', '10107', 'Inventory Devit Supplier ACME Incorporated', '22000.00', '0.00', '1', 0, '1', '2021-06-30 18:16:56', NULL, NULL, '1'),
 (95, '20210610124249', 'Purchase', '2021-06-19', '502000001', 'Supplier -ACME Incorporated', '0.00', '22000.00', '1', 0, '1', '2021-06-30 00:00:00', NULL, NULL, '1'),
 (96, '20210610124249', 'Purchase', '2021-06-19', '1020101', 'Cash in Hand For Supplier ACME Incorporated', '0.00', '0.00', '1', 0, '1', '2021-06-30 18:16:56', NULL, NULL, '1'),
-(97, '20210610124249', 'Purchase', '2021-06-19', '502000001', 'Supplier . ACME Incorporated', '0.00', '0.00', '1', 0, '1', '2021-06-30 00:00:00', NULL, NULL, '1');
+(97, '20210610124249', 'Purchase', '2021-06-19', '502000001', 'Supplier . ACME Incorporated', '0.00', '0.00', '1', 0, '1', '2021-06-30 00:00:00', NULL, NULL, '1'),
+(98, '9271513142', 'Return', '2021-07-10', '102030000002', 'Customer debit For Return John Doe', '0.00', '300.00', '1', 0, '1', '2021-07-10 14:43:55', NULL, NULL, '1'),
+(99, '6112845356', 'INV', '2021-07-10', '10107', 'Inventory credit For Invoice No1008', '0.00', '4000.00', '1', 0, '1', '2021-07-10 15:03:11', NULL, NULL, '1'),
+(100, '6112845356', 'INVOICE', '2021-07-10', '303', 'Sale Income From Invoice NO - 1008 Customer Nicole Lumagui', '0.00', '9000.00', '1', 0, '1', '2021-07-10 15:03:11', NULL, NULL, '1'),
+(101, '6112845356', 'INV', '2021-07-10', '102030000003', 'Customer debit For Invoice NO - 1008 customer-  Nicole Lumagui', '9000.00', '0.00', '1', 0, '1', '2021-07-10 15:03:11', NULL, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -261,6 +258,16 @@ CREATE TABLE `bulletin_announcement` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `bulletin_announcement`
+--
+
+INSERT INTO `bulletin_announcement` (`id`, `user_id`, `title`, `slug`, `banner`, `random_banner`, `description`, `attachment`, `created_at`, `updated_at`) VALUES
+(4, 1, 'Test', 'test', '', 'my-assets/image/announcement/background_default_2.jpg', 'Tset', '', '2021-07-10 11:59:24', '2021-07-10 11:59:24'),
+(5, 1, 'Test', 'testc', 'my-assets/image/announcement/2021-07-11/964e41f63804ca1dbff43f9f34a1a40b.jpg', 'undefined', 'sdadasdsa', 'my-assets/image/announcement_attach/2021-07-11/3bf23a37c46db14319677c35c9d7d93c.pdf', '2021-07-11 08:52:05', '2021-07-11 08:52:05'),
+(6, 1, 'asfsafs', 'asfsafs', '', 'my-assets/image/announcement/background_default_4.jpg', 'fsfasfasfsf', '', '2021-07-11 08:52:56', '2021-07-11 08:52:56'),
+(7, 1, 'Test', 'testc', '', 'undefined', 'afsdf', '', '2021-07-11 09:16:16', '2021-07-11 09:16:16');
+
 -- --------------------------------------------------------
 
 --
@@ -276,6 +283,13 @@ CREATE TABLE `bulletin_slider` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bulletin_slider`
+--
+
+INSERT INTO `bulletin_slider` (`id`, `user_id`, `image`, `link`, `enabled`, `created_at`, `updated_at`) VALUES
+(1, 1, 'my-assets/image/slider/2021-07-09/4b2ae29775938b0648a132e4fd62c7fe.jpg', 'http://dev.saleerp.com:8200//bulletin_board', 1, '2021-07-09 12:12:51', '2021-07-09 12:12:51');
 
 -- --------------------------------------------------------
 
@@ -295,7 +309,7 @@ CREATE TABLE `bulletin_sticky_image` (
 --
 
 INSERT INTO `bulletin_sticky_image` (`id`, `image`, `link`, `updated_at`) VALUES
-(1, 'my-assets/image/sticky/2021-07-05/d5d81d45adbe7f93b566f2d27cf74216.jpg', 'http://localhost/phpmyadmin/sql.php?server=1&db=sales_erp2&table=bulletin_sticky_image&pos=0', '2021-07-06 14:02:49');
+(1, 'my-assets/image/sticky/2021-07-11/11c57c06e2987d34431b36a184d8ef64.jpg', 'https://google.com', '2021-07-11 09:41:06');
 
 -- --------------------------------------------------------
 
@@ -561,42 +575,26 @@ CREATE TABLE `invoice` (
   `payment_type` int(11) NOT NULL,
   `is_online` int(11) NOT NULL DEFAULT 1,
   `sales_channel` enum('Website','Social Media','Lazada','Shopee') NOT NULL,
-<<<<<<< HEAD
-  `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED') NOT NULL DEFAULT 'NEW'
-=======
   `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED') NOT NULL DEFAULT 'NEW',
+  `shipped_date` date DEFAULT NULL,
   `attachment` text DEFAULT NULL,
   `comment` text DEFAULT NULL
->>>>>>> tracking-order
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `invoice`
 --
 
-<<<<<<< HEAD
-INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`) VALUES
-(1, 9271513142, 2, '2021-03-20', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE'),
-(2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE'),
-(3, 1642631776, 3, '2021-05-27', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'READY'),
-(4, 2969364686, 1, '2021-05-27', '3000.00', '3000.00', '0.00', '0.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE'),
-(5, 2257121656, 2, '2021-06-10', '30000.00', '0.00', '30000.00', '0.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'READY'),
-(6, 8764564874, 3, '2021-06-18', '350.00', '0.00', '350.00', '30000.00', '0.00', 1005, NULL, '50.00', '50.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW'),
-(7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW'),
-(8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW'),
-(9, 6112845356, 3, '2021-06-23', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Lazada', 'SHIPPED');
-=======
-INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`, `attachment`, `comment`) VALUES
-(1, 9271513142, 2, '2021-03-20', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
-(2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
-(3, 1642631776, 3, '2021-05-27', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', 'uploads/invoices/attachement/2021-07-08/f22d148641dbdd46150fa1812a826e49.pdf', 'testTest'),
-(4, 2969364686, 1, '2021-05-27', '3000.00', '3000.00', '0.00', '0.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL),
-(5, 2257121656, 2, '2021-06-10', '30000.00', '0.00', '30000.00', '0.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'READY', NULL, NULL),
-(6, 8764564874, 3, '2021-06-18', '350.00', '0.00', '350.00', '30000.00', '0.00', 1005, NULL, '50.00', '50.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
-(7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
-(8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL),
-(9, 6112845356, 3, '2021-06-23', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Lazada', 'SHIPPED', NULL, NULL);
->>>>>>> tracking-order
+INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`, `shipped_date`, `attachment`, `comment`) VALUES
+(1, 9271513142, 2, '2021-07-10', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'SHIPPED', '2021-07-10', '', ''),
+(2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL, NULL),
+(3, 1642631776, 3, '2021-05-27', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, 'uploads/invoices/attachement/2021-07-08/f22d148641dbdd46150fa1812a826e49.pdf', 'testTest'),
+(4, 2969364686, 1, '2021-05-27', '3000.00', '3000.00', '0.00', '0.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL, NULL),
+(5, 2257121656, 2, '2021-06-10', '30000.00', '0.00', '30000.00', '0.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, 'uploads/invoices/attachement/2021-07-09/62d9ccfa2b4e556f94b6c60e4dc168ac.pdf', 'Test Comment'),
+(6, 8764564874, 3, '2021-06-18', '350.00', '0.00', '350.00', '30000.00', '0.00', 1005, NULL, '50.00', '50.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
+(7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
+(8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
+(9, 6112845356, 3, '2021-07-10', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Shopee', 'SHIPPED', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -638,11 +636,12 @@ INSERT INTO `invoice_details` (`id`, `invoice_details_id`, `invoice_id`, `produc
 (8, '353253632257956', '8764564874', 'KW-992008936', 'WH', '', '1.00', '400.00', 350, '400.00', '0.00', '', NULL, '0', '350.00', 1),
 (9, '161835426898371', '1894516324', 'BK-123', 'BK-123', '', '10.00', '500.00', 200, '5000.00', '0.00', '', NULL, '0', '5100.00', 1),
 (10, '282311217734825', '7335952233', 'KW-992008936', 'WH', '', '15.00', '400.00', 350, '6000.00', '0.00', '', NULL, '0', '5750.00', 1),
-(16, '131475965364896', '6112845356', 'BK-123', NULL, '', '20.00', '500.00', 200, '9000.00', '0.01', '10', '0.00', '0', '14750.00', 0),
+(18, '582592626273354', '6112845356', 'BK-123', NULL, '', '20.00', '500.00', 200, '9000.00', '0.01', '10', '0.00', '0', '14750.00', 0),
 (12, '534522959792987', '9765564654', 'KW-992008936', NULL, '', '5.00', '400.00', 350, '2000.00', '0.00', '', NULL, '0', '16750.00', 1),
 (13, '999354962131315', '9966485974', '9001301917', NULL, '', '10.00', '300.00', 80, '3000.00', '0.00', '', NULL, '0', '17750.00', 1),
 (14, '457955132416296', '4879514698', '9001301917', NULL, '', '5.00', '300.00', 80, '1500.00', '0.00', '', NULL, '0', '2150.00', 1),
-(15, '723287974132226', '4879514698', 'BK-123', NULL, '', '3.00', '500.00', 200, '500.00', '0.00', '', NULL, '0', '2150.00', 1);
+(15, '723287974132226', '4879514698', 'BK-123', NULL, '', '3.00', '500.00', 200, '500.00', '0.00', '', NULL, '0', '2150.00', 1),
+(17, 'TMJIX9HC8OM8LBI', '9271513142', '9001301917', NULL, NULL, '-1.00', '300.00', 80, '-300.00', '0.00', NULL, '0.00', '-300', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1662,7 +1661,30 @@ INSERT INTO `language` (`id`, `phrase`, `english`, `bangla`) VALUES
 (999, 'featured', 'Featured', NULL),
 (1000, 'announcement_details', 'Announcement Details', NULL),
 (1001, 'update_sticky', 'Update Sticky Image', ''),
-(1002, 'enabled', 'Enabled', NULL);
+(1002, 'enabled', 'Enabled', NULL),
+(1003, 'overall_sales', 'Over All Sales', NULL),
+(1004, 'website_sales', 'Website Sales', NULL),
+(1005, 'lazada_sales', 'Lazada Sales', NULL),
+(1006, 'shopee_sales', 'Shopee Sales', NULL),
+(1007, 'shipped_orders', 'Shipped Orders', NULL),
+(1008, 'purchased_order_arrived', 'Purchased Order Arrived', NULL),
+(1009, 'returned_items', 'Returned Items', NULL),
+(1010, 'announcements', 'Announcements', NULL),
+(1011, 'bulletin', 'Bulletin Board', NULL),
+(1012, 'dashboard_reports', 'Dashboard Reports', NULL),
+(1013, 'view_overall_sales', 'View Overall Sales', NULL),
+(1014, 'update_sticky_image', 'UUpdate Sticky Image', NULL),
+(1015, 'add_bulletin_slider', 'Add Bulletin Slider', NULL),
+(1016, 'add_bulletin_announcement', 'Add Bulletin Announcement', NULL),
+(1017, 'manage_bulletin_announcement', 'Manage Bulletin Announcement', NULL),
+(1018, 'manage_bulletin_slider', 'Manage Bulletin Slider', NULL),
+(1019, 'view_return_items_stats', 'View Return Items Stats', NULL),
+(1020, 'view_purchased_order_arrived_stats', 'View Purchased Order Arrived Stats', NULL),
+(1021, 'view_shipped_orders_stats', 'View Shipped Orders Stats', NULL),
+(1022, 'view_announcement_stats', 'View Announcement Stats', NULL),
+(1023, 'view_shopee_sales', 'View Shopee Sales', NULL),
+(1024, 'view_lazada_sales', 'View Lazada Sales', NULL),
+(1025, 'view_daily_sales', 'View Daily Sales', NULL);
 
 -- --------------------------------------------------------
 
@@ -1700,7 +1722,8 @@ INSERT INTO `module` (`id`, `name`, `description`, `image`, `directory`, `status
 (14, 'commission', NULL, NULL, NULL, 1),
 (15, 'setting', NULL, NULL, NULL, 1),
 (16, 'quotation', NULL, NULL, NULL, 1),
-(17, 'bulletin', NULL, NULL, NULL, 1);
+(17, 'bulletin', NULL, NULL, NULL, 1),
+(18, 'dashboard_reports', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1889,7 +1912,7 @@ CREATE TABLE `product_purchase` (
 
 INSERT INTO `product_purchase` (`id`, `purchase_id`, `chalan_no`, `supplier_id`, `grand_total_amount`, `paid_amount`, `due_amount`, `total_discount`, `purchase_date`, `purchase_details`, `status`, `bank_id`, `payment_type`) VALUES
 (1, 20210520221814, '20210521', 1, '16000.00', '16000.00', '0.00', '0.00', '2021-05-20', '', 1, '', 1),
-(2, 20210610124249, '2012223', 1, '22000.00', '0.00', '22000.00', '0.00', '2021-06-19', '', 1, '', 1);
+(2, 20210610124249, '2012223', 1, '22000.00', '0.00', '22000.00', '0.00', '2021-07-10', '', 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1946,6 +1969,13 @@ CREATE TABLE `product_return` (
   `reason` text CHARACTER SET latin1 NOT NULL,
   `usablity` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product_return`
+--
+
+INSERT INTO `product_return` (`return_id`, `product_id`, `invoice_id`, `purchase_id`, `date_purchase`, `date_return`, `byy_qty`, `ret_qty`, `customer_id`, `supplier_id`, `product_rate`, `deduction`, `total_deduct`, `total_tax`, `total_ret_amount`, `net_total_amount`, `reason`, `usablity`) VALUES
+('M7VQ8121FZFWF7V', '9001301917', '9271513142', NULL, '2021-03-20', '2021-07-10', 50, 1, '2', '', '300.00', 0, '0.00', '0.00', '300.00', '300.00', '', 1);
 
 -- --------------------------------------------------------
 
@@ -2320,7 +2350,15 @@ INSERT INTO `sub_module` (`id`, `mid`, `name`, `description`, `image`, `director
 (123, 17, 'manage_bulletin_announcement', NULL, NULL, 'manage_bulletin_announcement', 1),
 (124, 17, 'add_bulletin_announcement', NULL, NULL, 'add_bulletin_announcement', 1),
 (125, 17, 'add_bulletin_slider', NULL, NULL, 'add_bulletin_slider', 1),
-(126, 17, 'update_sticky_image', NULL, NULL, 'update_sticky_image', 1);
+(126, 17, 'update_sticky_image', NULL, NULL, 'update_sticky_image', 1),
+(127, 18, 'view_overall_sales', NULL, NULL, 'view_overall_sales', 1),
+(128, 18, 'view_daily_sales', NULL, NULL, 'view_overall_sales', 1),
+(129, 18, 'view_lazada_sales', NULL, NULL, 'view_overall_sales', 1),
+(130, 18, 'view_shopee_sales', NULL, NULL, 'view_overall_sales', 1),
+(131, 18, 'view_announcement_stats', NULL, NULL, 'view_overall_sales', 1),
+(132, 18, 'view_shipped_orders_stats', NULL, NULL, 'view_overall_sales', 1),
+(133, 18, 'view_purchased_order_arrived_stats', NULL, NULL, 'view_overall_sales', 1),
+(134, 18, 'view_return_items_stats', NULL, NULL, 'view_overall_sales', 1);
 
 -- --------------------------------------------------------
 
@@ -2413,7 +2451,7 @@ CREATE TABLE `tax_collection` (
 --
 
 INSERT INTO `tax_collection` (`id`, `date`, `customer_id`, `relation_id`) VALUES
-(1, '2021-06-23', '3', '6112845356');
+(2, '2021-06-23', '3', '6112845356');
 
 -- --------------------------------------------------------
 
@@ -2922,7 +2960,7 @@ ALTER TABLE `web_setting`
 -- AUTO_INCREMENT for table `acc_transaction`
 --
 ALTER TABLE `acc_transaction`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `app_setting`
@@ -2946,13 +2984,13 @@ ALTER TABLE `bank_add`
 -- AUTO_INCREMENT for table `bulletin_announcement`
 --
 ALTER TABLE `bulletin_announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `bulletin_slider`
 --
 ALTER TABLE `bulletin_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bulletin_sticky_image`
@@ -3030,19 +3068,19 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `invoice_details`
 --
 ALTER TABLE `invoice_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1026;
 
 --
 -- AUTO_INCREMENT for table `module`
 --
 ALTER TABLE `module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `module_purchase_key`
@@ -3192,7 +3230,7 @@ ALTER TABLE `sms_settings`
 -- AUTO_INCREMENT for table `sub_module`
 --
 ALTER TABLE `sub_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `supplier_information`
@@ -3210,7 +3248,7 @@ ALTER TABLE `supplier_product`
 -- AUTO_INCREMENT for table `tax_collection`
 --
 ALTER TABLE `tax_collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tax_settings`

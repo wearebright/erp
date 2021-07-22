@@ -285,7 +285,7 @@ class Report_model extends CI_Model {
     }
 
 
-        // ======================= user sales report ================
+    // ======================= user sales report ================
     public function user_sales_report($from_date,$to_date,$user_id) {
         $this->db->select("sum(total_amount) as amount,count(a.invoice_id) as toal_invoice,a.*,b.first_name,b.last_name");
         $this->db->from('invoice a');
@@ -303,11 +303,40 @@ class Report_model extends CI_Model {
         return false;
     }
 
+    // ======================= user sales report ================
+    public function customer_sales_report($from_date,$to_date,$customer_id) {
+        $this->db->select("sum(total_amount) as amount,count(a.invoice_id) as toal_invoice,a.*,b.customer_name");
+        $this->db->from('invoice a');
+        $this->db->join('customer_information b', 'b.customer_id = a.customer_id','left');
+        if(!empty($customer_id)){
+            $this->db->where('a.customer_id', $customer_id);    
+        }
+        $this->db->where('a.date >=', $from_date);
+        $this->db->where('a.date <=', $to_date);
+        $this->db->group_by('a.customer_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
 
-        public function userList(){
+
+    public function userList(){
         $this->db->select("*");
         $this->db->from('users');
         $this->db->order_by('first_name', 'asc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function customerList(){
+        $this->db->select("*");
+        $this->db->from('customer_information');
+        $this->db->order_by('customer_name', 'asc');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result_array();

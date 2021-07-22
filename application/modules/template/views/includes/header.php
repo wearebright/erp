@@ -48,6 +48,13 @@
                 <li> <blink><a href="<?php echo base_url('autoupdate/Autoupdate')?>" class="text-white  btn-danger update-btn"> <?php echo $max_version.' Version Available'; ?></a></blink>
                 </li>
               <?php }?>
+
+            <li style="margin-top: 8px;">
+                <a href="<?php echo base_url('bulletin_board') ?>" >
+                    <i class="ti-announcement"></i>
+                </a>
+            </li>
+
           <li class="dropdown notifications-menu">
                     <a href="<?php echo base_url('out_of_stock') ?>" >
                         <i class="pe-7s-attention" title="<?php echo display('out_of_stock') ?>"></i>

@@ -178,6 +178,7 @@ $(document).ready(function() {
             'ajax': {
                'url': base_url + 'invoice/invoice/CheckInvoiceList',
                  "data": function ( data) {
+          data.sales_channel = $('select[name=sales_channel]').val();
          data.fromdate = $('#from_date').val();
          data.todate = $('#to_date').val();
         data.csrf_test_name = csrf_test_name;
