@@ -8,9 +8,9 @@ $active_record = TRUE;//ci version 2.x
 $db['default'] = array(
     'dsn'   => '',
     'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'sales_erp2',
+    'username' => 'sell_dev',
+    'password' => '0PDtkJlNPsgpr!g2',
+    'database' => 'sell_erpdev',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -27,4 +27,3 @@ $db['default'] = array(
     'failover' => array(),
     'save_queries' => TRUE
 );
- 
