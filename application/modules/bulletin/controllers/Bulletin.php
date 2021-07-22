@@ -56,6 +56,22 @@ class Bulletin extends MX_Controller {
         $data['module']           = "bulletin";
         $data['page']             = "announcement_details"; 
         $data['postDetails']      = $this->announcement_model->getAnnouncementBySlug($slug);
+        $user_id = $this->session->userdata('id');
+
+        if($data['postDetails']){
+            if($data['postDetails']->read_by){
+                $read_by = explode(',',$data['postDetails']->read_by);
+                $read_by_user = $data['postDetails']->read_by;
+                if(!in_array($user_id , $read_by)){
+                    $read_by_user = $read_by_user.$user_id.',';
+                }
+            }else{
+                $read_by_user = ','.$user_id.',';
+            }
+
+            $this->announcement_model->markAsRead($data['postDetails']->id, $read_by_user);
+        }
+
         echo modules::run('template/layout', $data);
     }
 

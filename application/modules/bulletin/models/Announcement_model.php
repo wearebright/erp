@@ -187,6 +187,13 @@ class Announcement_model extends CI_Model {
 
 	}
 
+    public function markAsRead($id, $read_by_user)
+	{
+		return $this->db->where('id', $id)
+			->update("bulletin_announcement", ['read_by' => $read_by_user]);
+
+	}
+
     public function delete($id)
 	{
 		return $this->db->where('id', $id)->delete("bulletin_announcement");
