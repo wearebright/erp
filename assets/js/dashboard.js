@@ -186,9 +186,20 @@ $(function (){
 
     });
 
-
+    $("#carousel").owlCarousel({
+        items: 1,			// Maximum number of items to show at a time
+        lazyLoad: true,		// Do not load image content until frame is in focus
+        navigation: false,	// Enabled navigation buttons
+        singleItem: true,	// Show only one item at a time (prevents flash of upcoming content)
+        pagination: true,	// Prevent loading of pagination bullets
+        autoHeight: true,	// Auto-height
+        autoPlay:true,
+        loop:true,
+    });
 
    });
+
+   
 
 
           

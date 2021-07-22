@@ -24,6 +24,8 @@ class Home extends MX_Controller {
          $total_shipped_orders_today = $this->home_model->total_shipped_orders_today();
          $total_purchase_order_today = $this->home_model->total_purchase_order_today();
          $total_return_item_today = $this->home_model->total_return_item_today();
+         $unread_announcements = $this->home_model->get_unread_announcements();
+         
 
          $tlvmonth            = '';
         $month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -60,6 +62,7 @@ class Home extends MX_Controller {
 	    $data['title']	     = display('home');
 	           $data = array(
     'title'                => display('dashboard'),
+    'announcements'        => $unread_announcements,
     'total_customer'       => $this->db->count_all('customer_information'),
     'total_product'        => $this->db->count_all('product_information'),
     'total_suppliers'      => $this->db->count_all('supplier_information'),

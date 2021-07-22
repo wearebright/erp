@@ -413,5 +413,13 @@ class Home_model extends CI_Model {
         return $result->total;
     }
 
+    public function get_unread_announcements(){
+        $this->db->select('*');
+        $this->db->from('bulletin_announcement');
+        $this->db->not_like('read_by', ','.$this->session->userdata('id').',');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
  
