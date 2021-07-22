@@ -64,21 +64,25 @@
                                                     <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
                                                     <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
                                                     <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
+                                                    <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option> 
                                                 </select> 
                                             </div>
                                         </div>
-                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status == 'NEW' || $invoice_order_status == 'WAREHOUSE' ? 'block': 'none'; ?>">
+                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status != 'WAREHOUSE' || $invoice_order_status != 'READY' ? 'block': 'none'; ?>">
                                             <div class="form-group row">
                                                 <div class="col-md-12">
-                                                    <div class="form-group">
+                                                    <div class="form-group ">
                                                         <label for="order_status" class="col-form-label">Attachment</label>
                                                         <!-- <input type="file" name="orderAttachment"/> -->
                                                         <div class="customFileInputWrapper">
                                                             <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
-                                                            <input name="orderAttachment" type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
+                                                            <input name="orderAttachment" accept="image/*" onchange="readURL(this);" type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
                                                             <input name="orderAttachment_old" type="hidden" value="<?= $invoice_attachment ?>">
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
                                                 </div>
                                                 <?php
                                                     if($invoice_attachment){
@@ -240,10 +244,22 @@
     function selectStatus(){
         let order_status = $('select[name=order_status] option').filter(":selected").val();
         console.log(order_status);
-        if(order_status == 'NEW' || order_status == 'WAREHOUSE'){
+        if(order_status == 'NEW' || order_status == 'WAREHOUSE'|| order_status == 'RETURN_TO_SENDER'){
             $('#invoiceAdditionalFields').show();
         }else{
             $('#invoiceAdditionalFields').hide();
+        }
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#attachment_preview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
         }
     }
 
@@ -272,7 +288,7 @@
             }
             $('#et_pb_contact_brand_file_request_0').change(function() {
                 var fileNames = $('#et_pb_contact_brand_file_request_0')[0].files[0].name;
-                $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>"+ fileNames +"</div>");
+                // $('label[for="et_pb_contact_brand_file_request_0"]').append("<div class='file_names'>"+ fileNames +"</div>");
                 $('label[for="et_pb_contact_brand_file_request_0"]').css('background-color', '##eee9ff');
             });
             }
