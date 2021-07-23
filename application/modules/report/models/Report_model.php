@@ -222,12 +222,15 @@ class Report_model extends CI_Model {
      }
 
          //Retrieve all Report
-    public function retrieve_dateWise_SalesReports($from_date, $to_date) {
+    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel) {
         $this->db->select("a.*,b.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
         $this->db->where('a.date >=', $from_date);
         $this->db->where('a.date <=', $to_date);
+        if($sales_channel!="All"){
+            $this->db->where('a.sales_channel =', $sales_channel);
+        }
         $this->db->order_by('a.date', 'desc');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {

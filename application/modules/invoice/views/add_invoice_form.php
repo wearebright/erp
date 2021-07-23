@@ -68,7 +68,8 @@
                                             <option value="Website">Website</option>
                                             <option value="Social Media">Social Media</option> 
                                             <option value="Lazada">Lazada</option> 
-                                            <option value="Shopee">Shopee</option> 
+                                            <option value="Shopee">Shopee</option>                                            
+                                            <option value="SH Partner">SH Partner</option>  
                                         </select> 
                                     </div>
                                 </div>

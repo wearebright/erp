@@ -216,9 +216,10 @@ class Report extends MX_Controller {
         }
 
         public function bdtask_datewise_sales_report(){
+            $sales_channel = $this->input->get('sales_channel');
           $from_date = $this->input->get('from_date');
            $to_date  = $this->input->get('to_date');
-          $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date);
+          $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel);
         $sales_amount = 0;
         if (!empty($sales_report)) {
             $i = 0;
@@ -235,6 +236,7 @@ class Report extends MX_Controller {
             'sales_report' => $sales_report,
             'from_date'    => $from_date,
             'to_date'      => $to_date,
+            'sales_channel'=> $sales_channel,
         );
         $data['module']   = "report";
         $data['page']     = "sales_report"; 
