@@ -8,8 +8,15 @@
         <h2><?= $postDetails->title ?></h2>
         <small>Posted on <?= date('F d, Y h:i A', strtotime($postDetails->created_at)) ?> by <?= $postDetails->name ?> </small>
 
+
         <div style="margin-top: 40px;" class="">
-            <img style="margin-bottom: 20px;"  width="100%" src="<?= base_url().$postDetails->banner ?>">
+            <?php 
+                if($postDetails->banner){
+            ?>
+                <img style="margin-bottom: 20px;"  width="100%" src="<?= base_url().$postDetails->banner ?>">
+            <?php
+                }
+            ?>
             <?= $postDetails->description ?>
         </div>
         

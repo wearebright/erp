@@ -61,7 +61,7 @@ function announcement_form(){
         console.log(r);
           if(r.status === 1){
             if(id ==''){
-              window.location = '/manage_announcement'
+              window.location = base_url+'/manage_announcement'
             }else{
               setTimeout(function () {
                 location.reload();
