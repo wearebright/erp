@@ -134,9 +134,10 @@
                              <tr>
                                     <td><?php echo $sales['sales_date']?></td>
                                     <td>
-                                            <?php echo $sales['invoice']?></td>
-                                        <td><?php echo $sales['first_name']." ". $sales['last_name']?></td>
-                                        <td><?php echo $sales['courier']?></td>
+                                        <a href="<?= base_url().'invoice_details/'.$sales['invoice_id'] ?>"><?= $sales['invoice']?></a>
+                                    </td>
+                                    <td><?php echo $sales['first_name']." ". $sales['last_name']?></td>
+                                    <td><?php echo $sales['courier']?></td>
                                     <td><?php echo $sales['customer_name']?></td>
                             <td class="text-right">
                                     <?php 

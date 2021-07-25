@@ -434,11 +434,12 @@ class Report extends MX_Controller {
         }
         $sub_total = 0;
         if (!empty($product_report)) {
-        foreach ($product_report as $k => $v) {
-            $product_report[$k]['sales_date'] = $this->occational->dateConvert($product_report[$k]['date']);
-            $sub_total = $sub_total + $product_report[$k]['total_amount'];
+            foreach ($product_report as $k => $v) {
+                $product_report[$k]['sales_date'] = $this->occational->dateConvert($product_report[$k]['date']);
+                $sub_total += (int)$v['total_price'];
+            }
         }
-        }
+
         $data = array(
             'title'          => display('sales_report_product_wise'),
             'sub_total'      => number_format($sub_total, 2, '.', ','),
