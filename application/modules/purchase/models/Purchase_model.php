@@ -258,8 +258,9 @@ class Purchase_model extends CI_Model {
         $totalRecordwithFilter = $records[0]->allcount;
 
         ## Fetch records
-        $this->db->select('a.*,b.supplier_name');
+        $this->db->select('a.*,b.supplier_name,c.*');
         $this->db->from('product_purchase a');
+        $this->db->join('product_purchase_details c', 'c.purchase_id = a.purchase_id','left');
         $this->db->join('supplier_information b', 'b.supplier_id = a.supplier_id','left');
         if(!empty($fromdate) && !empty($todate)){
             $this->db->where($datbetween);
@@ -292,6 +293,8 @@ class Purchase_model extends CI_Model {
                         'purchase_id'      =>$purchase_ids,
                         'supplier_name'    =>$record->supplier_name,
                         'purchase_date'    =>$record->purchase_date,
+                        'quantity'         =>$record->quantity,
+                        'quantity_received'=>$record->quantity_received,
                         'button'           =>$button,
                     ); 
             $sl++;

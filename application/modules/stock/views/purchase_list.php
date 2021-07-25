@@ -45,6 +45,8 @@
 										<th><?php echo display('purchase_id') ?></th>
 										<th><?php echo display('supplier_name') ?></th>
 										<th><?php echo display('purchase_date') ?></th>
+										<th><?php echo display('quantity') ?></th>
+										<th><?php echo display('received') ?></th>
 										<th><?php echo display('action') ?></th>
 									</tr>
 								</thead>

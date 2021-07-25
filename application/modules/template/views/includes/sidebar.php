@@ -271,7 +271,7 @@
       <!-- Stock menu start -->
             <?php if($this->permission1->method('stock','read')->access()){?>
         <li class="treeview <?php
-        if ($this->uri->segment('1') == ("stock")) {
+        if ($this->uri->segment('1') == ("stock") || $this->uri->segment('1') === ('audit_purchase')) {
             echo "active";
         } else {
             echo " ";

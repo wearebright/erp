@@ -19,7 +19,7 @@ $(document).ready(function() {
        responsive: true,
         "aaSorting": [[4, "desc" ]],
         "columnDefs": [
-          { "bSortable": false, "aTargets": [0,1,2,3,5] },
+          { "bSortable": false, "aTargets": [0,1,2,3,5,6,7] },
         ],
         "processing": true,
         "serverSide": true,
@@ -28,32 +28,32 @@ $(document).ready(function() {
         buttons:[{
                 extend: "copy",
                 exportOptions: {
-                            columns: [ 0,1,2,3,4 ] //Your Colume value those you want
+                            columns: [ 0,1,2,3,4,5,6 ] //Your Colume value those you want
                         }, className: "btn-sm prints"
             },{
                 extend: "csv", 
                 title: "PurchaseLIst",
                 exportOptions: {
-                    columns: [ 0,1,2,3,4] //Your Colume value those you want print
+                    columns: [ 0,1,2,3,4,5,6] //Your Colume value those you want print
                 }, 
                 className: "btn-sm prints"
             }, 
             {
                 extend: "excel",
                 exportOptions: {
-                    columns: [0,1,2,3,4 ] //Your Colume value those you want print
+                    columns: [0,1,2,3,4,5,6 ] //Your Colume value those you want print
                 }, 
                 title: "PurchaseLIst", 
                 className: "btn-sm prints"
             }
             , {
                 extend: "pdf",exportOptions: {
-                        columns: [0,1,2,3,4] //Your Colume value those you want print
+                        columns: [0,1,2,3,4,5,6] //Your Colume value those you want print
                             }, title: "PurchaseLIst", className: "btn-sm prints"
             }
             , {
                 extend: "print",exportOptions: {
-                        columns: [ 0,1,2,3,4] //Your Colume value those you want print
+                        columns: [ 0,1,2,3,4,5,6] //Your Colume value those you want print
                             },title: "<center> PurchaseLIst</center>", className: "btn-sm prints"
             }],
             'serverMethod': 'post',
@@ -71,6 +71,8 @@ $(document).ready(function() {
                 { data: 'purchase_id'},
                 { data: 'supplier_name'},
                 { data: 'purchase_date' },
+                { data: 'quantity' },
+                { data: 'quantity_received' },
                 // { data: 'total_amount',class:"total_sale text-right",render: $.fn.dataTable.render.number( ',', '.', 2, currency )},
                 { data: 'button'},
             ],
