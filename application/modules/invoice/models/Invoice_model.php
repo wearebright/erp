@@ -122,11 +122,19 @@ class Invoice_model extends CI_Model {
         $this->db->where('a.order_status','SHIPPED');
         $orders_shipped = $this->db->get()->result();
 
+        // WAREHOUSE ORDERS
+        $this->db->select('*');
+        $this->db->from('invoice a');
+        $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
+        $this->db->where('a.order_status','RETURN_TO_SENDER');
+        $return_to_sender = $this->db->get()->result();
+
         $response = array(
             "NEW" => $orders_new,
             "WAREHOUSE" => $orders_warehouse,
             "READY" => $orders_ready,            
             "SHIPPED" => $orders_shipped,
+            "RETURN_TO_SENDER" => $return_to_sender,
         );
 
         return $response;
@@ -1263,6 +1271,39 @@ if(!empty($this->input->post('paid_amount',TRUE))){
     public function updateOrderStatus($data){
         return $this->db->where('invoice_id', $data["invoice_id"])
 			->update("invoice", $data);
+    }
+
+
+    public function regions() {
+        $this->db->select('*');
+        $this->db->from('regions');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function reasons() {
+        $this->db->select('*');
+        $this->db->from('return_reasons');
+        $this->db->where('status',1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function logistics() {
+        $this->db->select('*');
+        $this->db->from('logistics');
+        $this->db->where('status',1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
     }
 }
 

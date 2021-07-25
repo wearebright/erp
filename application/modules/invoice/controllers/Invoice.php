@@ -55,6 +55,10 @@ class Invoice extends MX_Controller {
 
     public function bdtask_invoice_details($invoice_id = null){
         $invoice_detail     = $this->invoice_model->retrieve_invoice_html_data($invoice_id);
+        $regions = $this->invoice_model->regions();
+        $return_reasons = $this->invoice_model->reasons();
+        $logistics = $this->invoice_model->logistics();
+        // var_dump($regions); die;
         $taxfield = $this->db->select('*')
                 ->from('tax_settings')
                 ->where('is_show',1)
@@ -62,8 +66,8 @@ class Invoice extends MX_Controller {
                 ->result_array();
         $txregname ='';
         foreach($taxfield as $txrgname){
-        $regname = $txrgname['tax_name'].' Reg No  - '.$txrgname['reg_no'].', ';
-        $txregname .= $regname;
+            $regname = $txrgname['tax_name'].' Reg No  - '.$txrgname['reg_no'].', ';
+            $txregname .= $regname;
         }       
         $subTotal_quantity = 0;
         $subTotal_cartoon  = 0;
@@ -106,6 +110,12 @@ class Invoice extends MX_Controller {
         $users         = $this->invoice_model->user_invoice_data($user_id);
         $data = array(
         'title'             => display('invoice_details'),
+        'regions'           => $regions,
+        'logistics_list'         => $logistics,
+        'return_reasons'    => $return_reasons,
+        'return_reason'        => $invoice_detail[0]['return_reason'],
+        'courier'        => $invoice_detail[0]['courier'],
+        'selected_region'     => $invoice_detail[0]['region'],
         'invoice_id'        => $invoice_detail[0]['invoice_id'],
         'invoice_no'        => $invoice_detail[0]['invoice'],
         'customer_name'     => $invoice_detail[0]['customer_name'],
@@ -154,11 +164,15 @@ class Invoice extends MX_Controller {
             if($order_status === 'SHIPPED'){
                 $shipped_date = date('Y-m-d');
             }
+            // var_dump($order_status); die;
             $postData = [
                 'invoice_id'    => $this->input->post('invoice_id',true),
                 'order_status'  => $order_status,
                 'comment'       => $this->input->post('comment'),
                 'attachment'    => !is_null($attachment) ? $attachment : $this->input->post('orderAttachment_old'),
+                'courier'       => $this->input->post('logistics',true),
+                'return_reason' => $this->input->post('reason',true),
+                'region'        => $this->input->post('region',true),
                 'shipped_date'  => $shipped_date,
             ]; 
             

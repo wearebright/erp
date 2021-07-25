@@ -4,8 +4,107 @@
                     <div id="printableArea" onload="printDiv('printableArea')">
                         <div class="panel-body">
                             <div class="row print_header">
-                                
-                                <div class="col-sm-8 company-content">
+                                <div class="col-sm-8 text-left">
+                                    <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
+                                    <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
+                                    <?php echo form_open_multipart('invoice/invoice/update_order_status',array('class' => 'form-vertical', 'id' => 'insert_sale','name' => 'insert_sale'))?>
+                                        <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="order_status" class="col-form-label">Order Status<i class="text-danger">*</i>
+                                                </label>
+                                                <div class="form-group">
+                                                    <select name="order_status" class="form-control" required="" onchange="selectStatus()">
+                                                        <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> value="NEW">New Order</option>
+                                                        <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
+                                                        <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
+                                                        <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
+                                                        <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 logistics_option">
+                                                <label for="order_status" class="col-form-label">Logistics
+                                                </label>
+                                                <div class="form-group">
+                                                    <select name="logistics" class="form-control" required="" onchange="selectStatus()">
+                                                        <option disabled>Select Option</option>
+                                                        <?php foreach($logistics_list as $logistics){?>
+                                                            <option <?= $courier == $logistics['logistics_name'] ? "selected" : "" ?> value="<?= $logistics['logistics_name'] ?>"><?= $logistics['logistics_name'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="returnAdditionalFields" style="display: <?= $invoice_order_status == 'RETURN_TO_SENDER' ? 'block': 'none'; ?>">
+                                            <div class="col-md-4">
+                                                <label for="order_status" class="col-form-label">Reason</label>
+                                                <div class="form-group">
+                                                    <select name="reason" class="form-control" required="" onchange="selectStatus()">
+                                                        <option disabled>Select Option</option>
+                                                        <?php foreach($return_reasons as $reason){?>
+                                                            <option <?= $return_reason == $reason['reason'] ? "selected" : "" ?> value="<?= $reason['reason'] ?>"><?= $reason['reason'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="order_status" class="col-form-label">Region
+                                                </label>
+                                                <div class="form-group">
+                                                    <select name="region" class="form-control" required="">
+                                                        <option disabled>Select Option</option>
+                                                        <?php foreach($regions as $region){?>
+                                                            <option <?= $selected_region == $region['region_name'] ? "selected" : "" ?> value="<?= $region['region_name'] ?>"><?= $region['region_name'] ?></option>
+                                                        <?php } ?> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status != 'WAREHOUSE' || $invoice_order_status != 'READY' ? 'block': 'none'; ?>">
+                                            <div class="form-group row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label for="order_status" class="col-form-label">Remarks</label>
+                                                        <textarea rows="3" class="form-control" name="comment"><?= $invoice_comment ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                        <label for="order_status" class="col-form-label">Attachment</label>
+                                                        <!-- <input type="file" name="orderAttachment"/> -->
+                                                        <div class="customFileInputWrapper">
+                                                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
+                                                            <input name="orderAttachment" accept="image/*" onchange="readURL(this);" type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
+                                                            <input name="orderAttachment_old" type="hidden" value="<?= $invoice_attachment ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
+                                                </div>
+                                                <?php
+                                                    if($invoice_attachment){
+                                                ?>
+                                                    <div class="col-md-8">
+                                                        <a target="_blank" style="margin-top: 40px;" href="<?= base_url().$invoice_attachment ?>">View Attachement</a>
+                                                    </div>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group row" style="margin-bottom:40px">
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-success btn-justify">Update</button>
+                                            </div>
+                                        </div>
+                                    <?php echo form_close()?>
+                                </div>
+                                <div class="col-sm-4">
                                     <?php foreach($company_info as $company){?>
                                     <img src="<?php
                                     if (isset($setting->invoice_logo)) {
@@ -47,68 +146,6 @@
                                    
                                   
 
-                                </div>
-                                
-                                 
-                                <div class="col-sm-4 text-left invoice-address">
-                                    <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
-                                    <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
-                                    <?php echo form_open_multipart('invoice/invoice/update_order_status',array('class' => 'form-vertical', 'id' => 'insert_sale','name' => 'insert_sale'))?>
-                                        <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
-                                        <label for="order_status" class="col-form-label">Order Status<i class="text-danger">*</i>
-                                        </label>
-                                        <div class="form-group row">
-                                            <div class="col-md-8">
-                                                <select name="order_status" class="form-control" required="" onchange="selectStatus()">
-                                                    <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> value="NEW">New Order</option>
-                                                    <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
-                                                    <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
-                                                    <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
-                                                    <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option> 
-                                                </select> 
-                                            </div>
-                                        </div>
-                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status != 'WAREHOUSE' || $invoice_order_status != 'READY' ? 'block': 'none'; ?>">
-                                            <div class="form-group row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group ">
-                                                        <label for="order_status" class="col-form-label">Attachment</label>
-                                                        <!-- <input type="file" name="orderAttachment"/> -->
-                                                        <div class="customFileInputWrapper">
-                                                            <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
-                                                            <input name="orderAttachment" accept="image/*" onchange="readURL(this);" type="file" id="et_pb_contact_brand_file_request_0" class="file-upload">
-                                                            <input name="orderAttachment_old" type="hidden" value="<?= $invoice_attachment ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
-                                                </div>
-                                                <?php
-                                                    if($invoice_attachment){
-                                                ?>
-                                                    <div class="col-md-8">
-                                                        <a target="_blank" style="margin-top: 40px;" href="<?= base_url().$invoice_attachment ?>">View Attachement</a>
-                                                    </div>
-                                                <?php
-                                                    }
-                                                ?>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="order_status" class="col-form-label">Comment</label>
-                                                        <textarea rows="4" class="form-control" name="comment"><?= $invoice_comment ?></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" style="margin-bottom:40px">
-                                            <div class="col-md-4">
-                                                <button type="submit" class="btn btn-success btn-justify">Update</button>
-                                            </div>
-                                        </div>
-                                    <?php echo form_close()?>
                                 </div>
                             </div> 
 
@@ -248,6 +285,12 @@
             $('#invoiceAdditionalFields').show();
         }else{
             $('#invoiceAdditionalFields').hide();
+        }
+
+        if(order_status === 'RETURN_TO_SENDER'){
+            $('#returnAdditionalFields').show();
+        }else{
+            $('#returnAdditionalFields').hide();
         }
     }
 
