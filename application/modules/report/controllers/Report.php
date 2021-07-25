@@ -194,53 +194,64 @@ class Report extends MX_Controller {
     }
 
         public function bdtask_todays_sales_report(){
-        $sales_report = $this->report_model->todays_sales_report();
-        $sales_amount = 0;
-        if (!empty($sales_report)) {
-            $i = 0;
-            foreach ($sales_report as $k => $v) {
-                $i++;
-                $sales_report[$k]['sl'] = $i;
-                $sales_report[$k]['sales_date'] = $this->occational->dateConvert($sales_report[$k]['date']);
-                $sales_amount = $sales_amount + $sales_report[$k]['total_amount'];
+            $sales_channel = $this->input->get('sales_channel');
+            $logistics = $this->input->get('logistics');
+            $from_date = $this->input->get('from_date');
+            $to_date  = $this->input->get('to_date');
+            $sales_report = $this->report_model->sales_report($from_date, $to_date, $sales_channel, $logistics);
+            $logistics_list = $this->report_model->logistics();
+          
+            $sales_amount = 0;
+            if (!empty($sales_report)) {
+                $i = 0;
+                foreach ($sales_report as $k => $v) {
+                    $i++;
+                    $sales_report[$k]['sl'] = $i;
+                    $sales_report[$k]['sales_date'] = $this->occational->dateConvert($sales_report[$k]['date']);
+                    $sales_amount = $sales_amount + $sales_report[$k]['total_amount'];
+                }
             }
-        }
-        $data = array(
-            'title'        => display('sales_report'),
-            'sales_amount' => number_format($sales_amount, 2, '.', ','),
-            'sales_report' => $sales_report,
-        );
-        $data['module']   = "report";
-        $data['page']     = "sales_report"; 
-        echo modules::run('template/layout', $data);
+            $data = array(
+                'title'        => display('sales_report'),
+                'sales_amount' => number_format($sales_amount, 2, '.', ','),
+                'sales_report' => $sales_report,
+                'logistics_list' => $logistics_list
+            );
+            $data['module']   = "report";
+            $data['page']     = "sales_report"; 
+            echo modules::run('template/layout', $data);
         }
 
         public function bdtask_datewise_sales_report(){
             $sales_channel = $this->input->get('sales_channel');
-          $from_date = $this->input->get('from_date');
-           $to_date  = $this->input->get('to_date');
-          $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel);
-        $sales_amount = 0;
-        if (!empty($sales_report)) {
-            $i = 0;
-            foreach ($sales_report as $k => $v) {
-                $i++;
-                $sales_report[$k]['sl'] = $i;
-                $sales_report[$k]['sales_date'] = $this->occational->dateConvert($sales_report[$k]['date']);
-                $sales_amount = $sales_amount + $sales_report[$k]['total_amount'];
+            $from_date = $this->input->get('from_date');
+            $to_date  = $this->input->get('to_date');
+            $logistics = $this->input->get('logistics');
+            $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel, $logistics);
+            $logistics_list = $this->report_model->logistics();
+            $sales_amount = 0;
+            if (!empty($sales_report)) {
+                $i = 0;
+                foreach ($sales_report as $k => $v) {
+                    $i++;
+                    $sales_report[$k]['sl'] = $i;
+                    $sales_report[$k]['sales_date'] = $this->occational->dateConvert($sales_report[$k]['date']);
+                    $sales_amount = $sales_amount + $sales_report[$k]['total_amount'];
+                }
             }
-        }
-        $data = array(
-            'title'        => display('sales_report'),
-            'sales_amount' => $sales_amount,
-            'sales_report' => $sales_report,
-            'from_date'    => $from_date,
-            'to_date'      => $to_date,
-            'sales_channel'=> $sales_channel,
-        );
-        $data['module']   = "report";
-        $data['page']     = "sales_report"; 
-        echo modules::run('template/layout', $data); 
+            $data = array(
+                'title'         => display('sales_report'),
+                'sales_amount'  => $sales_amount,
+                'sales_report'  => $sales_report,
+                'from_date'     => $from_date,
+                'to_date'       => $to_date,
+                'sales_channel' => $sales_channel,
+                'logistics'     => $logistics,
+                'logistics_list' => $logistics_list
+            );
+            $data['module']   = "report";
+            $data['page']     = "sales_report"; 
+            echo modules::run('template/layout', $data); 
         }
 
         public function bdtask_userwise_sales_report(){

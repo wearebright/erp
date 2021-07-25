@@ -8,28 +8,49 @@
                         <?php
                         $today = date('Y-m-d');
                         ?>
-                        <div class="form-group">
-                            <label class="" for="from_date"><?php echo display('start_date') ?></label>
-                            <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
-                        </div> 
+                        <div class="row">
+                            <div class="form-group col-md-2" style="min-width:150px;">
+                                <label for="from_date"><?php echo display('sales_channel') ?></label>
+                                <select name="sales_channel" class="form-control">
+                                    <option <?= $sales_channel=='All'?"selected":"" ?> value="All">All</option>
+                                    <option <?= $sales_channel=='Website'?"selected":"" ?> value="Website">Website</option>
+                                    <option <?= $sales_channel=='Social Media'?"selected":"" ?> value="Social Media">Social Media</option> 
+                                    <option <?= $sales_channel=='Lazada'?"selected":"" ?> value="Lazada">Lazada</option> 
+                                    <option <?= $sales_channel=='Shopee'?"selected":"" ?> value="Shopee">Shopee</option>                                            
+                                    <option <?= $sales_channel=='SH Partner'?"selected":"" ?> value="SH Partner">SH Partner</option>  
+                                </select> 
+                            </div> 
+                            <div class="form-group col-md-2" style="min-width:150px;">
+                                <label for="from_date"><?php echo display('logistics') ?></label>
+                                <select name="logistics" class="form-control">
+                                    <option <?= $logistics=='All'?"selected":"" ?> value="All">All</option>
+                                    <?php foreach ($logistics_list as $key => $item) { ?>
+                                        <option <?= $logistics == $item['logistics_name']?"selected":"" ?> value="<?= $item['logistics_name'] ?>"><?= $item['logistics_name'] ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select> 
+                            </div> 
+                            <div class="form-group col-md-2">
+                                <label for="from_date"><?php echo display('start_date') ?></label>
+                                <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
+                            </div> 
 
-                        <div class="form-group">
-                            <label class="" for="to_date"><?php echo display('end_date') ?></label>
-                            <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
-                        </div>  
-                        <div class="form-group" style="min-width:150px;">
-                        <select name="sales_channel" class="form-control" required="">
-                            <option <?= $sales_channel=='All'?"selected":"" ?> value="All">All</option>
-                            <option <?= $sales_channel=='Website'?"selected":"" ?> value="Website">Website</option>
-                            <option <?= $sales_channel=='Social Media'?"selected":"" ?> value="Social Media">Social Media</option> 
-                            <option <?= $sales_channel=='Lazada'?"selected":"" ?> value="Lazada">Lazada</option> 
-                            <option <?= $sales_channel=='Shopee'?"selected":"" ?> value="Shopee">Shopee</option>                                            
-                            <option <?= $sales_channel=='SH Partner'?"selected":"" ?> value="SH Partner">SH Partner</option>  
-                        </select> 
-                        </div> 
-                        <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>
-                        <a  class="btn btn-warning" href="#" onclick="printDiv('purchase_div')"><?php echo display('print') ?></a>
-                        <?php echo form_close() ?>
+                            <div class="form-group col-md-2">
+                                <label for="to_date"><?php echo display('end_date') ?></label>
+                                <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
+                            </div>  
+                            <div class="col-md-2">
+                                <label style="margin-bottom: 25px; display: block;"></label>
+                                <div class="">
+                                    <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>
+                                    <a  class="btn btn-warning" href="#" onclick="printDiv('purchase_div')"><?php echo display('print') ?></a>
+                                    <?php echo form_close() ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -94,6 +115,8 @@
                                         <tr>
                                             <th><?php echo display('sales_date') ?></th>
                                             <th><?php echo display('invoice_no') ?></th>
+                                            <th><?php echo display('sale_by') ?></th>
+                                            <th><?php echo display('logistics') ?></th>
                                             <th><?php echo display('customer_name') ?></th>
                                             <th><?php echo display('total_amount') ?></th>
                                         </tr>
@@ -112,6 +135,8 @@
                                     <td><?php echo $sales['sales_date']?></td>
                                     <td>
                                             <?php echo $sales['invoice']?></td>
+                                        <td><?php echo $sales['first_name']." ". $sales['last_name']?></td>
+                                        <td><?php echo $sales['courier']?></td>
                                     <td><?php echo $sales['customer_name']?></td>
                             <td class="text-right">
                                     <?php 
@@ -134,7 +159,7 @@
                                     </tbody>
                                      <tfoot>
                                         <tr>
-                                            <td colspan="3" class="text-right"><b><?php echo display('total_seles') ?></b></td>
+                                            <td colspan="5" class="text-right"><b><?php echo display('total_seles') ?></b></td>
                                             <td class="text-right"><b><?php echo (($position == 0) ? "$currency ". number_format($subtotal) : number_format($subtotal) ." $currency") ?></b></td>
                                         </tr>
                                     </tfoot>

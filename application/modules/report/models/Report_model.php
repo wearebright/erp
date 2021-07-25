@@ -206,8 +206,8 @@ class Report_model extends CI_Model {
     }
 
 
-        //Retrieve todays_sales_report
-        public function todays_sales_report() {
+    //Retrieve todays_sales_report
+    public function todays_sales_report() {
         $today = date('Y-m-d');
         $this->db->select("a.*,b.customer_id,b.customer_name");
         $this->db->from('invoice a');
@@ -219,18 +219,27 @@ class Report_model extends CI_Model {
             return $query->result_array();
         }
         return false;
-     }
+    }
 
-         //Retrieve all Report
-    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel) {
-        $this->db->select("a.*,b.*");
+    public function sales_report($from_date, $to_date,$sales_channel, $logistics) {
+        $this->db->select("a.*,b.*, u.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
-        $this->db->where('a.date >=', $from_date);
-        $this->db->where('a.date <=', $to_date);
-        if($sales_channel!="All"){
+        $this->db->join('users u', 'u.user_id = a.sales_by','left');
+
+        if($from_date && $to_date){
+            $this->db->where('a.date >=', $from_date);
+            $this->db->where('a.date <=', $to_date);
+        }
+        
+        if($sales_channel !== "All" && $sales_channel){
             $this->db->where('a.sales_channel =', $sales_channel);
         }
+
+        if($logistics !== "All" && $logistics){
+            $this->db->where('a.courier =', $logistics);
+        }
+
         $this->db->order_by('a.date', 'desc');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -239,8 +248,47 @@ class Report_model extends CI_Model {
         return false;
     }
 
-        //Retrieve todays_purchase_report
-       public function todays_purchase_report() {
+         //Retrieve all Report
+    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics) {
+        $this->db->select("a.*,b.*, u.*");
+        $this->db->from('invoice a');
+        $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
+        $this->db->join('users u', 'u.user_id = a.sales_by','left');
+        if($from_date && $to_date){
+            $this->db->where('a.date >=', $from_date);
+            $this->db->where('a.date <=', $to_date);
+        }
+        
+        if($sales_channel !== "All" && $sales_channel){
+            $this->db->where('a.sales_channel =', $sales_channel);
+        }
+
+        if($logistics !== "All" && $logistics){
+            $this->db->where('a.courier =', $logistics);
+        }
+
+        
+        $this->db->order_by('a.date', 'desc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function logistics() {
+        $this->db->select('*');
+        $this->db->from('logistics');
+        $this->db->where('status',1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    //Retrieve todays_purchase_report
+    public function todays_purchase_report() {
         $today = date('Y-m-d');
         $this->db->select("a.*,b.supplier_id,b.supplier_name");
         $this->db->from('product_purchase a');

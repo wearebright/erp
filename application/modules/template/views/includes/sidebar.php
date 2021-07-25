@@ -328,7 +328,20 @@
                         echo " ";
                     }?>"><a href="<?php echo base_url('sales_report') ?>"><?php echo display('sales_report') ?></a></li>
                      <?php } ?>
-
+                    <?php if($this->permission1->method('sales_report_product_wise','read')->access()){ ?>
+                        <li class="treeview <?php if ($this->uri->segment('1') == ("product_wise_sales_report")){
+                            echo "active";
+                        } else {
+                            echo " ";
+                        }?>"><a href="<?php echo base_url('product_wise_sales_report') ?>"><?php echo display('sales_report_product_wise') ?></a></li>
+                     <?php } ?>
+                    <?php if($this->permission1->method('sales_report_category_wise','read')->access()){ ?>
+                        <li class="treeview <?php if ($this->uri->segment('1') == ("category_sales_report")){
+                            echo "active";
+                        } else {
+                            echo " ";
+                        }?>"><a href="<?php echo base_url('category_sales_report') ?>"><?php echo display('sales_report_category_wise') ?></a></li>
+                     <?php } ?>
                     <?php if($this->permission1->method('user_wise_sales_report','read')->access()){ ?>
                         <li class="treeview <?= $this->uri->segment('1') == ("userwise_sales_report")? 'active':''; ?>">
                             <a href="<?php echo base_url('userwise_sales_report') ?>"><?php echo display('user_wise_sales_report') ?></a>
@@ -361,20 +374,6 @@
                     } else {
                         echo " ";
                     }?>"><a href="<?php echo base_url('purchase_report_categorywise') ?>"><?php echo display('purchase_report_category_wise') ?></a></li>
-                     <?php } ?>
-             <?php if($this->permission1->method('sales_report_product_wise','read')->access()){ ?>
-                    <li class="treeview <?php if ($this->uri->segment('1') == ("product_wise_sales_report")){
-                        echo "active";
-                    } else {
-                        echo " ";
-                    }?>"><a href="<?php echo base_url('product_wise_sales_report') ?>"><?php echo display('sales_report_product_wise') ?></a></li>
-                     <?php } ?>
-             <?php if($this->permission1->method('sales_report_category_wise','read')->access()){ ?>
-                    <li class="treeview <?php if ($this->uri->segment('1') == ("category_sales_report")){
-                        echo "active";
-                    } else {
-                        echo " ";
-                    }?>"><a href="<?php echo base_url('category_sales_report') ?>"><?php echo display('sales_report_category_wise') ?></a></li>
                      <?php } ?>
                      <?php if($this->permission1->method('invoice_return','read')->access()){ ?>
                       <li class="treeview <?php if ($this->uri->segment('1') == ("sales_return")){
