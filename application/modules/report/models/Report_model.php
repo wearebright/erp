@@ -498,7 +498,7 @@ class Report_model extends CI_Model {
         return false;
     }
 
-        public function product_list(){
+    public function product_list(){
         $this->db->select('*');
         $this->db->from('product_information');
         $query = $this->db->get();
@@ -595,5 +595,139 @@ class Report_model extends CI_Model {
         }
         return false;
     }
+
+    public function return_to_sender_report($from_date,$to_date,$product_id) {
+        $this->db->select("sum(a.quantity) as shipments, sum(a.total_price) as product_total_amount, a.*,b.product_name,b.product_model,c.date,c.total_amount");
+        $this->db->from('invoice_details a');
+        $this->db->join('product_information b', 'b.product_id = a.product_id');
+        $this->db->join('invoice c', 'c.invoice_id = a.invoice_id');
+        $this->db->join('customer_information d', 'd.customer_id = c.customer_id');
+        $this->db->where('c.order_status =', 'RETURN_TO_SENDER');
+        $this->db->where('c.date >=', $from_date);
+        $this->db->where('c.date <=', $to_date);
+        if($product_id){
+            $this->db->where('a.product_id', $product_id);   
+        }
+        $this->db->order_by('c.date', 'desc');
+        $this->db->group_by('a.product_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function top_returning_product_report($from_date,$to_date,$product_id) {
+        $this->db->select(
+            "a.*,
+            (Select sum(quantity) as shipment 
+                from invoice_details 
+                left join invoice on invoice.invoice_id = invoice_details.invoice_id
+                where invoice_details.product_id = a.product_id
+            ) as shipment, 
+            (Select sum(quantity) as return_qty 
+                from invoice_details 
+                left join invoice on invoice.invoice_id = invoice_details.invoice_id
+                where invoice.order_status = 'RETURN_TO_SENDER'
+                and 
+                invoice_details.product_id = a.product_id
+            ) as return_qty, 
+            b.product_name,
+            b.product_model,
+            c.date,
+            c.total_amount"
+        );
+        $this->db->from('invoice_details a');
+        $this->db->join('product_information b', 'b.product_id = a.product_id');
+        $this->db->join('invoice c', 'c.invoice_id = a.invoice_id');
+        $this->db->join('customer_information d', 'd.customer_id = c.customer_id');
+        // $this->db->where('c.order_status =', 'RETURN_TO_SENDER');
+        $this->db->where('c.date >=', $from_date);
+        $this->db->where('c.date <=', $to_date);
+        if($product_id){
+            $this->db->where('a.product_id', $product_id);   
+        }
+        $this->db->order_by('return_qty', 'asc');
+        $this->db->group_by('a.product_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+
+    /*Total Sales Report in given date range */
+    public function total_sales_report($start_date,$end_date, $product_id = null) {
+        $this->db->select("a.date,a.invoice,b.invoice_id,
+            CAST(sum(total_price) AS DECIMAL(16,2)) as total_sale");
+        $this->db->select('CAST(sum(`quantity`*`supplier_rate`) AS DECIMAL(16,2)) as total_supplier_rate', FALSE);
+        $this->db->select("CAST(SUM(total_price) - SUM(`quantity`*`supplier_rate`) AS DECIMAL(16,2)) AS total_profit");
+        $this->db->from('invoice a');
+        $this->db->join('invoice_details b', 'b.invoice_id = a.invoice_id');
+        
+        if($start_date && $end_date){
+            $this->db->where('a.date >=', $start_date);
+            $this->db->where('a.date <=', $end_date);
+        }
+
+        if($product_id){
+            $this->db->where('b.product_id', $product_id);   
+        }
+
+        $this->db->group_by('b.invoice_id');
+        $this->db->order_by('a.invoice', 'desc');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+        {
+            return $query->row(); 
+            
+        }
+        return false;
+    }
+
+
+    public function rts_prone_areas($from_date,$to_date,$product_id) {
+        $this->db->select("sum(a.quantity) as shipments, sum(a.total_price) as product_total_amount, a.*,b.product_name, c.region, b.product_model,c.date,c.total_amount");
+        $this->db->from('invoice_details a');
+        $this->db->join('product_information b', 'b.product_id = a.product_id');
+        $this->db->join('invoice c', 'c.invoice_id = a.invoice_id');
+        $this->db->join('customer_information d', 'd.customer_id = c.customer_id');
+        $this->db->where('c.order_status =', 'RETURN_TO_SENDER');
+        $this->db->where('c.date >=', $from_date);
+        $this->db->where('c.date <=', $to_date);
+        if($product_id){
+            $this->db->where('a.product_id', $product_id);   
+        }
+        $this->db->order_by('shipments', 'asc');
+        $this->db->group_by('c.region');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    public function rts_reasons($from_date,$to_date,$product_id) {
+        $this->db->select("sum(a.quantity) as shipments, sum(a.total_price) as product_total_amount, a.*,b.product_name, c.return_reason, b.product_model,c.date,c.total_amount");
+        $this->db->from('invoice_details a');
+        $this->db->join('product_information b', 'b.product_id = a.product_id');
+        $this->db->join('invoice c', 'c.invoice_id = a.invoice_id');
+        $this->db->join('customer_information d', 'd.customer_id = c.customer_id');
+        $this->db->where('c.order_status =', 'RETURN_TO_SENDER');
+        $this->db->where('c.date >=', $from_date);
+        $this->db->where('c.date <=', $to_date);
+        if($product_id){
+            $this->db->where('a.product_id', $product_id);   
+        }
+        $this->db->order_by('shipments', 'asc');
+        $this->db->group_by('c.return_reason');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
 }
 

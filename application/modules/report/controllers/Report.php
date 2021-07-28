@@ -419,7 +419,7 @@ class Report extends MX_Controller {
      }
 
 
-     public function bdtask_sale_report_productwise(){
+    public function bdtask_sale_report_productwise(){
         $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-d')) ;
         $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
         $product_id = (!empty($this->input->get('product_id'))?$this->input->get('product_id'):'');
@@ -585,6 +585,161 @@ class Report extends MX_Controller {
         $data['module']   = "report";
         $data['page']     = "profit_report"; 
         echo modules::run('template/layout', $data);
-     }
+    }
+
+    public function return_to_sender_report(){
+        $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-01')) ;
+        $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
+        $product_id = (!empty($this->input->get('product_id'))?$this->input->get('product_id'):'');
+        $rts_report = $this->report_model->return_to_sender_report($from_date,$to_date,$product_id);
+        $product_list = $this->report_model->product_list();
+
+        $total_sales = $this->report_model->total_sales_report($from_date,$to_date,$product_id);
+
+        if (!empty($product_report)) {
+            $i = 0;
+            foreach ($rts_report as $k => $v) {
+                $i++;
+                $rts_report[$k]['sl'] = $i;
+            }
+        }
+        $sub_total = 0;
+        if (!empty($rts_report)) {
+            foreach ($rts_report as $k => $v) {
+                $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
+                $sub_total += (int)$v['product_total_amount'];
+            }
+        }
+
+        $rts_percentage = '0%';
+        if($sub_total){
+            $rts_percentage = number_format((($sub_total / $total_sales->total_sale) * 100), 2, '.', ',').'%';
+        }
+        
+
+
+        $data = array(
+            'title'          => display('return_to_sender_report'),
+            'sub_total'      => number_format($sub_total, 2, '.', ','),
+            'rts_report' => $rts_report,
+            'product_list'   => $product_list,
+            'product_id'     => $product_id,
+            'from'           => $from_date,
+            'to'             => $to_date,
+            'rts_percentage' => $rts_percentage,
+            'total_sales' => $total_sales ? $total_sales->total_sale: 0,
+        );
+        $data['module']   = "report";
+        $data['page']     = "return_to_sender_report"; 
+        echo modules::run('template/layout', $data);
+    }
+
+    public function top_returning_product_report(){
+        $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date') : date('Y-m-01')) ;
+        $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date') : date('Y-m-d'));
+        $product_id = (!empty($this->input->get('product_id'))?$this->input->get('product_id'):'');
+        $rts_report = $this->report_model->top_returning_product_report($from_date,$to_date,$product_id);
+        $product_list = $this->report_model->product_list();
+
+        if (!empty($product_report)) {
+            $i = 0;
+            foreach ($rts_report as $k => $v) {
+                $i++;
+                $rts_report[$k]['sl'] = $i;
+            }
+        }
+        $sub_total = 0;
+        if (!empty($rts_report)) {
+            foreach ($rts_report as $k => $v) {
+                $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
+                $sub_total += (int)$v['product_total_amount'];
+            }
+        }
+
+        $data = array(
+            'title'          => display('top_returning_product'),
+            'sub_total'      => number_format($sub_total, 2, '.', ','),
+            'rts_report' => $rts_report,
+            'product_list'   => $product_list,
+            'product_id'     => $product_id,
+            'from'           => $from_date,
+            'to'             => $to_date,
+        );
+        $data['module']   = "report";
+        $data['page']     = "top_returning_product"; 
+        echo modules::run('template/layout', $data);
+    }
+
+    public function rts_prone_areas_report(){
+        $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date') : date('Y-m-01')) ;
+        $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date') : date('Y-m-d'));
+        $product_id = (!empty($this->input->get('product_id'))?$this->input->get('product_id'):'');
+        $rts_report = $this->report_model->rts_prone_areas($from_date,$to_date,$product_id);
+        $product_list = $this->report_model->product_list();
+
+        if (!empty($product_report)) {
+            $i = 0;
+            foreach ($rts_report as $k => $v) {
+                $i++;
+                $rts_report[$k]['sl'] = $i;
+            }
+        }
+        $sub_total = 0;
+        if (!empty($rts_report)) {
+            foreach ($rts_report as $k => $v) {
+                $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
+                $sub_total += (int)$v['shipments'];
+            }
+        }
+
+        $data = array(
+            'title'          => display('rts_prone_areas'),
+            'sub_total'      => number_format($sub_total, 2, '.', ','),
+            'rts_report' => $rts_report,
+            'product_list'   => $product_list,
+            'product_id'     => $product_id,
+            'from'           => $from_date,
+            'to'             => $to_date,
+        );
+        $data['module']   = "report";
+        $data['page']     = "rts_prone_areas"; 
+        echo modules::run('template/layout', $data);
+    }
+
+    public function rts_reasons_report(){
+        $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date') : date('Y-m-01')) ;
+        $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date') : date('Y-m-d'));
+        $product_id = (!empty($this->input->get('product_id'))?$this->input->get('product_id'):'');
+        $rts_report = $this->report_model->rts_reasons($from_date,$to_date,$product_id);
+        $product_list = $this->report_model->product_list();
+
+        if (!empty($product_report)) {
+            $i = 0;
+            foreach ($rts_report as $k => $v) {
+                $i++;
+                $rts_report[$k]['sl'] = $i;
+            }
+        }
+        $total_shipment = 0;
+        if (!empty($rts_report)) {
+            foreach ($rts_report as $k => $v) {
+                $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
+                $total_shipment += (int)$v['shipments'];
+            }
+        }
+
+        $data = array(
+            'title'          => display('rts_reasons'),
+            'total_shipment'      => number_format($total_shipment, 2, '.', ','),
+            'rts_report' => $rts_report,
+            'product_list'   => $product_list,
+            'product_id'     => $product_id,
+            'from'           => $from_date,
+            'to'             => $to_date,
+        );
+        $data['module']   = "report";
+        $data['page']     = "rts_reasons"; 
+        echo modules::run('template/layout', $data);
+    }
 }
 
