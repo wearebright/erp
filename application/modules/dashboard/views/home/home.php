@@ -163,7 +163,7 @@ $searchdate =(!empty($announcementdate)?$announcementdate:date('F Y'));
                                                         <div class="title_Container2" style="margin-top: -85px;">
                                                             <div class="detailsContainer">
                                                                 <p class="title"><?= $announcement->title ?></p>
-                                                                <p class="description"><?= $announcement->description ?></p>
+                                                                <p class="description"><?= word_limiter($announcement->description,30) ?></p>
                                                                 <p class="datePosted">Posted on <?= date('F d, Y h:i A', strtotime($announcement->created_at)) ?> by <?= $announcement->name ?></p>
                                                             </div>
                                                         </div>

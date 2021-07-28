@@ -49,7 +49,7 @@
                             <div class="title_Container2" style="margin-top: -85px;">
                                 <div class="detailsContainer">
                                     <p class="title"><?= $post->title ?></p>
-                                    <p class="description"><?= $post->description ?></p>
+                                    <p class="description"><?= word_limiter($post->description,30) ?></p>
                                     <p class="datePosted">Posted on <?= date('F d, Y h:i A', strtotime($post->created_at)) ?> by <?= $post->name ?></p>
                                 </div>
                             </div>

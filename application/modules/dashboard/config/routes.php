@@ -32,3 +32,7 @@ $route['edit_profile']   = "dashboard/home/profile";
 $route['change_password']= "dashboard/home/change_password_form";
 $route['print_setting']  = "dashboard/padprint/index";
 
+$route['group_list'] = "dashboard/group/bdtask_grouplist";
+$route['add_group'] = "dashboard/group/bdtask_groupform";
+$route['edit_group/(:num)'] = "dashboard/group/bdtask_groupform/$1";
+$route['delete_group/(:num)'] = "dashboard/group/bdtask_deletegroup/$1";
