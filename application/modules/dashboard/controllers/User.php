@@ -78,7 +78,9 @@ class User extends MX_Controller {
 			'image'   	  => (!empty($image)?$image:$this->input->post('old_image')),
 			'status'      => $this->input->post('status'),
 			'user_type'   => $this->input->post('user_type'),
+			'group_id'	  => $this->input->post('group_id')
 		);
+		$data['groups'] = $this->user_model->groups();
 
 		/*-----------------------------------*/
 		if ($this->form_validation->run()) {

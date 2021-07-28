@@ -58,7 +58,7 @@
                     </div>
                 </div> 
 
-          <div class="form-group row">
+                    <div class="form-group row">
                         <label for="user_type" class="col-sm-2 col-form-label text-d"><?php echo display('user_type')?> <span class="text-danger">*</span></label>
                         <div class="col-sm-8">
                              <label class="radio-inline">
@@ -70,6 +70,24 @@
                            
                         </div>
                     </div>
+
+                        <div class="form-group row" id="group_id">
+                            <label for="group_id" class="col-sm-2 col-form-label text-d"><?php echo display('group_name') ?> </label>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="group_id">
+                                    <option></option>
+                                    <?php
+                                        foreach ($groups as $key => $value) {
+                                    ?>
+                                    <option <?= $value->id === $user->group_id ? 'selected': '' ?> value="<?= $value->id ?>" ><?= $value->group_name ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label text-d"><?php echo display('status')?> <span class="text-danger">*</span></label>
                         <div class="col-sm-8">

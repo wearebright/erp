@@ -13,6 +13,7 @@ class User_model extends CI_Model {
             'last_name'  => $data['last_name'],
             'logo'       => $data['image'],
             'status'     => $data['status'],
+			'group_id'	 => $data['group_id'],
         );
         $this->db->insert('users', $users);
         $user_login = array(
@@ -46,8 +47,10 @@ class User_model extends CI_Model {
 				a.*,a.logo as image,b.*,b.status as status,b.username as email
 			")
 			->from('users a')
+			->where('a.id', $id)
 			->join('user_login b','b.user_id = a.user_id')
 			->order_by('a.user_id', 'desc')
+			
 			->get()
 			->row();
 	}
@@ -60,7 +63,8 @@ class User_model extends CI_Model {
             'first_name' => $data['first_name'],
             'last_name'  => $data['last_name'],
             'logo'       => $data['image'],
-            'status'     => $data['status']
+            'status'     => $data['status'],
+			'group_id'	 => $data['group_id'],
         );
         $this->db->where('user_id', $data['user_id']);
         $this->db->update('users', $userdata);
@@ -106,5 +110,14 @@ class User_model extends CI_Model {
         return $con;
     }
 
+	public function groups()
+	{
+		return $this->db->select("*")
+			->from('user_group')
+			->where('status', 1)
+			->order_by('group_name', 'asc')
+			->get()
+			->result();
+	}
 
 }
