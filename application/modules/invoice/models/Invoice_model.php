@@ -1305,5 +1305,32 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         }
         return false;
     }
+
+    public function departments() {
+        return $this->db->select("*")
+			->from('department')
+			->where('status', 1)
+			->order_by('department_name', 'asc')
+			->get()
+			->result();
+    }
+
+    public function get_user_group($user_id){
+        return $this->db->select("*")
+        ->from('users')
+        ->where('user_id', $user_id)
+        ->get()
+        ->row();
+    } 
+
+    public function get_user_department($id){
+        return $this->db->select("a.*, b.id as group_id, b.department_id, b.group_name")
+			->from('department as a')
+            ->join('user_group as b', 'b.department_id = a.id','left')
+			->where('a.status', 1)
+            ->where('b.id', $id)
+			->get()
+			->row();
+    }
 }
 

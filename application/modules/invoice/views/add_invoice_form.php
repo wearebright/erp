@@ -59,21 +59,29 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" style="display: <?= $user_type == 1 ? 'block':'none' ?>;">
                                 <div class="form-group row">
                                     <label for="sales_channel" class="col-sm-3 col-form-label">Sales Channel<i class="text-danger">*</i>
                                     </label>
                                     <div class="col-sm-6">                                      
                                         <select name="sales_channel" class="form-control" required="">
-                                            <option value="Website">Website</option>
-                                            <option value="Social Media">Social Media</option> 
+                                            <?php 
+                                                foreach ($departments as $key => $value) {
+                                            ?>
+                                                    <option <?= $user_department->department_id === $value->id ? 'selected':'' ?> value="<?= $value->department_name ?>"><?= $value->department_name ?></option>
+                                            <?php
+                                                }
+                                            ?>
+                                            
+                                            <!-- <option value="Social Media">Social Media</option> 
                                             <option value="Lazada">Lazada</option> 
                                             <option value="Shopee">Shopee</option>                                            
-                                            <option value="SH Partner">SH Partner</option>  
+                                            <option value="SH Partner">SH Partner</option>   -->
                                         </select> 
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label"><?php echo display('date') ?> <i class="text-danger">*</i></label>
