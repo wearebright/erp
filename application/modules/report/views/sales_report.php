@@ -11,13 +11,28 @@
                         <div class="row">
                             <div class="form-group col-md-2" style="min-width:150px;">
                                 <label for="from_date"><?php echo display('sales_channel') ?></label>
-                                <select name="sales_channel" class="form-control">
+                                <select onchange="getTeam()" name="sales_channel" class="form-control">
                                     <option <?= $sales_channel=='All'?"selected":"" ?> value="All">All</option>
-                                    <option <?= $sales_channel=='Website'?"selected":"" ?> value="Website">Website</option>
-                                    <option <?= $sales_channel=='Social Media'?"selected":"" ?> value="Social Media">Social Media</option> 
-                                    <option <?= $sales_channel=='Lazada'?"selected":"" ?> value="Lazada">Lazada</option> 
-                                    <option <?= $sales_channel=='Shopee'?"selected":"" ?> value="Shopee">Shopee</option>                                            
-                                    <option <?= $sales_channel=='SH Partner'?"selected":"" ?> value="SH Partner">SH Partner</option>  
+                                    <?php 
+                                        foreach ($departments as $key => $value) {
+                                    ?>
+                                            <option <?= $sales_channel === $value->department_name ? 'selected':'' ?> value="<?= $value->department_name ?>"><?= $value->department_name ?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select> 
+                            </div> 
+                            <div class="form-group col-md-2" style="min-width:150px;">
+                                <label for="from_date"><?php echo display('group_name') ?></label>
+                                <select id="sales_team" name="sales_team" class="form-control">
+                                    <option <?= $selected_team=='All'?"selected":"" ?> value="All">All</option>  
+                                    <?php 
+                                        foreach ($teams as $key => $value) {
+                                    ?>
+                                            <option <?= $selected_team === $value->id ? 'selected':'' ?> value="<?= $value->id ?>"><?= $value->group_name ?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select> 
                             </div> 
                             <div class="form-group col-md-2" style="min-width:150px;">
@@ -33,12 +48,12 @@
                             </div> 
                             <div class="form-group col-md-2">
                                 <label for="from_date"><?php echo display('start_date') ?></label>
-                                <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
+                                <input type="text" autocomplete="off" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
                             </div> 
 
                             <div class="form-group col-md-2">
                                 <label for="to_date"><?php echo display('end_date') ?></label>
-                                <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
+                                <input type="text" autocomplete="off" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
                             </div>  
                             <div class="col-md-2">
                                 <label style="margin-bottom: 25px; display: block;"></label>
@@ -172,3 +187,34 @@
                 </div>
             </div>
         </div>
+<script>
+    $(document).ready(function (){
+        
+    })
+    function getTeam(){
+        var $dept = $('select[name=sales_channel] :selected').text();
+
+        var base_url = $("#base_url").val();
+
+        var myKeyVals = { department : $dept }
+
+        $.ajax({
+            url : base_url + "report/report/get_team_by_department/",
+            data:myKeyVals, 
+            type: "POST",
+            dataType: "json",
+            success: function(data)
+            {
+                $("#sales_team").empty();
+                $("#sales_team").append('<option value="All">All</option>');
+                data.forEach((el, key) => {
+                    $("#sales_team").append('<option value=' + el.id + '>' + el.group_name + '</option>');
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+</script>

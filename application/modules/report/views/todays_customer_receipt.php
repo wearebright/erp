@@ -25,7 +25,7 @@
                         <div class="col-sm-6">
                             <label class="col-sm-2" ><?php echo display('date') ?></label>
                             <div class="col-sm-4">
-                            <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('date') ?>" value="<?php echo $today;?>">
+                            <input type="text" autocomplete="off" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('date') ?>" value="<?php echo $today;?>">
                         </div> 
 
                         <div class="col-sm-2">

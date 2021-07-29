@@ -24,14 +24,14 @@
                                <div class="col-sm-6"> 
                             <label class="col-sm-4" for="from_date"><?php echo display('start_date') ?></label>
                             <div class="col-sm-8">
-                            <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from?>">
+                            <input type="text" autocomplete="off"  name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from?>">
                        
                              </div>
                          </div>
                         <div class="col-sm-6">
                             <label class="col-sm-4" for="to_date"><?php echo display('end_date') ?></label>
                             <div class="col-sm-8">
-                            <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to?>">
+                            <input type="text" autocomplete="off"  name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to?>">
                         </div>  
                         </div>
                             </div>

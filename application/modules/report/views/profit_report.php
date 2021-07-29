@@ -8,12 +8,12 @@
 		                <?php date_default_timezone_set("Asia/Dhaka"); $today = date('Y-m-d'); ?>
 		                    <div class="form-group">
 		                        <label for="from_date"><?php echo display('start_date') ?>:</label>
-		                        <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="<?php echo $from?>" placeholder="<?php echo display('start_date') ?>" >
+		                        <input autocomplete="off" type="text" name="from_date" class="form-control datepicker" id="from_date" value="<?php echo $from?>" placeholder="<?php echo display('start_date') ?>" >
 		                    </div> 
 
 		                    <div class="form-group">
 		                        <label for="to_date"><?php echo display('end_date') ?>:</label>
-		                        <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to?>">
+		                        <input autocomplete="off" type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to?>">
 		                    </div>  
 
 		                    <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>

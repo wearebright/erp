@@ -17,11 +17,11 @@
                             </div>
                             <div class="form-group col-sm-2"> 
                                 <label for="from_date"><?php echo display('start_date') ?></label>
-                                <input type="text" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo date('Y-m-d',strtotime($from)) ?>">
+                                <input type="text" autocomplete="off" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo date('Y-m-d',strtotime($from)) ?>">
                             </div>
                             <div class="form-group col-sm-2">
                                 <label for="to_date"><?php echo display('end_date') ?></label>
-                                <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo  date('Y-m-d',strtotime($to)) ?>">
+                                <input type="text" autocomplete="off" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo  date('Y-m-d',strtotime($to)) ?>">
                             </div>
                             <div class="col-sm-2">
                                 <label style="margin-bottom: 25px; display: block;"></label>

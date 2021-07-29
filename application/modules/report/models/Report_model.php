@@ -249,7 +249,7 @@ class Report_model extends CI_Model {
     }
 
          //Retrieve all Report
-    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics) {
+    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics, $team) {
         $this->db->select("a.*,b.*, u.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
@@ -265,6 +265,9 @@ class Report_model extends CI_Model {
 
         if($logistics !== "All" && $logistics){
             $this->db->where('a.courier =', $logistics);
+        }
+        if($team !== "All" && $team){
+            $this->db->where('u.group_id =', $team);
         }
 
         
@@ -727,6 +730,33 @@ class Report_model extends CI_Model {
             return $query->result_array();
         }
         return false;
+    }
+
+    public function departments() {
+        return $this->db->select("*")
+			->from('department')
+			->where('status', 1)
+			->order_by('department_name', 'asc')
+			->get()
+			->result();
+    }
+
+    public function get_team_by_department($dept){
+        return $this->db->select("a.*")
+			->from('user_group as a')
+			->join('department as b', 'b.id = a.department_id')
+            ->where('a.status', 1)
+            ->where('b.department_name', $dept)
+			->get()
+			->result();
+    }
+
+    public function get_teams(){
+        return $this->db->select("a.*")
+        ->from('user_group as a')
+        ->where('a.status', 1)
+        ->get()
+        ->result();
     }
 
 }

@@ -224,11 +224,19 @@ class Report extends MX_Controller {
 
         public function bdtask_datewise_sales_report(){
             $sales_channel = $this->input->get('sales_channel');
+            $selected_team = $this->input->get('sales_team'); 
             $from_date = $this->input->get('from_date');
             $to_date  = $this->input->get('to_date');
             $logistics = $this->input->get('logistics');
-            $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel, $logistics);
+            $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel, $logistics, $selected_team);
             $logistics_list = $this->report_model->logistics();
+            $teams = [];
+            if($sales_channel !== 'All' && $sales_channel){
+                $teams = $this->report_model->get_team_by_department($sales_channel);
+            }else{
+                $teams = $this->report_model->get_teams();
+            }
+
             $sales_amount = 0;
             if (!empty($sales_report)) {
                 $i = 0;
@@ -247,7 +255,10 @@ class Report extends MX_Controller {
                 'to_date'       => $to_date,
                 'sales_channel' => $sales_channel,
                 'logistics'     => $logistics,
-                'logistics_list' => $logistics_list
+                'logistics_list' => $logistics_list,
+                'departments'   => $this->report_model->departments(),
+                'teams'         => $teams,
+                'selected_team' => $selected_team
             );
             $data['module']   = "report";
             $data['page']     = "sales_report"; 
@@ -740,6 +751,18 @@ class Report extends MX_Controller {
         $data['module']   = "report";
         $data['page']     = "rts_reasons"; 
         echo modules::run('template/layout', $data);
+    }
+
+    public function get_team_by_department(){
+        $department = $this->input->post('department');
+        if($department !== 'All' && $department){
+            $teams = $this->report_model->get_team_by_department($department);
+        }else{
+            $teams = $this->report_model->get_teams();
+        }
+        
+        echo json_encode($teams,true);
+        die;
     }
 }
 
