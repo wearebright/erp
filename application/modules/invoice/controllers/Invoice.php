@@ -151,7 +151,7 @@ class Invoice extends MX_Controller {
         'is_desc'           => $descript,
         'is_serial'         => $isserial,
         'is_unit'           => $isunit,
-        'anb'               => $invoice_detail[0]['anb']
+        'awb'               => $invoice_detail[0]['awb']
         );
         $data['module']     = "invoice";
         $data['page']       = "invoice_html"; 
@@ -182,7 +182,7 @@ class Invoice extends MX_Controller {
                 'return_reason' => $this->input->post('reason',true),
                 'region'        => $this->input->post('region',true),
                 'shipped_date'  => $shipped_date,
-                'anb'           => $this->input->post('anb',true),
+                'awb'           => $this->input->post('awb',true),
             ]; 
             
 

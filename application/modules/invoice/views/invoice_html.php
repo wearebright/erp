@@ -64,8 +64,8 @@
                                         <div class="form-group row">
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label for="order_status" class="col-form-label">ANB</label>
-                                                    <input type="text" class="form-control" name="anb"><?= $anb ?>
+                                                    <label for="order_status" class="col-form-label">AWB</label>
+                                                    <input type="text" class="form-control" name="awb" value="<?= $awb ?>">
                                                 </div>
                                             </div>
                                         </div>
