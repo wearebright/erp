@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2021 at 06:08 PM
+-- Generation Time: Jul 29, 2021 at 04:36 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -193,7 +193,31 @@ INSERT INTO `acc_transaction` (`ID`, `VNo`, `Vtype`, `VDate`, `COAID`, `Narratio
 (106, '4482659925', 'INV', '2021-07-22', '10107', 'Inventory credit For Invoice No1010', '0.00', '400.00', '1', 0, '1', '2021-07-22 17:04:28', NULL, NULL, '1'),
 (107, '4482659925', 'INV', '2021-07-22', '102030000004', 'Customer debit For Invoice No -  1010 Customer Ian Dela Cruz', '1000.00', '0.00', '1', 0, '1', '2021-07-22 17:04:28', NULL, NULL, '1'),
 (108, '4482659925', 'INVOICE', '2021-07-22', '303', 'Sale Income For Invoice NO - 1010 Customer Ian Dela Cruz', '0.00', '600.00', '1', 0, '1', '2021-07-22 17:04:28', NULL, NULL, '1'),
-(109, '4482659925', 'INVOICE', '2021-07-22', '50203', 'Sale Income For Invoice NO - 1010 Customer Ian Dela Cruz', '0.00', '0.00', '1', 0, '1', '2021-07-22 17:04:28', NULL, NULL, '1');
+(109, '4482659925', 'INVOICE', '2021-07-22', '50203', 'Sale Income For Invoice NO - 1010 Customer Ian Dela Cruz', '0.00', '0.00', '1', 0, '1', '2021-07-22 17:04:28', NULL, NULL, '1'),
+(110, '20210725102948', 'Purchase', '2021-07-25', '10107', 'Inventory Debit For Supplier ABC Supplier', '90000.00', '0.00', '1', 0, '1', '2021-07-25 10:29:48', NULL, NULL, '1'),
+(111, '20210725102948', 'Purchase', '2021-07-25', '502000002', 'Supplier .ABC Supplier', '0.00', '90000.00', '1', 0, '1', '2021-07-25 00:00:00', NULL, NULL, '1'),
+(112, '20210725103058', 'Purchase', '2021-07-25', '10107', 'Inventory Debit For Supplier ABC Supplier', '45000.00', '0.00', '1', 0, '1', '2021-07-25 10:30:58', NULL, NULL, '1'),
+(113, '20210725103058', 'Purchase', '2021-07-25', '502000002', 'Supplier .ABC Supplier', '0.00', '45000.00', '1', 0, '1', '2021-07-25 00:00:00', NULL, NULL, '1'),
+(114, '4829395789', 'INV', '2021-07-25', '10107', 'Inventory credit For Invoice No1000', '0.00', '1800.00', '1', 0, '1', '2021-07-25 10:49:30', NULL, NULL, '1'),
+(115, '4829395789', 'INV', '2021-07-25', '102030000004', 'Customer debit For Invoice No -  1000 Customer Ian Dela Cruz', '1998.00', '0.00', '1', 0, '1', '2021-07-25 10:49:30', NULL, NULL, '1'),
+(116, '4829395789', 'INVOICE', '2021-07-25', '303', 'Sale Income For Invoice NO - 1000 Customer Ian Dela Cruz', '0.00', '198.00', '1', 0, '1', '2021-07-25 10:49:30', NULL, NULL, '1'),
+(117, '4829395789', 'INVOICE', '2021-07-25', '50203', 'Sale Income For Invoice NO - 1000 Customer Ian Dela Cruz', '0.00', '0.00', '1', 0, '1', '2021-07-25 10:49:30', NULL, NULL, '1'),
+(118, '1648399355', 'INV', '2021-07-25', '10107', 'Inventory credit For Invoice No1001', '0.00', '1800.00', '1', 0, '1', '2021-07-25 10:50:14', NULL, NULL, '1'),
+(119, '1648399355', 'INV', '2021-07-25', '102030000002', 'Customer debit For Invoice No -  1001 Customer John Doe', '1988.00', '0.00', '1', 0, '1', '2021-07-25 10:50:14', NULL, NULL, '1'),
+(120, '1648399355', 'INVOICE', '2021-07-25', '303', 'Sale Income For Invoice NO - 1001 Customer John Doe', '0.00', '188.00', '1', 0, '1', '2021-07-25 10:50:14', NULL, NULL, '1'),
+(121, '1648399355', 'INVOICE', '2021-07-25', '50203', 'Sale Income For Invoice NO - 1001 Customer John Doe', '0.00', '0.00', '1', 0, '1', '2021-07-25 10:50:14', NULL, NULL, '1'),
+(122, '8271444737', 'INV', '2021-07-25', '10107', 'Inventory credit For Invoice No1002', '0.00', '4500.00', '1', 0, '1', '2021-07-25 10:51:04', NULL, NULL, '1'),
+(123, '8271444737', 'INV', '2021-07-25', '102030000003', 'Customer debit For Invoice No -  1002 Customer Nicole Lumagui', '4995.00', '0.00', '1', 0, '1', '2021-07-25 10:51:04', NULL, NULL, '1'),
+(124, '8271444737', 'INVOICE', '2021-07-25', '303', 'Sale Income For Invoice NO - 1002 Customer Nicole Lumagui', '0.00', '495.00', '1', 0, '1', '2021-07-25 10:51:04', NULL, NULL, '1'),
+(125, '8271444737', 'INVOICE', '2021-07-25', '50203', 'Sale Income For Invoice NO - 1002 Customer Nicole Lumagui', '0.00', '0.00', '1', 0, '1', '2021-07-25 10:51:04', NULL, NULL, '1'),
+(126, '3312553429', 'INV', '2021-07-29', '10107', 'Inventory credit For Invoice No1003', '0.00', '2700.00', '1', 0, '2', '2021-07-29 06:35:23', NULL, NULL, '1'),
+(127, '3312553429', 'INV', '2021-07-29', '102030000004', 'Customer debit For Invoice No -  1003 Customer Ian Dela Cruz', '2967.00', '0.00', '1', 0, '2', '2021-07-29 06:35:23', NULL, NULL, '1'),
+(128, '3312553429', 'INVOICE', '2021-07-29', '303', 'Sale Income For Invoice NO - 1003 Customer Ian Dela Cruz', '0.00', '267.00', '1', 0, '2', '2021-07-29 06:35:23', NULL, NULL, '1'),
+(129, '3312553429', 'INVOICE', '2021-07-29', '50203', 'Sale Income For Invoice NO - 1003 Customer Ian Dela Cruz', '0.00', '0.00', '1', 0, '2', '2021-07-29 06:35:23', NULL, NULL, '1'),
+(130, '9854254257', 'INV', '2021-07-29', '10107', 'Inventory credit For Invoice No1004', '0.00', '900.00', '1', 0, '2', '2021-07-29 16:30:53', NULL, NULL, '1'),
+(131, '9854254257', 'INV', '2021-07-29', '102030000001', 'Customer debit For Invoice No -  1004 Customer Online Customer', '989.00', '0.00', '1', 0, '2', '2021-07-29 16:30:53', NULL, NULL, '1'),
+(132, '9854254257', 'INVOICE', '2021-07-29', '303', 'Sale Income For Invoice NO - 1004 Customer Online Customer', '0.00', '89.00', '1', 0, '2', '2021-07-29 16:30:53', NULL, NULL, '1'),
+(133, '9854254257', 'INVOICE', '2021-07-29', '50203', 'Sale Income For Invoice NO - 1004 Customer Online Customer', '0.00', '0.00', '1', 0, '2', '2021-07-29 16:30:53', NULL, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -272,10 +296,7 @@ CREATE TABLE `bulletin_announcement` (
 --
 
 INSERT INTO `bulletin_announcement` (`id`, `user_id`, `title`, `slug`, `banner`, `random_banner`, `description`, `attachment`, `read_by`, `created_at`, `updated_at`) VALUES
-(4, 1, 'Test', 'test', '', 'my-assets/image/announcement/background_default_2.jpg', 'Tset', '', ',1,', '2021-07-22 16:03:33', '2021-07-22 16:03:33'),
-(5, 1, 'Test', 'testc', 'my-assets/image/announcement/2021-07-11/964e41f63804ca1dbff43f9f34a1a40b.jpg', 'undefined', 'sdadasdsa', 'my-assets/image/announcement_attach/2021-07-11/3bf23a37c46db14319677c35c9d7d93c.pdf', ',1,', '2021-07-22 16:03:53', '2021-07-22 16:03:53'),
-(6, 1, 'asfsafs', 'asfsafs', '', 'my-assets/image/announcement/background_default_4.jpg', 'fsfasfasfsf', '', '', '2021-07-22 13:06:37', '2021-07-22 13:06:37'),
-(7, 1, 'Test', 'testc', '', 'undefined', 'afsdf', '', '', '2021-07-22 13:06:35', '2021-07-22 13:06:35');
+(4, 1, ' Mi Philippines has officially partnered with Lazada Philippines', 'mi-philippines-has-officially-partnered-with-lazada-philippines', '', 'my-assets/image/announcement/background_default_2.jpg', 'Launched in 2012, Lazada is the number-one online shopping and selling destination in Southeast Asia – present in Indonesia, Malaysia, the Philippines, Singapore, Thailand and Vietnam.', '', '', '2021-07-23 02:06:19', '2021-07-23 02:06:19');
 
 -- --------------------------------------------------------
 
@@ -298,7 +319,8 @@ CREATE TABLE `bulletin_slider` (
 --
 
 INSERT INTO `bulletin_slider` (`id`, `user_id`, `image`, `link`, `enabled`, `created_at`, `updated_at`) VALUES
-(1, 1, 'my-assets/image/slider/2021-07-09/4b2ae29775938b0648a132e4fd62c7fe.jpg', 'http://dev.saleerp.com:8200//bulletin_board', 1, '2021-07-09 12:12:51', '2021-07-09 12:12:51');
+(1, 1, 'my-assets/image/slider/2021-07-23/0996433ec3a4d536f331203188f24e2b.jpg', 'http://dev.saleerp.com:8200//bulletin_board', 1, '2021-07-23 01:54:12', '2021-07-23 01:54:12'),
+(2, 1, 'my-assets/image/slider/2021-07-23/6c06f23f89cb786bc37270310ddf97eb.jpg', 'http://dev.saleerp.com:8200//bulletin_board', 0, '2021-07-23 01:54:27', '2021-07-23 01:54:27');
 
 -- --------------------------------------------------------
 
@@ -318,7 +340,7 @@ CREATE TABLE `bulletin_sticky_image` (
 --
 
 INSERT INTO `bulletin_sticky_image` (`id`, `image`, `link`, `updated_at`) VALUES
-(1, 'my-assets/image/sticky/2021-07-11/11c57c06e2987d34431b36a184d8ef64.jpg', 'https://google.com', '2021-07-11 09:41:06');
+(1, 'my-assets/image/sticky/2021-07-23/6f723232b53b3444cdbf6b16cbfbec61.jpg', 'https://google.com', '2021-07-23 01:52:47');
 
 -- --------------------------------------------------------
 
@@ -341,6 +363,7 @@ CREATE TABLE `company_information` (
 --
 
 INSERT INTO `company_information` (`company_id`, `company_name`, `email`, `address`, `mobile`, `website`, `status`) VALUES
+('1', 'Seller\'s Hub, Inc.', 'hello@sellershubph.com', 'Zhang Place Blk9 Lot13 Metrosouth Subdivision, Manggahan, Gen. Trias, Cavite', '(046) 419 3439 | 419 3446', 'sellershubph.com', 1),
 ('1', 'Seller\'s Hub, Inc.', 'hello@sellershubph.com', 'Zhang Place Blk9 Lot13 Metrosouth Subdivision, Manggahan, Gen. Trias, Cavite', '(046) 419 3439 | 419 3446', 'sellershubph.com', 1);
 
 -- --------------------------------------------------------
@@ -431,6 +454,29 @@ CREATE TABLE `daily_closing` (
   `adjustment` float DEFAULT NULL,
   `status` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `department_name` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`id`, `department_name`, `status`) VALUES
+(1, 'Website', 1),
+(2, 'Social Media', 1),
+(3, 'Lazada', 1),
+(4, 'Shopee', 1),
+(5, 'SH Partner', 1);
 
 -- --------------------------------------------------------
 
@@ -583,29 +629,27 @@ CREATE TABLE `invoice` (
   `bank_id` varchar(30) DEFAULT NULL,
   `payment_type` int(11) NOT NULL,
   `is_online` int(11) NOT NULL DEFAULT 1,
-  `sales_channel` enum('Website','Social Media','Lazada','Shopee') NOT NULL,
-  `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED') NOT NULL DEFAULT 'NEW',
+  `sales_channel` enum('Website','Social Media','Lazada','Shopee','SH Partner') NOT NULL,
+  `order_status` enum('NEW','WAREHOUSE','READY','SHIPPED','RETURN_TO_SENDER') NOT NULL DEFAULT 'NEW',
   `shipped_date` date DEFAULT NULL,
   `attachment` text DEFAULT NULL,
-  `comment` text DEFAULT NULL
+  `comment` text DEFAULT NULL,
+  `courier` varchar(255) DEFAULT NULL,
+  `return_reason` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `awb` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`, `shipped_date`, `attachment`, `comment`) VALUES
-(1, 9271513142, 2, '2021-07-10', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'SHIPPED', '2021-07-10', '', ''),
-(2, 9915874487, 1, '2021-04-20', '30000.00', '30000.00', '0.00', '0.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, 'Test'),
-(3, 1642631776, 3, '2021-05-27', '15000.00', '15000.00', '0.00', '0.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, 'testTest'),
-(4, 2969364686, 1, '2021-05-27', '3000.00', '3000.00', '0.00', '0.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL, NULL),
-(5, 2257121656, 2, '2021-06-10', '30000.00', '0.00', '30000.00', '0.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'WAREHOUSE', NULL, NULL, 'Test Comment'),
-(6, 8764564874, 3, '2021-06-18', '350.00', '0.00', '350.00', '30000.00', '0.00', 1005, NULL, '50.00', '50.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
-(7, 1894516324, 2, '2021-06-18', '4750.00', '0.00', '5100.00', '350.00', '0.00', 1006, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
-(8, 7335952233, 1, '2021-06-18', '5750.00', '0.00', '5750.00', '5100.00', '0.00', 1007, NULL, '250.00', '250.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Lazada', 'NEW', NULL, NULL, NULL),
-(9, 6112845356, 3, '2021-07-10', '9000.00', '0.00', '14750.00', '5750.00', '150.00', 1008, NULL, '0.00', '1000.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Shopee', 'SHIPPED', NULL, NULL, NULL),
-(10, 4267441285, 4, '2021-07-22', '500.00', '0.00', '2650.00', '2150.00', '0.00', 1009, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Website', 'NEW', NULL, NULL, NULL),
-(11, 4482659925, 4, '2021-07-22', '1000.00', '0.00', '3650.00', '2650.00', '0.00', 1010, NULL, '0.00', '0.00', '0.00', '1', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Website', 'NEW', NULL, NULL, NULL);
+INSERT INTO `invoice` (`id`, `invoice_id`, `customer_id`, `date`, `total_amount`, `paid_amount`, `due_amount`, `prevous_due`, `shipping_cost`, `invoice`, `offline_invoice_no`, `invoice_discount`, `total_discount`, `total_tax`, `sales_by`, `invoice_details`, `status`, `bank_id`, `payment_type`, `is_online`, `sales_channel`, `order_status`, `shipped_date`, `attachment`, `comment`, `courier`, `return_reason`, `region`, `awb`) VALUES
+(1, 4829395789, 4, '2021-07-25', '1998.00', '0.00', '5648.00', '3650.00', '0.00', 1000, NULL, '0.00', '0.00', '0.00', '19945', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Shopee', 'RETURN_TO_SENDER', NULL, '', 'Testing', 'LBC', 'Cannot be reach/Unattended', 'NCR', ''),
+(2, 1648399355, 2, '2021-07-25', '1988.00', '0.00', '1688.00', '-300.00', '0.00', 1001, NULL, '0.00', '0.00', '0.00', '2', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Shopee', 'RETURN_TO_SENDER', NULL, '', '', 'Ninjavan', 'Wrong item', 'CAR', ''),
+(3, 8271444737, 3, '2021-07-25', '4995.00', '0.00', '13995.00', '9000.00', '0.00', 1002, NULL, '0.00', '0.00', '0.00', '2', 'Thank you for shopping with us', 1, NULL, 2, 1, 'Shopee', 'RETURN_TO_SENDER', NULL, '', '', 'Ninjavan', 'Budget Issue', 'R4A', ''),
+(4, 3312553429, 4, '2021-07-29', '2967.00', '0.00', '8615.00', '5648.00', '0.00', 1003, NULL, '0.00', '0.00', '0.00', '2', 'Thank you for shopping with us', 1, NULL, 1, 1, 'SH Partner', 'NEW', NULL, '', '', 'LBC', 'Cannot be reach/Unattended', 'NCR', 'TEST'),
+(5, 9854254257, 1, '2021-07-29', '989.00', '0.00', '11739.00', '10750.00', '0.00', 1004, NULL, '0.00', '0.00', '0.00', '2', 'Thank you for shopping with us', 1, NULL, 1, 1, 'Shopee', 'NEW', NULL, NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -637,24 +681,12 @@ CREATE TABLE `invoice_details` (
 --
 
 INSERT INTO `invoice_details` (`id`, `invoice_details_id`, `invoice_id`, `product_id`, `serial_no`, `description`, `quantity`, `rate`, `supplier_rate`, `total_price`, `discount`, `discount_per`, `tax`, `paid_amount`, `due_amount`, `status`) VALUES
-(1, '427191186566343', '9271513142', '9001301917', 'HU-NV3I-PC', '', '50.00', '300.00', 80, '15000.00', '0.00', '', NULL, '15000', '0.00', 1),
-(2, '829355158137629', '9915874487', '9001301917', 'HU-NV3I-PC', '', '100.00', '300.00', 80, '30000.00', '0.00', '', NULL, '30000', '0.00', 1),
-(3, '211482187236816', '1642631776', '9001301917', NULL, '', '50.00', '300.00', 80, '15000.00', '0.00', '', NULL, '15000', '0.00', 1),
-(4, '379669763285567', '2969364686', '9001301917', 'HU-NV3I-PC', '', '10.00', '300.00', 80, '3000.00', '0.00', '', NULL, '3000', '0.00', 1),
-(5, '582652927221349', '2257121656', '9001301917', 'HU-NV3I-PC', '', '100.00', '300.00', 80, '30000.00', '0.00', '', NULL, '0', '30000.00', 1),
-(6, '721851291412898', '2253173675', 'KW-992008936', NULL, '', '1.00', '400.00', 350, '400.00', '0.00', '', NULL, NULL, NULL, 1),
-(7, '883886819376445', '1564733847', 'KW-992008936', 'WH', '', '1.00', '400.00', 350, '400.00', '0.00', '', NULL, NULL, NULL, 1),
-(8, '353253632257956', '8764564874', 'KW-992008936', 'WH', '', '1.00', '400.00', 350, '400.00', '0.00', '', NULL, '0', '350.00', 1),
-(9, '161835426898371', '1894516324', 'BK-123', 'BK-123', '', '10.00', '500.00', 200, '5000.00', '0.00', '', NULL, '0', '5100.00', 1),
-(10, '282311217734825', '7335952233', 'KW-992008936', 'WH', '', '15.00', '400.00', 350, '6000.00', '0.00', '', NULL, '0', '5750.00', 1),
-(18, '582592626273354', '6112845356', 'BK-123', NULL, '', '20.00', '500.00', 200, '9000.00', '0.01', '10', '0.00', '0', '14750.00', 0),
-(12, '534522959792987', '9765564654', 'KW-992008936', NULL, '', '5.00', '400.00', 350, '2000.00', '0.00', '', NULL, '0', '16750.00', 1),
-(13, '999354962131315', '9966485974', '9001301917', NULL, '', '10.00', '300.00', 80, '3000.00', '0.00', '', NULL, '0', '17750.00', 1),
-(14, '457955132416296', '4879514698', '9001301917', NULL, '', '5.00', '300.00', 80, '1500.00', '0.00', '', NULL, '0', '2150.00', 1),
-(15, '723287974132226', '4879514698', 'BK-123', NULL, '', '3.00', '500.00', 200, '500.00', '0.00', '', NULL, '0', '2150.00', 1),
-(17, 'TMJIX9HC8OM8LBI', '9271513142', '9001301917', NULL, NULL, '-1.00', '300.00', 80, '-300.00', '0.00', NULL, '0.00', '-300', NULL, 1),
-(19, '142458843426713', '4267441285', 'BK-123', NULL, '', '1.00', '500.00', 200, '500.00', '0.00', '', NULL, '0', '2650.00', 1),
-(20, '468524379743356', '4482659925', 'BK-123', NULL, '', '2.00', '500.00', 200, '1000.00', '0.00', '', NULL, '0', '3650.00', 1);
+(1, '414744242314697', '4829395789', 'SC-S Hair Keratin', NULL, '', '2.00', '999.00', 900, '1998.00', '0.00', '', NULL, '0', '5648.00', 1),
+(2, '158453842864621', '1648399355', 'SC-S Hair Keratin', NULL, '', '1.00', '999.00', 900, '999.00', '0.00', '', NULL, '0', '1688.00', 1),
+(3, '457131722548151', '1648399355', 'Wokali', NULL, '', '1.00', '989.00', 900, '989.00', '0.00', '', NULL, '0', '1688.00', 1),
+(4, '574946548835519', '8271444737', 'SC-S Hair Keratin', NULL, '', '5.00', '999.00', 900, '4995.00', '0.00', '', NULL, '0', '13995.00', 1),
+(5, '425473624632236', '3312553429', 'Wokali', NULL, '', '3.00', '989.00', 900, '2967.00', '0.00', '', NULL, '0', '8615.00', 1),
+(6, '264615937295866', '9854254257', 'Wokali', NULL, '', '1.00', '989.00', 900, '989.00', '0.00', '', NULL, '0', '11739.00', 1);
 
 -- --------------------------------------------------------
 
@@ -1707,7 +1739,49 @@ INSERT INTO `language` (`id`, `phrase`, `english`, `bangla`) VALUES
 (1032, 'view_latest_announcements', 'View Latest Announcements', NULL),
 (1033, 'customer_sales_report', 'Customer Sales Report', NULL),
 (1034, 'customer_sales_history', 'Customer Sales History', NULL),
-(1035, 'department', 'Department', NULL);
+(1035, 'department', 'Department', NULL),
+(1036, 'sales_channel', 'Sales Channel', NULL),
+(1037, 'logistics', 'Logistics', NULL),
+(1038, 'return_to_sender_report', 'Return To Sender Report', NULL),
+(1039, 'top_return_product', 'Top Return Product', NULL),
+(1040, 'RTS_prone_areas', 'RTS Prone Areas', NULL),
+(1041, 'RTS_reasons', 'RTS Reasons', NULL),
+(1042, 'shipments', 'Shipments', NULL),
+(1043, 'top_returning_product', 'Top Returning Product', NULL),
+(1044, 'percentage', 'Percentage', NULL),
+(1045, 'total_sales', 'Total Sales', NULL),
+(1046, 'region', 'Region', NULL),
+(1047, 'add_group', 'Add Group', NULL),
+(1048, 'manage_group', 'Manage Group', NULL),
+(1049, 'edit_group', 'Edit Group', NULL),
+(1050, 'group_name', 'Team', NULL),
+(1051, 'total_shipments', 'Total Shipments', NULL),
+(1052, 'return_shipments', 'Return Shipments', NULL),
+(1053, 'total_return_shipments', 'Total Return Shipments', NULL),
+(1054, 'return_percentage', 'Return Percentage', NULL),
+(1055, 'mov', 'MOV', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logistics`
+--
+
+CREATE TABLE `logistics` (
+  `id` int(11) NOT NULL,
+  `logistics_name` varchar(255) NOT NULL,
+  `logistics_code` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `logistics`
+--
+
+INSERT INTO `logistics` (`id`, `logistics_name`, `logistics_code`, `status`) VALUES
+(1, 'LBC', NULL, 1),
+(2, 'Ninjavan', NULL, 1),
+(3, 'J&T Express', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1874,8 +1948,7 @@ CREATE TABLE `product_category` (
 --
 
 INSERT INTO `product_category` (`category_id`, `category_name`, `status`) VALUES
-(1, 'Phone Accessories', 1),
-(2, 'Kitchenware', 1);
+(1, 'Keratin', 1);
 
 -- --------------------------------------------------------
 
@@ -1903,9 +1976,9 @@ CREATE TABLE `product_information` (
 --
 
 INSERT INTO `product_information` (`id`, `product_id`, `category_id`, `product_name`, `price`, `unit`, `tax`, `serial_no`, `product_model`, `product_details`, `image`, `status`) VALUES
-(1, '9001301917', '1', 'Huawei Nova 3i Phone Case', 300, 'pc', 0, 'HU-NV3I-PC', 'Generic', '', 'my-assets/image/product.png', 1),
-(2, 'BK-123', '2', 'Black Knife', 500, 'set', 0, NULL, 'Generic', 'Imported Kitchen Knife Set', 'my-assets/image/product.png', 1),
-(3, 'KW-992008936', '2', 'Kitchen Plates Set 8', 400, 'set', 0, 'BK,WH,GR', 'Generic', '', 'my-assets/image/product.png', 1);
+(1, 'SC-S Hair Keratin', '1', 'Hair Keratin', 999, 'SC-S', 0, NULL, 'SC-S', '', 'my-assets/image/product.png', 1),
+(2, 'Wokali', '1', 'Wokali', 989, 'SC-S', 0, NULL, 'SC-S', '', 'my-assets/image/product.png', 1),
+(3, 'Repair Kit', '1', 'Repair Kit', 1299, 'SC-S', 0, NULL, 'SC-S', '', 'my-assets/image/product.png', 1);
 
 -- --------------------------------------------------------
 
@@ -1934,8 +2007,8 @@ CREATE TABLE `product_purchase` (
 --
 
 INSERT INTO `product_purchase` (`id`, `purchase_id`, `chalan_no`, `supplier_id`, `grand_total_amount`, `paid_amount`, `due_amount`, `total_discount`, `purchase_date`, `purchase_details`, `status`, `bank_id`, `payment_type`) VALUES
-(1, 20210520221814, '20210521', 1, '16000.00', '16000.00', '0.00', '0.00', '2021-05-20', '', 1, '', 1),
-(2, 20210610124249, '2012223', 1, '22000.00', '0.00', '22000.00', '0.00', '2021-07-10', '', 1, '', 1);
+(1, 20210725102948, 'INV 001', 2, '90000.00', '0.00', '90000.00', '0.00', '2021-07-25', '', 1, '', 1),
+(2, 20210725103058, 'INV 002', 2, '45000.00', '0.00', '45000.00', '0.00', '2021-07-25', '', 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1962,9 +2035,8 @@ CREATE TABLE `product_purchase_details` (
 --
 
 INSERT INTO `product_purchase_details` (`id`, `purchase_detail_id`, `purchase_id`, `product_id`, `quantity`, `quantity_received`, `quantity_pending`, `rate`, `total_amount`, `discount`, `status`) VALUES
-(1, 'ZZM7XUSS45UMVQL', 20210520221814, '9001301917', '200.00', '130.00', '70.00', '80.00', '16000.00', 0, 1),
-(10, 'MEBWSAHEDGECSNU', 20210610124249, 'BK-123', '50.00', '45.00', '5.00', '200.00', '10000.00', 0, NULL),
-(9, '1II47Y5WGGU5M9W', 20210610124249, '9001301917', '150.00', '145.00', '5.00', '80.00', '12000.00', 0, NULL);
+(1, 'YV7IWXTHAI1MLKL', 20210725102948, 'SC-S Hair Keratin', '100.00', '50.00', '50.00', '900.00', '90000.00', 0, 1),
+(2, 'TT67B5JW78ZAELV', 20210725103058, 'Wokali', '50.00', '20.00', '30.00', '900.00', '45000.00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -2094,6 +2166,66 @@ CREATE TABLE `quot_products_used` (
   `discount_per` varchar(15) DEFAULT NULL,
   `tax` decimal(10,2) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `regions`
+--
+
+CREATE TABLE `regions` (
+  `id` int(11) NOT NULL,
+  `region_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `regions`
+--
+
+INSERT INTO `regions` (`id`, `region_name`) VALUES
+(1, 'NCR'),
+(2, 'CAR'),
+(3, 'R1'),
+(4, 'R2'),
+(5, 'R3'),
+(6, 'R4A'),
+(7, 'R4B'),
+(8, 'R5'),
+(9, 'R6'),
+(10, 'R7'),
+(11, 'R8'),
+(12, 'R9'),
+(13, 'R10'),
+(14, 'R11'),
+(15, 'R12'),
+(16, 'R13'),
+(17, 'ARMM');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_reasons`
+--
+
+CREATE TABLE `return_reasons` (
+  `id` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `return_reasons`
+--
+
+INSERT INTO `return_reasons` (`id`, `reason`, `status`) VALUES
+(1, 'Cannot be reach/Unattended', 1),
+(2, 'No response', 1),
+(3, 'Wrong item', 1),
+(4, 'No Order', 1),
+(5, 'False RTS', 1),
+(6, 'Delayed Delivery', 1),
+(7, 'Cancelled as oer CX/Seller', 1),
+(8, 'Budget Issue', 1);
 
 -- --------------------------------------------------------
 
@@ -2388,7 +2520,14 @@ INSERT INTO `sub_module` (`id`, `mid`, `name`, `description`, `image`, `director
 (138, 18, 'view_todays_overview', NULL, NULL, 'view_todays_overview', 1),
 (139, 18, 'view_todays_sales_report', NULL, NULL, 'view_todays_sales_report', 1),
 (140, 18, 'view_top_marketing_associates', NULL, NULL, 'view_top_marketing_associates', 1),
-(141, 8, 'customer_sales_report', NULL, NULL, 'customer_sales_report', 1);
+(141, 8, 'customer_sales_report', NULL, NULL, 'customer_sales_report', 1),
+(142, 8, 'top_returning_product', NULL, NULL, 'top_returning_product', 1),
+(143, 8, 'return_to_sender_report', NULL, NULL, 'return_to_sender_report', 1),
+(144, 8, 'rts_prone_areas', NULL, NULL, 'rts_prone_areas', 1),
+(145, 8, 'rts_reasons', NULL, '', 'rts_reasons', 1),
+(146, 15, 'manage_group', NULL, NULL, 'manage_group', 1),
+(147, 15, 'add_group', NULL, NULL, 'add_group', 1),
+(148, 15, 'edit_group', NULL, NULL, 'edit_group', 1);
 
 -- --------------------------------------------------------
 
@@ -2445,7 +2584,10 @@ INSERT INTO `supplier_product` (`supplier_pr_id`, `product_id`, `products_model`
 (1, '9001301917', 'Generic', 1, 80),
 (3, 'KW-992008936', 'Generic', 2, 350),
 (4, 'KW-992008936', 'Generic', 1, 345),
-(5, 'BK-123', 'Generic', 1, 200);
+(5, 'BK-123', 'Generic', 1, 200),
+(6, 'SC-S Hair Keratin', 'SC-S', 2, 900),
+(7, 'Wokali', 'SC-S', 2, 900),
+(8, 'Repair Kit', 'SC-S', 1, 1000);
 
 -- --------------------------------------------------------
 
@@ -2515,8 +2657,17 @@ CREATE TABLE `units` (
 --
 
 INSERT INTO `units` (`unit_id`, `unit_name`, `status`) VALUES
-(1, 'pc', 1),
-(2, 'set', 1);
+(1, 'SC-S', 1),
+(2, 'SC-D', 1),
+(3, 'SC-T', 1),
+(4, 'SC-Q', 1),
+(5, 'US01', 1),
+(6, 'FLP01', 1),
+(7, 'GP01', 1),
+(8, 'MCS01', 1),
+(9, 'HK01', 1),
+(10, 'SOL02', 1),
+(11, 'WS01', 1);
 
 -- --------------------------------------------------------
 
@@ -2535,16 +2686,41 @@ CREATE TABLE `users` (
   `gender` int(2) DEFAULT NULL,
   `date_of_birth` varchar(255) DEFAULT NULL,
   `logo` varchar(250) DEFAULT NULL,
-  `status` int(2) NOT NULL
+  `status` int(2) NOT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `department_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `last_name`, `first_name`, `company_name`, `address`, `phone`, `gender`, `date_of_birth`, `logo`, `status`) VALUES
-(1, '2', 'BMS', 'System', NULL, NULL, NULL, NULL, NULL, 'http://localhost/saleserp_v9.8/assets/dist/img/profile_picture/profile.jpg', 1),
-(2, '1', 'Lobos', 'Ace', NULL, NULL, NULL, NULL, NULL, 'assets/dist/img/profile_picture/profile.jpg', 1);
+INSERT INTO `users` (`id`, `user_id`, `last_name`, `first_name`, `company_name`, `address`, `phone`, `gender`, `date_of_birth`, `logo`, `status`, `group_id`, `department_id`) VALUES
+(1, '1', 'BMS', 'System', NULL, NULL, NULL, NULL, NULL, 'http://localhost/saleserp_v9.8/assets/dist/img/profile_picture/profile.jpg', 1, NULL, 0),
+(2, '2', 'Lobos', 'Aces', NULL, NULL, NULL, NULL, NULL, 'assets/dist/img/profile_picture/profile.jpg', 1, 1, 0),
+(3, '19945', 'Comendador', 'Ronald', NULL, NULL, NULL, NULL, NULL, '', 1, 0, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_group`
+--
+
+CREATE TABLE `user_group` (
+  `id` int(11) NOT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `group_name` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_group`
+--
+
+INSERT INTO `user_group` (`id`, `department_id`, `group_name`, `status`) VALUES
+(1, 4, 'SHOPEE TEAM 1', 1),
+(2, 5, 'SH TEAM 1', 1),
+(3, 4, 'SHOPEE TEAM 2', 1);
 
 -- --------------------------------------------------------
 
@@ -2567,8 +2743,9 @@ CREATE TABLE `user_login` (
 --
 
 INSERT INTO `user_login` (`id`, `user_id`, `username`, `password`, `user_type`, `security_code`, `status`) VALUES
-(1, '2', 'admin@example.com', '41d99b369894eb1ec3f461135132d8bb', 1, NULL, 1),
-(2, '1', 'acelobos9@gmail.com', '4e1b5a4e8b7918a31e48b74fc501ef38', 1, NULL, 1);
+(1, '1', 'admin@example.com', '41d99b369894eb1ec3f461135132d8bb', 1, NULL, 1),
+(2, '2', 'acelobos9@gmail.com', '4e1b5a4e8b7918a31e48b74fc501ef38', 1, NULL, 1),
+(3, '19945', 'ronaldcomendador20@gmail.com', 'd4289f60106b2d2b8929c46b578323ab', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2678,6 +2855,12 @@ ALTER TABLE `daily_closing`
   ADD PRIMARY KEY (`closing_id`);
 
 --
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `designation`
 --
 ALTER TABLE `designation`
@@ -2742,6 +2925,12 @@ ALTER TABLE `invoice_details`
 -- Indexes for table `language`
 --
 ALTER TABLE `language`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logistics`
+--
+ALTER TABLE `logistics`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2873,6 +3062,18 @@ ALTER TABLE `quot_products_used`
   ADD KEY `quot_id` (`quot_id`);
 
 --
+-- Indexes for table `regions`
+--
+ALTER TABLE `regions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `return_reasons`
+--
+ALTER TABLE `return_reasons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `role_permission`
 --
 ALTER TABLE `role_permission`
@@ -2971,6 +3172,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_group`
+--
+ALTER TABLE `user_group`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_login`
 --
 ALTER TABLE `user_login`
@@ -2990,7 +3197,7 @@ ALTER TABLE `web_setting`
 -- AUTO_INCREMENT for table `acc_transaction`
 --
 ALTER TABLE `acc_transaction`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `app_setting`
@@ -3020,7 +3227,7 @@ ALTER TABLE `bulletin_announcement`
 -- AUTO_INCREMENT for table `bulletin_slider`
 --
 ALTER TABLE `bulletin_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bulletin_sticky_image`
@@ -3045,6 +3252,12 @@ ALTER TABLE `customer_information`
 --
 ALTER TABLE `daily_closing`
   MODIFY `closing_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `designation`
@@ -3092,19 +3305,25 @@ ALTER TABLE `expense_item`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `invoice_details`
 --
 ALTER TABLE `invoice_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1036;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1056;
+
+--
+-- AUTO_INCREMENT for table `logistics`
+--
+ALTER TABLE `logistics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `module`
@@ -3158,7 +3377,7 @@ ALTER TABLE `print_setting`
 -- AUTO_INCREMENT for table `product_category`
 --
 ALTER TABLE `product_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_information`
@@ -3176,7 +3395,7 @@ ALTER TABLE `product_purchase`
 -- AUTO_INCREMENT for table `product_purchase_details`
 --
 ALTER TABLE `product_purchase_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_service`
@@ -3207,6 +3426,18 @@ ALTER TABLE `quotation_taxinfo`
 --
 ALTER TABLE `quot_products_used`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `regions`
+--
+ALTER TABLE `regions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `return_reasons`
+--
+ALTER TABLE `return_reasons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `role_permission`
@@ -3260,7 +3491,7 @@ ALTER TABLE `sms_settings`
 -- AUTO_INCREMENT for table `sub_module`
 --
 ALTER TABLE `sub_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `supplier_information`
@@ -3272,7 +3503,7 @@ ALTER TABLE `supplier_information`
 -- AUTO_INCREMENT for table `supplier_product`
 --
 ALTER TABLE `supplier_product`
-  MODIFY `supplier_pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `supplier_pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tax_collection`
@@ -3290,19 +3521,25 @@ ALTER TABLE `tax_settings`
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user_group`
+--
+ALTER TABLE `user_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_login`
 --
 ALTER TABLE `user_login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `web_setting`
