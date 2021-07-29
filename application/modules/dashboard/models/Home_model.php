@@ -129,23 +129,23 @@ class Home_model extends CI_Model {
     }
 
 
-       public function yearly_invoice_report($month=null){
+       public function yearly_invoice_report($month=null, $year=null){
 
         $result = $this->db->query("
                             SELECT sum(total_amount) as total_sale FROM `invoice`
                             WHERE MONTH(date)  = $month
-                                AND YEAR(date) = YEAR(CURRENT_TIMESTAMP);
+                                AND YEAR(date) = $year
                             ");
 
         return $result->row();
     }
 
-        public function yearly_purchase_report($month=null){
+        public function yearly_purchase_report($month=null, $year=null){
 
         $result = $this->db->query("
                             SELECT sum(grand_total_amount) as total_purchase FROM `product_purchase`
                             WHERE MONTH(purchase_date)  = $month
-                                AND YEAR(purchase_date) = YEAR(CURRENT_TIMESTAMP);
+                                AND YEAR(purchase_date) = $year
                             ");
 
         return $result->row();
@@ -158,7 +158,7 @@ class Home_model extends CI_Model {
         $this->db->from('invoice_details a');
         $this->db->join('product_information b', 'b.product_id = a.product_id');
         $this->db->group_by('b.product_id');
-        $this->db->order_by('quantity', 'desc');
+        $this->db->order_by('quantity', 'desc')->limit(10);
         $query = $this->db->get();
         return $query->result();
     }
@@ -417,6 +417,17 @@ class Home_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('bulletin_announcement');
         $this->db->not_like('read_by', ','.$this->session->userdata('id').',');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_top_ma(){
+        $this->db->select('a.*, b.first_name, b.last_name, sum(total_amount) as total_sales');
+        $this->db->from('invoice a');
+        $this->db->join('users b', 'b.user_id = a.sales_by');
+        $this->db->where('YEAR(date)', date('Y'));
+        $this->db->limit(10);
+        $this->db->group_by('sales_by');
         $query = $this->db->get();
         return $query->result();
     }

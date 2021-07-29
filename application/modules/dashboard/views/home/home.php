@@ -200,7 +200,23 @@ $searchdate =(!empty($announcementdate)?$announcementdate:date('F Y'));
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h4 class="charttitle"><?php echo display("sales_and_purchase_report_summary");?>- <?php echo  date("Y")?></h4>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h4 class="charttitle"><?php echo display("sales_and_purchase_report_summary");?>- <?php echo $year?></h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="yearOption" onchange="selectYear()" style="width: 120px; float: right;">
+                                            <?php 
+                                                for($i=2020;$i<=date('Y');$i++)
+                                                {
+                                            ?>
+                                                <option <?= $year == $i?"selected":"" ?> value="<?= $i ?>"><?= $i ?></option>';
+                                            <?php
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="panel-body">
                               <canvas id="yearlyreport" width="600" height="250"></canvas>
@@ -386,9 +402,16 @@ $searchdate =(!empty($announcementdate)?$announcementdate:date('F Y'));
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <tr>
-                                                    <th class="text-center" colspan="2">Coming Soon</th>
-                                                </tr>
+                                            <?php 
+                                                foreach ($marketing_associates as $key => $value) {
+                                            ?>
+                                                    <tr>
+                                                        <th><?= $value->first_name .' '. $value->last_name ?></th>
+                                                        <th><?= $currency . number_format($value->total_sales) ?></th>
+                                                    </tr>
+                                            <?php
+                                                }
+                                            ?>
                                         </tbody>                                    
                                     </table>
                                 </div>                            
@@ -431,7 +454,12 @@ echo html_escape($this->home_model->total_service_amount($searchdate))?>" name="
 <script src="<?php echo base_url() ?>assets/js/Chart.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/js/canvasjs.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/js/dashboard.js" type="text/javascript"></script>
-
+<script>
+    function selectYear(){
+        var selected_year = $('#yearOption :selected').text();
+        window.location.href     = $('#base_url').val()+'/home?year='+selected_year;
+    }
+</script>
 
 
 

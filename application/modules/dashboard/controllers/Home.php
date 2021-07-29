@@ -25,7 +25,9 @@ class Home extends MX_Controller {
          $total_purchase_order_today = $this->home_model->total_purchase_order_today();
          $total_return_item_today = $this->home_model->total_return_item_today();
          $unread_announcements = $this->home_model->get_unread_announcements();
-         
+         $marketing_associates = $this->home_model->get_top_ma();
+
+         $year = $this->input->get('year') ? $this->input->get('year') : date('Y');
 
          $tlvmonth            = '';
         $month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -34,7 +36,7 @@ class Home extends MX_Controller {
           }
         $currentyearsale='';
           for ($i=1; $i <= 12; $i++) {
-                   $sold = $this->home_model->yearly_invoice_report($i);
+                   $sold = $this->home_model->yearly_invoice_report($i, $year);
                    if (!empty($sold)) {
                         $currentyearsale.=$sold->total_sale.",";
                          }else{
@@ -44,7 +46,7 @@ class Home extends MX_Controller {
 
          $currentyearpurchase='';
           for ($i=1; $i <= 12; $i++) {
-                   $purchase = $this->home_model->yearly_purchase_report($i);
+                   $purchase = $this->home_model->yearly_purchase_report($i, $year);
                    if (!empty($purchase)) {
                         $currentyearpurchase.=$purchase->total_purchase.",";
                          }else{
@@ -83,7 +85,9 @@ class Home extends MX_Controller {
     'total_shopee_sales_today' => $this->home_model->total_shopee_sales_today(),
     'overall_sales_yearly' => $this->home_model->overall_sales_yearly(),
     'overall_sales_today'  => $this->home_model->overall_sales_today(),
+    'marketing_associates' => $marketing_associates,
     'todays_total_purchase'=> number_format($purchase_report[0]['ttl_purchase_amount'], 2, '.', ','),
+    'year' => $year
         );
 		$data['module']      = "dashboard";
 		$data['page']        = "home/home";
