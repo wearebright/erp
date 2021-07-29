@@ -200,7 +200,13 @@ class Report extends MX_Controller {
             $to_date  = $this->input->get('to_date');
             $sales_report = $this->report_model->sales_report($from_date, $to_date, $sales_channel, $logistics);
             $logistics_list = $this->report_model->logistics();
-          
+            $teams = [];
+            if($sales_channel !== 'All' && $sales_channel){
+                $teams = $this->report_model->get_team_by_department($sales_channel);
+            }else{
+                $teams = $this->report_model->get_teams();
+            }
+            
             $sales_amount = 0;
             if (!empty($sales_report)) {
                 $i = 0;
@@ -215,7 +221,10 @@ class Report extends MX_Controller {
                 'title'        => display('sales_report'),
                 'sales_amount' => number_format($sales_amount, 2, '.', ','),
                 'sales_report' => $sales_report,
-                'logistics_list' => $logistics_list
+                'logistics_list' => $logistics_list,
+                'departments'   => $this->report_model->departments(),
+                'teams'         => $teams,
+                'selected_team' => $selected_team
             );
             $data['module']   = "report";
             $data['page']     = "sales_report"; 
@@ -605,7 +614,12 @@ class Report extends MX_Controller {
         $rts_report = $this->report_model->return_to_sender_report($from_date,$to_date,$product_id);
         $product_list = $this->report_model->product_list();
 
-        $total_sales = $this->report_model->total_sales_report($from_date,$to_date,$product_id);
+        $product_sales = $this->report_model->total_sales_report_by_product($from_date,$to_date,$product_id);
+
+        $total_sales = 0;
+        foreach ($product_sales as $key => $value) {
+            $total_sales += $value->total_sale;
+        }
 
         if (!empty($product_report)) {
             $i = 0;
@@ -624,7 +638,7 @@ class Report extends MX_Controller {
 
         $rts_percentage = '0%';
         if($sub_total){
-            $rts_percentage = number_format((($sub_total / $total_sales->total_sale) * 100), 2, '.', ',').'%';
+            $rts_percentage = number_format((($sub_total / $total_sales) * 100), 2, '.', ',').'%';
         }
         
 
@@ -638,7 +652,7 @@ class Report extends MX_Controller {
             'from'           => $from_date,
             'to'             => $to_date,
             'rts_percentage' => $rts_percentage,
-            'total_sales' => $total_sales ? $total_sales->total_sale: 0,
+            'total_sales' => $total_sales ? number_format($total_sales, 2, '.', ','): 0,
         );
         $data['module']   = "report";
         $data['page']     = "return_to_sender_report"; 
@@ -660,10 +674,14 @@ class Report extends MX_Controller {
             }
         }
         $sub_total = 0;
+        $total_return_shipment = 0;
+        $total_shipment = 0;
         if (!empty($rts_report)) {
             foreach ($rts_report as $k => $v) {
                 $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
                 $sub_total += (int)$v['product_total_amount'];
+                $total_return_shipment += (int)$v['return_qty'];
+                $total_shipment += (int)$v['shipment'];
             }
         }
 
@@ -671,6 +689,8 @@ class Report extends MX_Controller {
             'title'          => display('top_returning_product'),
             'sub_total'      => number_format($sub_total, 2, '.', ','),
             'rts_report' => $rts_report,
+            'total_return_shipment' => $total_return_shipment,
+            'total_shipment' => $total_shipment,
             'product_list'   => $product_list,
             'product_id'     => $product_id,
             'from'           => $from_date,
@@ -688,6 +708,8 @@ class Report extends MX_Controller {
         $rts_report = $this->report_model->rts_prone_areas($from_date,$to_date,$product_id);
         $product_list = $this->report_model->product_list();
 
+        $total_sales = $this->report_model->total_sales_report_by_date($from_date,$to_date,$product_id);
+
         if (!empty($product_report)) {
             $i = 0;
             foreach ($rts_report as $k => $v) {
@@ -695,17 +717,20 @@ class Report extends MX_Controller {
                 $rts_report[$k]['sl'] = $i;
             }
         }
-        $sub_total = 0;
+        $total_return_shipment = 0;
+        $total_shipment = 0;
         if (!empty($rts_report)) {
             foreach ($rts_report as $k => $v) {
                 $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
-                $sub_total += (int)$v['shipments'];
+                $total_return_shipment += (int)$v['shipments'];
+                $total_shipment += (int)$v['item_total_shipment'];
             }
         }
 
         $data = array(
             'title'          => display('rts_prone_areas'),
-            'sub_total'      => number_format($sub_total, 2, '.', ','),
+            'total_return_shipment'      => number_format($total_return_shipment, 2, '.', ','),
+            'total_shipment'    => $total_sales ? number_format($total_sales->total_shipments, 2, '.', ',') : 0,
             'rts_report' => $rts_report,
             'product_list'   => $product_list,
             'product_id'     => $product_id,
@@ -724,6 +749,8 @@ class Report extends MX_Controller {
         $rts_report = $this->report_model->rts_reasons($from_date,$to_date,$product_id);
         $product_list = $this->report_model->product_list();
 
+        $total_sales = $this->report_model->total_sales_report_by_date($from_date,$to_date,$product_id);
+
         if (!empty($product_report)) {
             $i = 0;
             foreach ($rts_report as $k => $v) {
@@ -735,13 +762,15 @@ class Report extends MX_Controller {
         if (!empty($rts_report)) {
             foreach ($rts_report as $k => $v) {
                 $rts_report[$k]['sales_date'] = $this->occational->dateConvert($rts_report[$k]['date']);
+                $total_return_shipment += (int)$v['shipments'];
                 $total_shipment += (int)$v['shipments'];
             }
         }
 
         $data = array(
             'title'          => display('rts_reasons'),
-            'total_shipment'      => number_format($total_shipment, 2, '.', ','),
+            'total_return_shipment'      => number_format($total_return_shipment, 2, '.', ','),
+            'total_shipment'    => $total_sales ? number_format($total_sales->total_shipments, 2, '.', ',') : 0,
             'rts_report' => $rts_report,
             'product_list'   => $product_list,
             'product_id'     => $product_id,

@@ -61,6 +61,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="order_status" class="col-form-label">ANB</label>
+                                                    <input type="text" class="form-control" name="anb"><?= $anb ?>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status != 'WAREHOUSE' || $invoice_order_status != 'READY' ? 'block': 'none'; ?>">
                                             <div class="form-group row">
                                                 <div class="col-md-8">

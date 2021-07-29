@@ -106,6 +106,7 @@
                                         <tr>                             
                                             <th><?php echo display('RTS_reasons') ?></th>
                                             <th class="text-right"><?php echo display('shipments') ?></th>
+                                            <th class="text-right"><?php echo display('percentage') ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,6 +117,7 @@
                                                 <tr>
                                                     <td><?php echo $reporst['return_reason']?></td>
                                                     <td class="text-right"><?php echo $reporst['shipments']?></td>
+                                                    <td class="text-right"><?php echo number_format(($reporst['shipments']/$total_shipment) * 100, 2, '.', ',') . "%" ?></td>
                                                 </tr>
                                             
                                             <?php
@@ -128,9 +130,16 @@
                                         ?>
                                     </tbody>
                                     <tfoot>
+                                        <tr><td colspan="3" style="padding:17px;"></td></tr>
                                         <tr>
-                                            <td class="text-right">&nbsp; <b><?php echo display('total_ammount') ?></b></td>
+                                            <td class="text-right">&nbsp; <b><?php echo display('total_shipments') ?></b></td>
+                                            <td class="text-right">&nbsp; <b><?php echo display('total_return_shipments') ?></b></td>
+                                            <td class="text-right"><b><?php echo display('return_percentage') ?></b></td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-right"><b><?php echo $total_shipment ?></b></td>
+                                            <td class="text-right"><b><?php echo $total_return_shipment ?></b></td>
+                                            <td class="text-right"><b><?php echo number_format(($total_return_shipment/$total_shipment)*100, 2, '.', ',').'%' ?></b></td>
                                         </tr>
                                     </tfoot>
                                 </table>

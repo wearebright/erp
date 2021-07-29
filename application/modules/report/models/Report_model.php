@@ -660,12 +660,10 @@ class Report_model extends CI_Model {
     }
 
 
-    /*Total Sales Report in given date range */
-    public function total_sales_report($start_date,$end_date, $product_id = null) {
+    /*Total Sales Report in given date range group by product */
+    public function total_sales_report_by_product($start_date,$end_date, $product_id = null) {
         $this->db->select("a.date,a.invoice,b.invoice_id,
             CAST(sum(total_price) AS DECIMAL(16,2)) as total_sale");
-        $this->db->select('CAST(sum(`quantity`*`supplier_rate`) AS DECIMAL(16,2)) as total_supplier_rate', FALSE);
-        $this->db->select("CAST(SUM(total_price) - SUM(`quantity`*`supplier_rate`) AS DECIMAL(16,2)) AS total_profit");
         $this->db->from('invoice a');
         $this->db->join('invoice_details b', 'b.invoice_id = a.invoice_id');
         
@@ -673,14 +671,37 @@ class Report_model extends CI_Model {
             $this->db->where('a.date >=', $start_date);
             $this->db->where('a.date <=', $end_date);
         }
-
         if($product_id){
             $this->db->where('b.product_id', $product_id);   
         }
 
-        $this->db->group_by('b.invoice_id');
-        $this->db->order_by('a.invoice', 'desc');
+        $this->db->group_by('b.product_id');
         $query = $this->db->get();
+ 
+        if ($query->num_rows() > 0)
+        {
+            return $query->result(); 
+            
+        }
+        return false;
+    }
+
+    /*Total Sales Report in given date range and product */
+    public function total_sales_report_by_date($start_date,$end_date, $product_id = null) {
+        $this->db->select("a.date,a.invoice,b.invoice_id,
+            CAST(sum(quantity) AS DECIMAL(16,2)) as total_shipments");
+        $this->db->from('invoice a');
+        $this->db->join('invoice_details b', 'b.invoice_id = a.invoice_id');
+        
+        if($start_date && $end_date){
+            $this->db->where('a.date >=', $start_date);
+            $this->db->where('a.date <=', $end_date);
+        }
+        if($product_id){
+            $this->db->where('b.product_id', $product_id);   
+        }
+        $query = $this->db->get();
+ 
         if ($query->num_rows() > 0)
         {
             return $query->row(); 

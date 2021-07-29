@@ -105,7 +105,7 @@
                                     <thead>
                                         <tr>                             
                                             <th><?php echo display('region') ?></th>
-                                            <th><?php echo display('shipments') ?></th>
+                                            <th class="text-right"><?php echo display('return_shipments') ?></th>
                                             <th class="text-right"><?php echo display('percentage') ?></th>
                                         </tr>
                                     </thead>
@@ -116,8 +116,8 @@
                                             ?>
                                                 <tr>
                                                     <td><?php echo $reporst['region']?></td>
-                                                    <td><?php echo $reporst['shipments']?></td>
-                                                    <td class="text-right"><?php echo ($reporst['shipments']/$sub_total) * 100 . "%" ?></td>
+                                                    <td class="text-right"><?php echo $reporst['shipments']?></td>
+                                                    <td class="text-right"><?php echo number_format(($reporst['shipments']/$total_return_shipment) * 100, 2, '.', ',') . "%" ?></td>
                                                 </tr>
                                             
                                             <?php
@@ -129,12 +129,19 @@
                                         }
                                         ?>
                                     </tbody>
-                                   <!--  <tfoot>
+                                    <tfoot>
+                                        <tr><td colspan="3" style="padding:17px;"></td></tr>
                                         <tr>
-                                            <td colspan="6" align="right">&nbsp; <b><?php echo display('total_ammount') ?></b></td>
-                                            <td class="text-right"><b><?php echo (($position == 0) ? $currency.' '.$sub_total : $sub_total.' '.$currency) ?></b></td>
+                                            <td class="text-right">&nbsp; <b><?php echo display('total_shipments') ?></b></td>
+                                            <td class="text-right">&nbsp; <b><?php echo display('total_return_shipments') ?></b></td>
+                                            <td class="text-right"><b><?php echo display('return_percentage') ?></b></td>
                                         </tr>
-                                    </tfoot> -->
+                                        <tr>
+                                            <td class="text-right"><b><?php echo $total_shipment ?></b></td>
+                                            <td class="text-right"><b><?php echo $total_return_shipment ?></b></td>
+                                            <td class="text-right"><b><?php echo number_format(($total_return_shipment/$total_shipment)*100, 2, '.', ',').'%' ?></b></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

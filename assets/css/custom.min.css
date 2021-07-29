@@ -5548,7 +5548,7 @@ pre .arg {
 }
 
 .content {
-	padding: 10px 100px 10px
+	padding: 10px 30px 10px
 }
 @media (max-width: 767px){
 	.content {
@@ -6060,3 +6060,7 @@ label[for="et_pb_contact_brand_file_request_0"] {
 .file_names {
   text-align: center;
 } 
+
+#parentKanban{
+	overflow-x: auto;
+}
