@@ -46,12 +46,21 @@
                                     ?>
                                 </select> 
                             </div> 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-2" style="min-width:150px;">
+                                <label for="from_date"><?php echo display('mov') ?></label>
+                                <select name="paytype" class="form-control">
+                                    <option <?= $paytype=='All'?"selected":"" ?> value="All">All</option>
+                                    <option <?= $paytype==1?"selected":"" ?> value="1">Cash On Delivery</option>
+                                    <option <?= $paytype==2?"selected":"" ?> value="2">Cash On Pick-up</option> 
+                                    <option <?= $paytype==3?"selected":"" ?> value="3">Online Payment</option> 
+                                </select> 
+                            </div> 
+                            <div class="form-group col-md-1">
                                 <label for="from_date"><?php echo display('start_date') ?></label>
                                 <input type="text" autocomplete="off" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
                             </div> 
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label for="to_date"><?php echo display('end_date') ?></label>
                                 <input type="text" autocomplete="off" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
                             </div>  
@@ -132,6 +141,7 @@
                                             <th><?php echo display('invoice_no') ?></th>
                                             <th><?php echo display('sale_by') ?></th>
                                             <th><?php echo display('logistics') ?></th>
+                                            <th><?php echo display('mov') ?></th>
                                             <th><?php echo display('customer_name') ?></th>
                                             <th><?php echo display('total_amount') ?></th>
                                         </tr>
@@ -153,6 +163,24 @@
                                     </td>
                                     <td><?php echo $sales['first_name']." ". $sales['last_name']?></td>
                                     <td><?php echo $sales['courier']?></td>
+                                    <td><?php 
+                                        switch ($sales['payment_type']) {
+                                            case 1:
+                                                echo 'Cash On Delivery';
+                                                break;
+                                            case 2:
+                                                echo 'Cash On Pickup';
+                                                break;
+                                            case 3:
+                                                echo 'Online Payment';
+                                                break;
+                                            default:
+                                                # code...
+                                                break;
+                                        }
+                                        
+                                        
+                                        ?></td>
                                     <td><?php echo $sales['customer_name']?></td>
                             <td class="text-right">
                                     <?php 
@@ -175,7 +203,7 @@
                                     </tbody>
                                      <tfoot>
                                         <tr>
-                                            <td colspan="5" class="text-right"><b><?php echo display('total_seles') ?></b></td>
+                                            <td colspan="6" class="text-right"><b><?php echo display('total_seles') ?></b></td>
                                             <td class="text-right"><b><?php echo (($position == 0) ? "$currency ". number_format($subtotal) : number_format($subtotal) ." $currency") ?></b></td>
                                         </tr>
                                     </tfoot>

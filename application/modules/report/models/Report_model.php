@@ -221,7 +221,7 @@ class Report_model extends CI_Model {
         return false;
     }
 
-    public function sales_report($from_date, $to_date,$sales_channel, $logistics) {
+    public function sales_report($from_date, $to_date,$sales_channel, $logistics, $paytype) {
         $this->db->select("a.*,b.*, u.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
@@ -239,6 +239,10 @@ class Report_model extends CI_Model {
         if($logistics !== "All" && $logistics){
             $this->db->where('a.courier =', $logistics);
         }
+        
+        if($paytype !== "All" && $paytype){
+            $this->db->where('a.payment_type', $paytype);   
+        }
 
         $this->db->order_by('a.date', 'desc');
         $query = $this->db->get();
@@ -249,7 +253,7 @@ class Report_model extends CI_Model {
     }
 
          //Retrieve all Report
-    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics, $team) {
+    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics, $team, $paytype) {
         $this->db->select("a.*,b.*, u.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
@@ -269,6 +273,11 @@ class Report_model extends CI_Model {
         if($team !== "All" && $team){
             $this->db->where('u.group_id =', $team);
         }
+
+        if($paytype !== "All" && $paytype){
+            $this->db->where('a.payment_type', $paytype);   
+        }
+
 
         
         $this->db->order_by('a.date', 'desc');

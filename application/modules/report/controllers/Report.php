@@ -198,7 +198,8 @@ class Report extends MX_Controller {
             $logistics = $this->input->get('logistics');
             $from_date = $this->input->get('from_date');
             $to_date  = $this->input->get('to_date');
-            $sales_report = $this->report_model->sales_report($from_date, $to_date, $sales_channel, $logistics);
+            $paytype = $this->input->get('paytype');
+            $sales_report = $this->report_model->sales_report($from_date, $to_date, $sales_channel, $logistics, $paytype);
             $logistics_list = $this->report_model->logistics();
             $teams = [];
             if($sales_channel !== 'All' && $sales_channel){
@@ -224,7 +225,8 @@ class Report extends MX_Controller {
                 'logistics_list' => $logistics_list,
                 'departments'   => $this->report_model->departments(),
                 'teams'         => $teams,
-                'selected_team' => $selected_team
+                'selected_team' => $selected_team,
+                'paytype'      => $paytype
             );
             $data['module']   = "report";
             $data['page']     = "sales_report"; 
@@ -237,7 +239,8 @@ class Report extends MX_Controller {
             $from_date = $this->input->get('from_date');
             $to_date  = $this->input->get('to_date');
             $logistics = $this->input->get('logistics');
-            $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel, $logistics, $selected_team);
+            $paytype = $this->input->get('paytype');
+            $sales_report = $this->report_model->retrieve_dateWise_SalesReports($from_date, $to_date, $sales_channel, $logistics, $selected_team, $paytype);
             $logistics_list = $this->report_model->logistics();
             $teams = [];
             if($sales_channel !== 'All' && $sales_channel){
@@ -267,7 +270,8 @@ class Report extends MX_Controller {
                 'logistics_list' => $logistics_list,
                 'departments'   => $this->report_model->departments(),
                 'teams'         => $teams,
-                'selected_team' => $selected_team
+                'selected_team' => $selected_team,
+                'paytype'      => $paytype
             );
             $data['module']   = "report";
             $data['page']     = "sales_report"; 
