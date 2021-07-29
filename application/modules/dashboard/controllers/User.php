@@ -69,8 +69,7 @@ class User extends MX_Controller {
          
 		/*-----------------------------------*/
 		$data['user'] = (object)$userLevelData = array(
-			'user_id'     => $id,
-			'id'          => $id,  
+			'user_id'     => $id, 
 			'first_name'  => $this->input->post('firstname'),
 			'last_name'   => $this->input->post('lastname'),
 			'email' 	  => $this->input->post('email'),
@@ -78,10 +77,11 @@ class User extends MX_Controller {
 			'image'   	  => (!empty($image)?$image:$this->input->post('old_image')),
 			'status'      => $this->input->post('status'),
 			'user_type'   => $this->input->post('user_type'),
-			'group_id'	  => $this->input->post('group_id')
+			'group_id'	  => $this->input->post('group_id'),
+			'department_id'	  => $this->input->post('department_id')
+			
 		);
-		$data['groups'] = $this->user_model->groups();
-
+		$data['departments'] = $this->user_model->departments();
 		/*-----------------------------------*/
 		if ($this->form_validation->run()) {
 			if (empty($id)) {
@@ -107,10 +107,16 @@ class User extends MX_Controller {
 			$data['module'] = "dashboard";  
 			$data['page']   = "user/form"; 
 			if(!empty($id)){
-			$data['title']  = display('edit_user');
-			$data['user']   = $this->user_model->single($id);
-			}
+				$data['title']  = display('edit_user');
+				$data['user']   = $this->user_model->single($id);
+		}
 
+		$teams = [];
+		if($data['user']->department_id){
+			$data['teams'] = $this->user_model->get_team_by_department($data['user']->department_id);
+		}else{
+			$data['teams'] = $this->user_model->get_teams();
+		}
 			
 			echo Modules::run('template/layout', $data);
 		}
@@ -127,6 +133,19 @@ class User extends MX_Controller {
         }
 
         redirect("user_list");
+    }
+
+
+	public function get_team_by_department(){
+        $department = $this->input->post('department');
+        if($department !== '' && $department){
+            $teams = $this->report_model->get_team_by_department($department);
+        }else{
+            $teams = $this->report_model->get_teams();
+        }
+        
+        echo json_encode($teams,true);
+        die;
     }
 
 

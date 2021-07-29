@@ -71,21 +71,37 @@
                         </div>
                     </div>
 
-                        <div class="form-group row" id="group_id">
-                            <label for="group_id" class="col-sm-2 col-form-label text-d"><?php echo display('group_name') ?> </label>
+                    <div class="form-group row" id="group_id">
+                            <label for="group_id" class="col-sm-2 col-form-label text-d"><?php echo display('department') ?> </label>
                             <div class="col-sm-2">
-                                <select class="form-control" name="group_id">
-                                    <option></option>
-                                    <?php
-                                        foreach ($groups as $key => $value) {
+                                <select onchange="getTeam()" name="department_id" class="form-control">
+                                    <option <?= $user->department_id== 0?"selected":"" ?> value="">None</option>
+                                    <?php 
+                                        foreach ($departments as $key => $value) {
                                     ?>
-                                    <option <?= $value->id === $user->group_id ? 'selected': '' ?> value="<?= $value->id ?>" ><?= $value->group_name ?></option>
+                                            <option <?= $user->department_id === $value->id ? 'selected':'' ?> value="<?= $value->id ?>"><?= $value->department_name ?></option>
                                     <?php
                                         }
                                     ?>
-                                </select>
+                                </select> 
                             </div>
+                    </div>
+
+                    <div class="form-group row" id="group_id">
+                        <label for="group_id" class="col-sm-2 col-form-label text-d"><?php echo display('group_name') ?> </label>
+                        <div class="col-sm-2">
+                            <select id="sales_team" class="form-control" name="group_id">
+                                <option></option>
+                                <?php
+                                    foreach ($teams as $key => $value) {
+                                ?>
+                                <option <?= $value->id === $user->group_id ? 'selected': '' ?> value="<?= $value->id ?>" ><?= $value->group_name ?></option>
+                                <?php
+                                    }
+                                ?>
+                            </select>
                         </div>
+                    </div>
 
 
                     <div class="form-group row">
@@ -111,5 +127,32 @@
     </div>
 </div>
 
+<script>
+    function getTeam(){
+        var $dept = $('select[name=department_id] :selected').text();
 
+        var base_url = $("#base_url").val();
+
+        var myKeyVals = { department : $dept }
+
+        $.ajax({
+            url : base_url + "report/report/get_team_by_department/",
+            data:myKeyVals, 
+            type: "POST",
+            dataType: "json",
+            success: function(data)
+            {
+                $("#sales_team").empty();
+                $("#sales_team").append('<option value="">None</option>');
+                data.forEach((el, key) => {
+                    $("#sales_team").append('<option value=' + el.id + '>' + el.group_name + '</option>');
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+</script>
  

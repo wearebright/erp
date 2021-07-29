@@ -14,6 +14,7 @@ class User_model extends CI_Model {
             'logo'       => $data['image'],
             'status'     => $data['status'],
 			'group_id'	 => $data['group_id'],
+			'department_id'	 => $data['department_id'],
         );
         $this->db->insert('users', $users);
         $user_login = array(
@@ -47,7 +48,7 @@ class User_model extends CI_Model {
 				a.*,a.logo as image,b.*,b.status as status,b.username as email
 			")
 			->from('users a')
-			->where('a.id', $id)
+			->where('a.user_id', $id)
 			->join('user_login b','b.user_id = a.user_id')
 			->order_by('a.user_id', 'desc')
 			
@@ -65,6 +66,7 @@ class User_model extends CI_Model {
             'logo'       => $data['image'],
             'status'     => $data['status'],
 			'group_id'	 => $data['group_id'],
+			'department_id'	 => $data['department_id'],
         );
         $this->db->where('user_id', $data['user_id']);
         $this->db->update('users', $userdata);
@@ -119,5 +121,23 @@ class User_model extends CI_Model {
 			->get()
 			->result();
 	}
+
+	public function departments() {
+        return $this->db->select("*")
+			->from('department')
+			->where('status', 1)
+			->order_by('department_name', 'asc')
+			->get()
+			->result();
+    }
+
+	public function get_team_by_department($dept){
+        return $this->db->select("a.*")
+			->from('user_group as a')
+            ->where('a.status', 1)
+            ->where('a.department_id', $dept)
+			->get()
+			->result();
+    }
 
 }
