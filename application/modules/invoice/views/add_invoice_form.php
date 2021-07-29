@@ -64,7 +64,7 @@
                                     <label for="sales_channel" class="col-sm-3 col-form-label">Sales Channel<i class="text-danger">*</i>
                                     </label>
                                     <div class="col-sm-6">                                      
-                                        <select name="sales_channel" class="form-control" required="">
+                                        <select name="sales_channel" class="form-control" required="" onchange="getTeam()" >
                                             <?php 
                                                 foreach ($departments as $key => $value) {
                                             ?>
@@ -72,11 +72,6 @@
                                             <?php
                                                 }
                                             ?>
-                                            
-                                            <!-- <option value="Social Media">Social Media</option> 
-                                            <option value="Lazada">Lazada</option> 
-                                            <option value="Shopee">Shopee</option>                                            
-                                            <option value="SH Partner">SH Partner</option>   -->
                                         </select> 
                                     </div>
                                 </div>
@@ -94,6 +89,25 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="col-sm-6" style="display: none;">
+                                <div class="form-group row" style="min-width:150px;">
+                                    <label class="col-sm-3 col-form-label" for="from_date"><?php echo display('group_name') ?></label>
+                                    <div class="col-sm-6">
+                                        <select id="sales_team" name="sales_team" class="form-control">
+                                            <option <?= $selected_team=='All'?"selected":"" ?> value="All">All</option>  
+                                            <?php 
+                                                foreach ($teams as $key => $value) {
+                                            ?>
+                                                    <option <?= $user_group->group_id === $value->id ? 'selected':'' ?> value="<?= $value->id ?>"><?= $value->group_name ?></option>
+                                            <?php
+                                                }
+                                            ?>
+                                        </select> 
+                                    </div> 
+                                </div> 
+                            </div>
+
                             <div class="col-sm-6">
                                  <div class="form-group row">
                                 <label for="invoice_no" class="col-sm-3 col-form-label"><?php
@@ -292,7 +306,7 @@
          
         </div>
         <script>
-              function printRawHtml(view) {
+            function printRawHtml(view) {
               printJS({
                 printable: view,
                 type: 'raw-html',
@@ -300,6 +314,33 @@
               });
 
              }
+
+            function getTeam(){
+                var $dept = $('select[name=sales_channel] :selected').text();
+
+                var base_url = $("#base_url").val();
+
+                var myKeyVals = { department : $dept }
+
+                $.ajax({
+                    url : base_url + "report/report/get_team_by_department/",
+                    data:myKeyVals, 
+                    type: "POST",
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        $("#sales_team").empty();
+                        $("#sales_team").append('<option value="All">All</option>');
+                        data.forEach((el, key) => {
+                            $("#sales_team").append('<option value=' + el.id + '>' + el.group_name + '</option>');
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error get data from ajax');
+                    }
+                });
+            }
         </script>
    
 

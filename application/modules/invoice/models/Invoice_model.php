@@ -1332,5 +1332,13 @@ if(!empty($this->input->post('paid_amount',TRUE))){
 			->get()
 			->row();
     }
+
+    public function get_teams(){
+        return $this->db->select("a.*")
+        ->from('user_group as a')
+        ->where('a.status', 1)
+        ->get()
+        ->result();
+    }
 }
 

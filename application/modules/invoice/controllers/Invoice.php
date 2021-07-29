@@ -23,16 +23,20 @@ class Invoice extends MX_Controller {
         $user_group       = $this->invoice_model->get_user_group($this->session->userdata('id'));
         $user_department  = $this->invoice_model->get_user_department($user_group->group_id);
 
+        $teams = $this->invoice_model->get_teams();
+        
         $data['customer_name'] = $walking_customer[0]['customer_name'];
         $data['customer_id']   = $walking_customer[0]['customer_id'];
         $data['user_type']     = $this->session->userdata('user_type');
         $data['departments']   = $departments;
+        $data['user_group']    = $user_group;
         $data['user_department'] = $user_department;
         $data['invoice_no']    = $this->number_generator();
         $data['title']         = display('add_invoice');
         $data['taxes']         = $this->invoice_model->tax_fileds();
         $data['module']        = "invoice";
         $data['page']          = "add_invoice_form"; 
+        $data['teams']         = $teams;
         echo modules::run('template/layout', $data);
     }
 
