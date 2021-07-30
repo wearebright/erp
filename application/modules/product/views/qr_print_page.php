@@ -1,4 +1,4 @@
-<div class="row">
+  <div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
@@ -68,7 +68,7 @@
                                                         <div class="product-name barcode-productname">
                                                             <?php echo $company_name;?>
                                                         </div>
-                                                        <img src="<?php echo base_url('my-assets/image/barcode/'.$barcode_img) ?> ">
+                                                        <img src="<?php echo base_url('my-assets/image/qr/'.$qr_image) ?> ">
                                                         <div class="product-name-details barcode-productdetails"><?php echo $product_name;?></div>
                                                         <div class="price barcode-price"><?php echo (($position == 0) ? "$currency  $price" : "$price $currency") ?>
 
@@ -109,7 +109,7 @@
                                                         <div class="product-name barcode-productname">
                                                             <?php echo $company_name;?>
                                                         </div>
-                                                        <img src="<?php echo base_url('my-assets/image/barcode/'.$barcode_img) ?> ">
+                                                        <img src="<?php echo base_url('my-assets/image/qr/'.$qr_image) ?> ">
                                                         <div class="product-name-details qrcode-productdetails"><?php echo $product_name?></div>
                                                         <div class="price barcode-price"><?php echo (($position == 0) ? "$currency $price" : "$price $currency") ?>
                                                         </div>

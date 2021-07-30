@@ -176,7 +176,7 @@ class Product extends MX_Controller {
         $this->form_validation->set_rules('model',display('model'),'required|max_length[200]');
         $this->form_validation->set_rules('category_id',display('category'),'required|max_length[20]');
         $this->form_validation->set_rules('price', display('price') ,'required|max_length[12]');
-        $product_id = (!empty($this->input->post('product_id',TRUE))?$this->input->post('product_id',TRUE):$this->generator(8));
+        $product_id = str_replace(" ","-",(!empty($this->input->post('product_id',TRUE))?$this->input->post('product_id',TRUE):$this->generator(8)));
         $sup_price = $this->input->post('supplier_price',TRUE);
         $s_id      = $this->input->post('supplier_id',TRUE);
         $product_model = $this->input->post('model',TRUE);
@@ -527,7 +527,7 @@ class Product extends MX_Controller {
             'qr_image'        => $image_name,
         );
         $data['module']        = "product";
-        $data['page']          = "barcode_print_page"; 
+        $data['page']          = "qr_print_page"; 
         echo modules::run('template/layout', $data);
     }
 
@@ -535,9 +535,17 @@ class Product extends MX_Controller {
     // bar code part
     public function barcode_print($product_id){
         $product_info = $this->product_model->bdtask_barcode_productdata($product_id);
-        $img_datap = file_get_contents(base_url('vendor/barcode.php?size=30&text='.$product_id.'&print=true'));
+        
+        $this->load->library('Zend');
+        $this->zend->load('Zend/Barcode');
+
         $img_filename =  $product_id . '.png';
-        file_put_contents(FCPATH . 'my-assets/image/barcode/' . $img_filename, $img_datap);
+        $imageResource = Zend_Barcode::factory('code128', 'image', array('text'=>$product_id), array())->draw();
+		imagepng($imageResource, 'my-assets/image/barcode/'.$img_filename);
+
+        // $img_datap = file_get_contents(base_url('vendor/barcode.php?size=30&text='.$product_id.'&print=true'));
+        // file_put_contents(FCPATH . 'my-assets/image/barcode/' . $img_filename, $img_datap);
+
         $data = array(
                 'title'           => display('barcode'),
                 'product_id'      => $product_id,
