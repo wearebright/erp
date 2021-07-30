@@ -140,4 +140,12 @@ class User_model extends CI_Model {
 			->result();
     }
 
+	public function get_teams(){
+        return $this->db->select("a.*")
+        ->from('user_group as a')
+        ->where('a.status', 1)
+        ->get()
+        ->result();
+    }
+
 }

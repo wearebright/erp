@@ -40,7 +40,7 @@
                                                     </tr>   
                                                     <tr>
                                                         <td colspan="2">
-                                                            ANB: <b><?= $order->anb ?></b>
+                                                            AWB: <b><?= $order->awb ?></b>
                                                         </td>
                                                     </tr> 
                                                 </tbody>                                      
@@ -93,7 +93,7 @@
                                                     </tr>   
                                                     <tr>
                                                         <td colspan="2">
-                                                            ANB: <b><?= $order->anb ?></b>
+                                                            AWB: <b><?= $order->awb ?></b>
                                                         </td>
                                                     </tr> 
                                                 </tbody>                                      
@@ -146,7 +146,7 @@
                                                     </tr>   
                                                     <tr>
                                                         <td colspan="2">
-                                                            ANB: <b><?= $order->anb ?></b>
+                                                            AWB: <b><?= $order->awb ?></b>
                                                         </td>
                                                     </tr> 
                                                 </tbody>                                      
@@ -199,7 +199,7 @@
                                                     </tr>   
                                                     <tr>
                                                         <td colspan="2">
-                                                            ANB: <b><?= $order->anb ?></b>
+                                                            AWB: <b><?= $order->awb ?></b>
                                                         </td>
                                                     </tr> 
                                                 </tbody>                                      
@@ -251,7 +251,7 @@
                                                     </tr>   
                                                     <tr>
                                                         <td colspan="2">
-                                                            AWB: <b><?= $order->anb ?></b>
+                                                            AWB: <b><?= $order->awb ?></b>
                                                         </td>
                                                     </tr> 
                                                 </tbody>                                      
