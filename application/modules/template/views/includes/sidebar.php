@@ -19,10 +19,27 @@
     <!-- sidebar menu -->
     <ul class="sidebar-menu">
 
-         <li class="treeview <?php echo (($this->uri->segment(1)=="home")?"active":null) ?>">
-            <a href="<?php echo base_url('home') ?>"> <i class="ti-dashboard"></i>  <span><?php echo display('dashboard')?></span> 
-            </a>
-        </li>
+        <?php if(
+                $this->permission1->method('view_overall_sales','read')->access() 
+                || $this->permission1->method('view_daily_sales','read')->access()
+                || $this->permission1->method('view_lazada_sales','read')->access()
+                || $this->permission1->method('view_shopee_sales','read')->access()
+                || $this->permission1->method('view_announcement_stats','read')->access()
+                || $this->permission1->method('view_shipped_orders_stats','read')->access()
+                || $this->permission1->method('view_purchased_order_arrived_stats','read')->access()
+                || $this->permission1->method('view_return_items_stats','read')->access()
+                || $this->permission1->method('view_latest_announcements','read')->access()
+                || $this->permission1->method('view_monthly_sales_performance','read')->access()
+                || $this->permission1->method('view_best_sale_product','read')->access()
+                || $this->permission1->method('view_todays_overview','read')->access()
+                || $this->permission1->method('view_todays_sales_report','read')->access()
+                || $this->permission1->method('view_top_marketing_associates','read')->access()){?>
+            <li class="treeview <?php echo (($this->uri->segment(1)=="home")?"active":null) ?>">
+                <a href="<?php echo base_url('home') ?>"> <i class="ti-dashboard"></i>  <span><?php echo display('dashboard')?></span> 
+                </a>
+            </li>
+        <?php } ?>
+
         <li class="treeview <?php echo (($this->uri->segment(1)=="orders")?"active":null) ?>">
             <a href="<?php echo base_url('orders') ?>"> <i class="ti-package"></i>  <span>Order Tracker</span> 
             </a>
@@ -496,7 +513,7 @@
                             <a href="<?php echo base_url('add_slider') ?>"><?php echo display('add_slider') ?></a>
                         </li>
                     <?php } ?>
-                    <?php if($this->permission1->method('manage_bulletin_slider','read')->access()){ ?>
+                    <?php if($this->permission1->method('manage_slider','read')->access()){ ?>
                         <li class="treeview <?= $this->uri->segment('1') == ("manage_slider")? "active" : '' ?>">
                             <a href="<?php echo base_url('manage_slider') ?>"><?php echo display('manage_slider') ?></a>
                         </li>
