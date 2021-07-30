@@ -463,7 +463,7 @@
 
 
     <!-- Bulletin menu start -->
-    <?php if($this->permission1->method('bulletin','read')->access()){?>
+    <?php if($this->permission1->method('manage_bulletin_slider','read')->access() || $this->permission1->method('manage_bulletin_announcement','read')->access() || $this->permission1->method('add_bulletin_announcement','create')->access() || $this->permission1->method('add_bulletin_slider','create')->access()){?>
             <li class="treeview <?php
             if ($this->uri->segment('1') == ("bulletin") || $this->uri->segment('1') == ("add_announcement") || $this->uri->segment('1') == ("add_slider") || $this->uri->segment('1') == ("manage_announcement") || $this->uri->segment('1') == ("manage_slider") || $this->uri->segment('1') == ("edit_announcement") || $this->uri->segment('1') == ("edit_slider")) {
                 echo "active";
