@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                    <label for="barcode_or_qrcode" class="col-sm-2 col-form-label"><?php echo display('barcode_or_qrcode') ?> <i class="text-danger"></i></label>
+                                    <label for="barcode_or_qrcode" class="col-sm-2 col-form-label"><?php echo display('barcode_or_qrcode') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="product_id" type="text" id="product_id" placeholder="<?php echo display('barcode_or_qrcode') ?>"  tabindex="1" >
+                                        <input class="form-control" name="product_id" type="text" id="product_id" placeholder="<?php echo display('barcode_or_qrcode') ?>" required tabindex="1" >
                                     </div>
                                 </div>
                             </div>
@@ -36,14 +36,14 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="product_model" class="col-sm-4 col-form-label"><?php echo display('model') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-8">
                                         <input type="text" tabindex="" class="form-control" id="product_model" name="model" placeholder="<?php echo display('model') ?>" value="<?php echo $product->product_model?>" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="category_id" class="col-sm-4 col-form-label"><?php echo display('category') ?> <i class="text-danger">*</i></label>
@@ -72,6 +72,8 @@
                                     </div>
                                 </div> 
                             </div>
+                        </div>
+                        <!-- <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="unit" class="col-sm-4 col-form-label"><?php echo display('unit') ?></label>
@@ -87,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group row">

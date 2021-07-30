@@ -179,7 +179,8 @@ class Product extends MX_Controller {
         $product_id = str_replace(" ","-",(!empty($this->input->post('product_id',TRUE))?$this->input->post('product_id',TRUE):$this->generator(8)));
         $sup_price = $this->input->post('supplier_price',TRUE);
         $s_id      = $this->input->post('supplier_id',TRUE);
-        $product_model = $this->input->post('model',TRUE);
+        // $product_model = $this->input->post('model',TRUE);
+        $product_model = $product_id;
         $taxfield = $this->db->select('tax_name,default_value')
                 ->from('tax_settings')
                 ->get()

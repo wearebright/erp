@@ -171,7 +171,7 @@
               
             </li>
         <?php }?>
-    <?php if($this->permission1->method('unit','create')->access() || $this->permission1->method('unit','update')->access()){ ?>
+    <!-- <?php if($this->permission1->method('unit','create')->access() || $this->permission1->method('unit','update')->access()){ ?>
          <li class="<?php echo (($this->uri->segment(1)=="unit_form")?"active":'') ?>">
                 <a href="<?php echo base_url('unit_form') ?>" > <?php echo display('add_unit')?>
                    
@@ -188,7 +188,7 @@
                 </a>
               
         </li>
-    <?php }?>
+    <?php }?> -->
      <?php if($this->permission1->method('create_product','create')->access()){ ?>
         <li class="<?php echo (($this->uri->segment(1)=="product_form")?"active":'') ?>">
                 <a href="<?php echo base_url('product_form') ?>">
