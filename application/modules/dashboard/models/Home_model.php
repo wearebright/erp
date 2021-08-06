@@ -414,9 +414,11 @@ class Home_model extends CI_Model {
     }
 
     public function get_unread_announcements(){
-        $this->db->select('*');
-        $this->db->from('bulletin_announcement');
+        $this->db->select("a.*, CONCAT(b.first_name, ' ', b.last_name) AS name");
+        $this->db->from('bulletin_announcement a');
+        $this->db->join('users b','a.user_id = b.user_id','left');
         $this->db->not_like('read_by', ','.$this->session->userdata('id').',');
+        $this->db->order_by('created_at', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
