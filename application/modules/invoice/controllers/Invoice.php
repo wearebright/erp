@@ -41,8 +41,11 @@ class Invoice extends MX_Controller {
     }
 
     public function bdtask_invoice_list(){
+        $teams = $this->invoice_model->get_teams();
+
         $data['title']        = display('manage_invoice');
         $data['total_invoice']= $this->invoice_model->count_invoice();
+        $data['teams']         = $teams;
         $data['module']       = "invoice";
         $data['page']         = "invoice"; 
         echo modules::run('template/layout', $data);

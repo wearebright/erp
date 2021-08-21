@@ -423,7 +423,7 @@ class Product extends MX_Controller {
                     'price'         => $insert_csv['price'],
                     'unit'          => '',
                     'tax'           => '',
-                    'product_details'=>'Csv Product',
+                    'product_details'=>'',
                     'image'         => 'my-assets/image/product.png',
                     'status'        => 1
                 );

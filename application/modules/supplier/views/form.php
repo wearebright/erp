@@ -144,9 +144,9 @@
                                         </div>
                                        
                                     </div>
-                                    <?php if(empty($supplier->supplier_id)){?>
+                                    <?php //if(empty($supplier->supplier_id)){?>
 
-                                     <label for="previous_balance" class="col-sm-2 text-right col-form-label"><?php echo display('previous_balance')?>:</label>
+                                     <!-- <label for="previous_balance" class="col-sm-2 text-right col-form-label"><?php echo display('previous_balance')?>:</label>
                                     <div class="col-sm-4">
                                         <div class="">
                                            
@@ -154,8 +154,8 @@
     
                                         </div>
                                        
-                                    </div>
-                                <?php }?>
+                                    </div> -->
+                                <?php //}?>
                                     
                                 </div>
 

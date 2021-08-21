@@ -4,13 +4,13 @@
                     <div id="printableArea" onload="printDiv('printableArea')">
                         <div class="panel-body">
                             <div class="row print_header">
-                                <div class="col-sm-8 text-left">
+                                <div class="col-sm-6 text-left">
                                     <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
                                     <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
                                     <?php echo form_open_multipart('invoice/invoice/update_order_status',array('class' => 'form-vertical', 'id' => 'insert_sale','name' => 'insert_sale'))?>
                                         <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <label for="order_status" class="col-form-label">Order Status<i class="text-danger">*</i>
                                                 </label>
                                                 <div class="form-group">
@@ -23,7 +23,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 logistics_option">
+                                            <div class="col-md-6 logistics_option">
                                                 <label for="order_status" class="col-form-label">Logistics
                                                 </label>
                                                 <div class="form-group">
@@ -37,7 +37,7 @@
                                             </div>
                                         </div>
                                         <div class="row" id="returnAdditionalFields" style="display: <?= $invoice_order_status == 'RETURN_TO_SENDER' ? 'block': 'none'; ?>">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <label for="order_status" class="col-form-label">Reason</label>
                                                 <div class="form-group">
                                                     <select name="reason" class="form-control" required="" onchange="selectStatus()">
@@ -48,7 +48,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <label for="order_status" class="col-form-label">Region
                                                 </label>
                                                 <div class="form-group">
@@ -62,16 +62,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="order_status" class="col-form-label">AWB</label>
                                                     <input type="text" class="form-control" name="awb" value="<?= $awb ?>">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="invoiceAdditionalFields" style="display: <?= $invoice_order_status != 'WAREHOUSE' || $invoice_order_status != 'READY' ? 'block': 'none'; ?>">
+                                        <div id="invoiceAdditionalFields">
                                             <div class="form-group row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="order_status" class="col-form-label">Remarks</label>
                                                         <textarea rows="3" class="form-control" name="comment"><?= $invoice_comment ?></textarea>
@@ -79,9 +79,31 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                               
+                                                <?php
+                                                    if($invoice_attachment){
+                                                ?>
                                                 <div class="col-md-6">
-                                                    <div class="form-group ">
+                                                <label class="col-form-label">Proof Attachment</label>
+                                                    <a target="_blank" style="margin-bottom: 15px; max-width: 200px;" href="<?= base_url().$invoice_attachment ?>">
+                                                        <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
+                                                    </a>
+                                                 
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    <?php
+                                                    if($invoice_attachment){
+                                                    ?>
+                                                        <label for="order_status" class="col-form-label">Update Attachment</label>
+                                                    <?php
+                                                    }else{
+                                                    ?>
                                                         <label for="order_status" class="col-form-label">Attachment</label>
+                                                    <?php
+
+                                                    } ?>
+
                                                         <!-- <input type="file" name="orderAttachment"/> -->
                                                         <div class="customFileInputWrapper">
                                                             <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
@@ -89,15 +111,8 @@
                                                             <input name="orderAttachment_old" type="hidden" value="<?= $invoice_attachment ?>">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
-                                                </div>
-                                                <?php
-                                                    if($invoice_attachment){
-                                                ?>
-                                                    <div class="col-md-8">
-                                                        <a target="_blank" style="margin-top: 40px;" href="<?= base_url().$invoice_attachment ?>">View Attachement</a>
+
+
                                                     </div>
                                                 <?php
                                                     }
@@ -105,14 +120,14 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="form-group row" style="margin-bottom:40px">
+                                        <div class="form-group row" style="margin-bottom:40px; float:right;">
                                             <div class="col-md-4">
                                                 <button type="submit" class="btn btn-success btn-justify">Update</button>
                                             </div>
                                         </div>
                                     <?php echo form_close()?>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <?php foreach($company_info as $company){?>
                                     <img src="<?php
                                     if (isset($setting->invoice_logo)) {
@@ -152,15 +167,13 @@
                                         <?php } ?>
                                     </address>
                                    
-                                  
 
-                                </div>
-                            </div> 
-
+<!-- INVOICE TABLE HERE -->
+ 
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                                   <tr>
+                                        <tr>
                                             <th class="text-center"><?php echo display('sl') ?></th>
                                             <th class="text-center"><?php echo display('product_name') ?></th>
                                               <th class="text-center"><?php if($is_unit !=0){ echo display('unit');
@@ -176,9 +189,9 @@
                                             <?php } elseif ($discount_type == 3) { ?>
                                                 <th class="text-right"><?php echo display('fixed_dis') ?> </th>
                                             <?php } ?>
-                                        <?php }else{ ?>
-<th class="text-right"><?php echo ''; ?> </th>
-<?php }?>
+                                            <?php }else{ ?>
+                                            <th class="text-right"><?php echo ''; ?> </th>
+                                            <?php }?>
                                             <th class="text-right"><?php echo display('rate') ?></th>
                                             <th class="text-right"><?php echo display('ammount') ?></th>
                                         </tr>
@@ -191,7 +204,7 @@
                                               <td class="text-center"><div><?php echo $details['unit']?></div></td>
                                             <td align="center"><?php echo $details['description']?></td>
                                             <td align="center"><?php echo $details['serial_no']?></td>
-                                            <td align="right"><?php echo $details['quantity']?></td>
+                                            <td align="right"><?php echo number_format($details['quantity'],0) ?></td>
 
                                             <?php if ($discount_type == 1) { ?>
                                                 <td align="right"><?php echo $details['discount_per']?></td>
@@ -205,7 +218,7 @@
                                         <?php }?>
                                         <tr>
                                             <td class="text-left" colspan="5"><b><?php echo display('grand_total') ?>:</b></td>
-                                            <td align="right" ><b><?php echo number_format($subTotal_quantity,2)?></b></td>
+                                            <td align="right" ><b><?php echo number_format($subTotal_quantity,0)?></b></td>
                                             <td></td>
                                             <td></td>
                                             <td align="right" ><b><?php echo (($position == 0) ? $currency.' '.$subTotal_ammount  : $subTotal_ammount.' '. $currency) ?></b></td>
@@ -214,15 +227,15 @@
 
                                 </table>
                             </div>
-                               <div class="row">
+                            <div class="row">
 
-                                <div class="col-xs-8 invoicefooter-content">
+                                <div class="col-xs-6 invoicefooter-content">
 
                                     <p></p>
                                     <p><strong><?php echo $invoice_details?></strong></p> 
                                    
                                 </div>
-                                <div class="col-xs-4 inline-block">
+                                <div class="col-xs-6 inline-block">
 
                                     <table class="table">
                                         <?php
@@ -262,7 +275,10 @@
 
                                 </div>
                             </div>
-                            <div class="row margin-top50">
+                                </div>
+                            </div> 
+
+                            <!-- <div class="row margin-top50">
                                 <div class="col-sm-4">
                                  <div class="inv-footer-left">
                                         <?php echo display('received_by') ?>
@@ -272,16 +288,16 @@
                                      <div class="col-sm-4"> <div class="inv-footer-right">
                                         <?php echo display('authorised_by') ?>
                                     </div></div>
-                            </div>
+                            </div> -->
                            
                         </div>
                     </div>
 
-                    <div class="panel-footer text-left">
+                    <!-- <div class="panel-footer text-left">
                        
                         <button  class="btn btn-info" onclick="printDiv('printableArea')"><span class="fa fa-print"></span></button>
 
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -289,11 +305,11 @@
     function selectStatus(){
         let order_status = $('select[name=order_status] option').filter(":selected").val();
         console.log(order_status);
-        if(order_status == 'NEW' || order_status == 'WAREHOUSE'|| order_status == 'RETURN_TO_SENDER'){
-            $('#invoiceAdditionalFields').show();
-        }else{
-            $('#invoiceAdditionalFields').hide();
-        }
+        // if(order_status == 'NEW' || order_status == 'WAREHOUSE'|| order_status == 'RETURN_TO_SENDER'){
+        //     $('#invoiceAdditionalFields').show();
+        // }else{
+        //     $('#invoiceAdditionalFields').hide();
+        // }
 
         if(order_status === 'RETURN_TO_SENDER'){
             $('#returnAdditionalFields').show();

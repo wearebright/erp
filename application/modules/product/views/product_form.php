@@ -36,14 +36,14 @@
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="product_model" class="col-sm-4 col-form-label"><?php echo display('model') ?> <i class="text-danger">*</i></label>
                                     <div class="col-sm-8">
                                         <input type="text" tabindex="" class="form-control" id="product_model" name="model" placeholder="<?php echo display('model') ?>" value="<?php echo $product->product_model?>" />
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="category_id" class="col-sm-4 col-form-label"><?php echo display('category') ?> <i class="text-danger">*</i></label>

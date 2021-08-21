@@ -475,12 +475,11 @@ $(document).ready(function() {
                     toastr["success"](data.message);
                     swal({
                         title: "Success!",
-                        showCancelButton: FALSE,
+                        showCancelButton: true,
                         cancelButtonText: "NO",
                         confirmButtonText: "Add Another",
                         text: "Order saved to database",
                         type: "success",
-
 
                     }, function(inputValue) {
                         if (inputValue === true) {

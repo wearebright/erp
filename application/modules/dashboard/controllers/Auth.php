@@ -101,14 +101,14 @@ class Auth extends MX_Controller {
 					$this->session->set_userdata($sData);
 					$this->session->set_flashdata('message', display('welcome_back').' '.$user->row()->fullname);
                     if($user->row()->user_type == 1){
-					redirect('home');
-                }else{
-                    if($permission['new_invoice']['create'] == 1 || $permission['gui_pos']['create']==1){
-                       redirect('gui_pos'); 
-                   }else{
-                    redirect('home');
-                   }
-
+					    redirect('home');
+                    }else{
+                        redirect('home');
+                        // if($permission['new_invoice']['create'] == 1 || $permission['gui_pos']['create']==1){
+                        //      redirect('home'); 
+                        // }else{
+                        //     redirect('home');
+                        // }
                     }
 
 			} else {

@@ -1,4 +1,12 @@
- <div class="row">
+<style>
+    .balance{
+        display: none !important;
+    }
+    tfoot{
+        display: none !important;
+    }
+</style>
+<div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">

@@ -9,7 +9,7 @@
                       
                         $today = date('Y-m-d');
                         ?>
-                        <div class="form-group col-md-4" style="display: flex; align-items:center;">
+                        <!-- <div class="form-group col-md-4" style="display: flex; align-items:center;">
                             <label class="" style="margin-right: 2px;" for="from_date"><?php echo display('department') ?></label>
                             <select name="sales_channel" class="form-control" required="">
                                 <option value="">Select Option</option>
@@ -19,7 +19,7 @@
                                 <option value="Shopee">Shopee</option> 
                                 <option value="SH Partner">SH Partner</option> 
                             </select> 
-                        </div>   
+                        </div>    -->
                         <div class="form-group">
                             <label class="" for="from_date"><?php echo display('start_date') ?></label>
                             <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="" placeholder="<?php echo display('start_date') ?>" >
