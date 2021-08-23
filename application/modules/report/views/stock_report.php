@@ -21,9 +21,11 @@
                                     <th class="text-center"><?php echo display('stock') ?></th>
                                     <th class="text-center"><?php echo display('stock_sale')?></th>
                                     <th class="text-center"><?php echo display('stock_purchase_price')?></th>
+                                    <th class="text-center"><?php echo display('action')?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    </tbody>
                                          <tfoot>
                                             <tr>
                 <th colspan="7" class="text-right"><?php echo display('total')?> :</th>
@@ -43,4 +45,73 @@
                 </div>
             </div>
         </div>
+        <div class="modal" id="editQuantityModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3 class="modal-title">Edit Quantity</h3>    
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Current Quantity</label>
+                            <input type="hidden" class="form-control" id="productId" value="" readonly>
+                            <input type="text" class="form-control" id="currentQuantity" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>New Quantity</label>
+                            <input type="text" class="form-control" id="newQuantity" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Comment</label>
+                            <textarea type="text" class="form-control" id="comment" value=""></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="saveChanges" class="btn btn-primary">Save changes</button>                
+                    </div>
+                </div>
+            </div>
+        </div>
        
+<script>
+    $('#checkListStockList').on('click', '.editQuantity', function(){
+        $('#editQuantityModal').modal('show'); 
+        $('#currentQuantity').val( $(this).attr('data-quantity') );
+        $('#productId').val( $(this).attr('data-id') )
+    })
+
+    $('#saveChanges').on('click', function() {
+        var base_url = $("#base_url").val();
+        var new_quantity = $('#newQuantity').val();
+
+        if(new_quantity){
+            $.ajax({
+                url : base_url + "report/report/saveNewQuantity/",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: $('#productId').val(),
+                    current_quantity: $('#currentQuantity').val(),
+                    new_quantity: new_quantity,
+                    comment: $('#comment').val()
+                },
+                success: function(data)
+                {
+                    $('#editQuantityModal').modal('hide');
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    alert('Error get data from ajax');
+                }
+            });
+        }else{
+            alert('New quantity is required');
+        }
+       
+    })
+</script>

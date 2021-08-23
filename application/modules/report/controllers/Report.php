@@ -24,7 +24,7 @@ class Report extends MX_Controller {
         echo modules::run('template/layout', $data);
     }
 
-       public function bdtask_checkStocklist(){
+    public function bdtask_checkStocklist(){
         // GET data
         $postData = $this->input->post();
         $data = $this->report_model->bdtask_getStock($postData);
@@ -796,6 +796,57 @@ class Report extends MX_Controller {
         
         echo json_encode($teams,true);
         die;
+    }
+
+
+
+
+
+
+    /* stock edit logs */
+    public function stock_edit_logs(){
+        $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-d')) ;
+        $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
+        $product_id = $this->input->get('product_id');
+
+        $editLogs = $this->report_model->getEditLogs($from_date, $to_date, $product_id);
+        $product_list = $this->report_model->product_list();
+        
+        
+        $data = array(
+            'from'           => $from_date,
+            'to'             => $to_date,
+            'edit_logs'  => $editLogs,
+            'product_list'   => $product_list,
+            'product_id'     => $product_id
+        );
+
+        $data['title'] = display('stocks_edit_logs');
+        $data['module']     = "report";
+        $data['page']       = "stocks_edit_logs"; 
+        echo modules::run('template/layout', $data);
+    }
+
+    public function saveNewQuantity(){
+
+        $data['quantity_before'] = (int) $this->input->post('current_quantity', true);
+        $data['quantity_after'] = $this->input->post('new_quantity', true);
+        $data['product_id'] = $this->input->post('product_id', true);
+        $data['user_id'] = $this->session->userdata('id');
+        $data['comment'] = $this->input->post('comment', true);
+
+        $quantity = $data['quantity_after'] - $data['quantity_before'];
+
+        if( $this->report_model->updateProductQuantity($data['product_id'], $quantity) ){
+            if($this->report_model->saveEditLog($data)){
+                
+                $res['message'] = "Successfully saved";
+                $res['error'] = false;
+                $this->session->set_flashdata(array('message'=> display('successfully_saved')));
+                echo json_encode($res,true);
+                die;
+            }
+        }
     }
 }
 

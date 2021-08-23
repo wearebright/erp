@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
  *---------------------------------------------------------------
@@ -97,8 +97,8 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = '/home/sellershubph.com/public_html/system';
-
+	// $system_path = '/home/sellershubph.com/public_html/system';
+	$system_path = 'system';
 /*
  *---------------------------------------------------------------
  * APPLICATION DIRECTORY NAME
@@ -114,7 +114,8 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = '/home/sellershubph.com/public_html/application';
+	// $application_folder = '/home/sellershubph.com/public_html/application';
+	$application_folder = 'application';
 
 /*
  *---------------------------------------------------------------

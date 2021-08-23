@@ -122,6 +122,9 @@ class Invoice extends MX_Controller {
         $amount_inword = $totalbal;
         $user_id       = $invoice_detail[0]['sales_by'];
         $users         = $this->invoice_model->user_invoice_data($user_id);
+
+        $outgoing_data = $this->invoice_model->getOutgoing($invoice_detail[0]['invoice_id']);
+
         $data = array(
         'title'             => display('invoice_details'),
         'regions'           => $regions,
@@ -158,7 +161,8 @@ class Invoice extends MX_Controller {
         'is_desc'           => $descript,
         'is_serial'         => $isserial,
         'is_unit'           => $isunit,
-        'awb'               => $invoice_detail[0]['awb']
+        'awb'               => $invoice_detail[0]['awb'],
+        'outgoing_data'     => $outgoing_data
         );
         $data['module']     = "invoice";
         $data['page']       = "invoice_html"; 

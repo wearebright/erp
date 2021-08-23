@@ -84,12 +84,14 @@
                                                     if($invoice_attachment){
                                                 ?>
                                                 <div class="col-md-6">
-                                                <label class="col-form-label">Proof Attachment</label>
+                                                    <label class="col-form-label">Proof Attachment</label>
                                                     <a target="_blank" style="margin-bottom: 15px; max-width: 200px;" href="<?= base_url().$invoice_attachment ?>">
                                                         <img style="width: 100%;" src="<?= $invoice_attachment ? base_url().$invoice_attachment: '' ?>" id="attachment_preview"/>
                                                     </a>
-                                                 
                                                 </div>
+                                                <?php
+                                                    }
+                                                ?>
                                                 <div class="col-md-6">
                                                 <div class="form-group ">
                                                     <?php
@@ -114,9 +116,7 @@
 
 
                                                     </div>
-                                                <?php
-                                                    }
-                                                ?>
+
                                             </div>
                                             
                                         </div>
@@ -166,115 +166,111 @@
                                             <?php echo $customer_email;?>
                                         <?php } ?>
                                     </address>
-                                   
+                                
+                                    <!-- INVOICE TABLE HERE -->
+         
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><?php echo display('sl') ?></th>
+                                                    <th class="text-center"><?php echo display('product_name') ?></th>
+                                                    <th class="text-center"><?php if($is_unit !=0){ echo display('unit');
+                                                    }?></th>
+                                                    <th class="text-center"><?php if($is_desc !=0){ echo display('item_description');} ?></th>
+                                                    <th class="text-center"><?php if($is_serial !=0){ echo display('serial_no');} ?></th>
+                                                    <th class="text-right"><?php echo display('quantity') ?></th>
+                                                    <?php if($is_discount > 0){ ?>
+                                                    <?php if ($discount_type == 1) { ?>
+                                                        <th class="text-right"><?php echo display('discount_percentage') ?> %</th>
+                                                    <?php } elseif ($discount_type == 2) { ?>
+                                                        <th class="text-right"><?php echo display('discount') ?> </th>
+                                                    <?php } elseif ($discount_type == 3) { ?>
+                                                        <th class="text-right"><?php echo display('fixed_dis') ?> </th>
+                                                    <?php } ?>
+                                                    <?php }else{ ?>
+                                                    <th class="text-right"><?php echo ''; ?> </th>
+                                                    <?php }?>
+                                                    <th class="text-right"><?php echo display('rate') ?></th>
+                                                    <th class="text-right"><?php echo display('ammount') ?></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach($invoice_all_data as $details){?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $details['sl']?></td>
+                                                    <td class="text-center"><div><?php echo $details['product_name']?> - (<?php echo $details['product_model']?>)</div></td>
+                                                    <td class="text-center"><div><?php echo $details['unit']?></div></td>
+                                                    <td align="center"><?php echo $details['description']?></td>
+                                                    <td align="center"><?php echo $details['serial_no']?></td>
+                                                    <td align="right"><?php echo number_format($details['quantity'],0) ?></td>
 
-<!-- INVOICE TABLE HERE -->
- 
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center"><?php echo display('sl') ?></th>
-                                            <th class="text-center"><?php echo display('product_name') ?></th>
-                                              <th class="text-center"><?php if($is_unit !=0){ echo display('unit');
-                                              }?></th>
-                                            <th class="text-center"><?php if($is_desc !=0){ echo display('item_description');} ?></th>
-                                            <th class="text-center"><?php if($is_serial !=0){ echo display('serial_no');} ?></th>
-                                            <th class="text-right"><?php echo display('quantity') ?></th>
-                                            <?php if($is_discount > 0){ ?>
-                                            <?php if ($discount_type == 1) { ?>
-                                                <th class="text-right"><?php echo display('discount_percentage') ?> %</th>
-                                            <?php } elseif ($discount_type == 2) { ?>
-                                                <th class="text-right"><?php echo display('discount') ?> </th>
-                                            <?php } elseif ($discount_type == 3) { ?>
-                                                <th class="text-right"><?php echo display('fixed_dis') ?> </th>
-                                            <?php } ?>
-                                            <?php }else{ ?>
-                                            <th class="text-right"><?php echo ''; ?> </th>
-                                            <?php }?>
-                                            <th class="text-right"><?php echo display('rate') ?></th>
-                                            <th class="text-right"><?php echo display('ammount') ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach($invoice_all_data as $details){?>
-                                        <tr>
-                                            <td class="text-center"><?php echo $details['sl']?></td>
-                                            <td class="text-center"><div><?php echo $details['product_name']?> - (<?php echo $details['product_model']?>)</div></td>
-                                              <td class="text-center"><div><?php echo $details['unit']?></div></td>
-                                            <td align="center"><?php echo $details['description']?></td>
-                                            <td align="center"><?php echo $details['serial_no']?></td>
-                                            <td align="right"><?php echo number_format($details['quantity'],0) ?></td>
+                                                    <?php if ($discount_type == 1) { ?>
+                                                        <td align="right"><?php echo $details['discount_per']?></td>
+                                                    <?php } else { ?>
+                                                        <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['discount_per'] : $details['discount_per'].' '. $currency) ?></td>
+                                                    <?php } ?>
 
-                                            <?php if ($discount_type == 1) { ?>
-                                                <td align="right"><?php echo $details['discount_per']?></td>
-                                            <?php } else { ?>
-                                                <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['discount_per'] : $details['discount_per'].' '. $currency) ?></td>
-                                            <?php } ?>
+                                                    <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['rate'] : $details['rate'].' '. $currency) ?></td>
+                                                    <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['total_price'] : $details['total_price'].' '. $currency) ?></td>
+                                                </tr>
+                                                <?php }?>
+                                                <tr>
+                                                    <td class="text-left" colspan="5"><b><?php echo display('grand_total') ?>:</b></td>
+                                                    <td align="right" ><b><?php echo number_format($subTotal_quantity,0)?></b></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td align="right" ><b><?php echo (($position == 0) ? $currency.' '.$subTotal_ammount  : $subTotal_ammount.' '. $currency) ?></b></td>
+                                                </tr>
+                                            </tbody>
 
-                                            <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['rate'] : $details['rate'].' '. $currency) ?></td>
-                                            <td align="right"><?php echo (($position == 0) ? $currency.' '.$details['total_price'] : $details['total_price'].' '. $currency) ?></td>
-                                        </tr>
-                                        <?php }?>
-                                        <tr>
-                                            <td class="text-left" colspan="5"><b><?php echo display('grand_total') ?>:</b></td>
-                                            <td align="right" ><b><?php echo number_format($subTotal_quantity,0)?></b></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td align="right" ><b><?php echo (($position == 0) ? $currency.' '.$subTotal_ammount  : $subTotal_ammount.' '. $currency) ?></b></td>
-                                        </tr>
-                                    </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 invoicefooter-content">
 
-                                </table>
-                            </div>
-                            <div class="row">
+                                            <p></p>
+                                            <p><strong><?php echo $invoice_details?></strong></p> 
+                                        
+                                        </div>
+                                        <div class="col-xs-6 inline-block">
 
-                                <div class="col-xs-6 invoicefooter-content">
-
-                                    <p></p>
-                                    <p><strong><?php echo $invoice_details?></strong></p> 
-                                   
-                                </div>
-                                <div class="col-xs-6 inline-block">
-
-                                    <table class="table">
-                                        <?php
-                                        if ($invoice_all_data[0]['total_discount'] != 0) {
-                                            ?>
-                                            <tr>
-                                                <th class="border-bottom-top"><?php echo display('total_discount') ?> : </th>
-                                                <td class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$total_discount  : $total_discount.' '. $currency)) ?> </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        if ($invoice_all_data[0]['total_tax'] != 0) {
-                                            ?>
-                                            <tr>
-                                                <th class="text-left border-bottom-top"><?php echo display('tax') ?> : </th>
-                                                <td  class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$total_tax : $total_tax.' '. $currency)) ?> </td>
-                                            </tr>
-                                        <?php } ?>
-                                         <?php if ($invoice_all_data[0]['shipping_cost'] != 0) {
-                                            ?>
-                                            <tr>
-                                                <th class="text-left border-bottom-top"><?php echo 'Shipping Cost' ?> : </th>
-                                                <td class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$shipping_cost: $shipping_cost.' '. $currency)) ?> </td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <th class="text-left grand_total"><?php echo display('grand_total') ?> :</th>
-                                            <td class="text-right grand_total"><?php echo html_escape((($position == 0) ? $currency.' '.$total_amount : $total_amount.' '. $currency)) ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                         </tr>
-  
-                                    </table>
-
-                                   
-
-                                </div>
-                            </div>
+                                            <table class="table">
+                                                <?php
+                                                if ($invoice_all_data[0]['total_discount'] != 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th class="border-bottom-top"><?php echo display('total_discount') ?> : </th>
+                                                        <td class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$total_discount  : $total_discount.' '. $currency)) ?> </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                                if ($invoice_all_data[0]['total_tax'] != 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th class="text-left border-bottom-top"><?php echo display('tax') ?> : </th>
+                                                        <td  class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$total_tax : $total_tax.' '. $currency)) ?> </td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <?php if ($invoice_all_data[0]['shipping_cost'] != 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th class="text-left border-bottom-top"><?php echo 'Shipping Cost' ?> : </th>
+                                                        <td class="text-right border-bottom-top"><?php echo html_escape((($position == 0) ? $currency.' '.$shipping_cost: $shipping_cost.' '. $currency)) ?> </td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <tr>
+                                                    <th class="text-left grand_total"><?php echo display('grand_total') ?> :</th>
+                                                    <td class="text-right grand_total"><?php echo html_escape((($position == 0) ? $currency.' '.$total_amount : $total_amount.' '. $currency)) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                </tr>
+        
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div> 
 
@@ -289,9 +285,68 @@
                                         <?php echo display('authorised_by') ?>
                                     </div></div>
                             </div> -->
+                            
+                            
+                            <div class="row" style="margin: 15px 0px;">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-1 col-form-label" style="padding: 13px 0px;">
+                                            <?= display('scan_barcode')?>
+                                        </label>
+                                        <div class="col-sm-5">
+                                            <input autocomplete="off" style="height: 48px; border-color: #d1d1d1;" class="form-control" autofocus placeholder="Product ID" id="productID" onchange="getProductDetails()" type="text" size="100" name="product_id" class=" form-control"/>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <form action="/tracking/outgoing/saveOutgoing" method="POST">
+                                                <button type="submit" class="btn btn-primary" id="saveOutgoing">Save to Outgoing</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive" >
+                                <table class="table table-bordered table-hover" cellspacing="0" width="100%" id="PrdScan"> 
+                                    <thead>
+                                        <tr>
+                                        <th><?php echo display('sl') ?></th>
+                                        <th><?php echo display('product_id') ?></th>
+                                        <th><?php echo display('product_name') ?></th>
+                                        <th><?php echo display('product_model') ?></th>
+                                        <th><?php echo display('scan_by') ?></th>
+                                        <th><?php echo display('price') ?></th>
+                                        <th><?php echo display('quantity') ?></th>
+                                        <th><?php echo display('date') ?></th>
+                                        <th class="text-center"><?php echo display('action') ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($outgoing_data as $key => $value) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $value['id'] ?></td>
+                                                <td><?= $value['product_id'] ?></td>
+                                                <td><?= $value['product_name'] ?></td>
+                                                <td><?= $value['product_model'] ?></td>
+                                                <td><?= $value['first_name'] . '' . $value['last_name'] ?></td>
+                                                <td><?= $value['price'] ?></td>
+                                                <td><?= $value['quantity'] ?></td>
+                                                <td><?= $value['created_at'] ?></td>
+                                                <td class="text-center">
+                                                    <a href="/tracking/outgoing/remove/<?= $value['id'] ?>" class="btn btn-xs btn-danger" onclick="return confirm('Are You Sure ?')">
+                                                        <i class='fa fa-trash'></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        } ?>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
                            
                         </div>
                     </div>
+                    
 
                     <!-- <div class="panel-footer text-left">
                        
@@ -362,4 +417,38 @@
         });
 
 
+</script>
+
+<script>
+    function getProductDetails() {
+        var productEl = document.getElementById('productID');
+        var CSRF_TOKEN = $('#CSRF_TOKEN').val();
+        var base_url = $('#base_url').val();
+
+        $.ajax( {
+          url: base_url + "/tracking/outgoing/addOutgoing",
+          method: 'post',
+          dataType: "json",
+          data: {
+            product_id: productEl.value,
+            invoice_id: $('input[name=invoice_id]').val(),
+          },
+          success: function( data ) {
+            console.log( data );
+            if(!data.error){
+                let html  = "";
+                data.data.forEach((element, index) => {
+                    html += "<tr><td>"+data.data.id+"</td><td>"+data.data.product_id+"</td><td>"+data.data.product_name+"</td><td>"+data.data.product_model+"</td><td>"+data.data.first_name+" "+ data.data.last_name+"</td><td>"+data.data.price+"</td><td>"+data.data.quantity+"</td><td>"+data.data.created_at+"</td><td class='text-center'><a href='"+base_url+"/tracking/outgoing/remove/"+data.data.id+"' class='btn btn-xs btn-danger' onclick='return confirm('Are You Sure ?')'><i class='fa fa-trash'></i></a></td></tr>"
+                    if( (index+1) >= data.data.length()){
+                        $('#PrdScan tbody').html(html);
+                    }
+                });
+            }else{
+                alert(data.message);
+            }
+          }
+        });
+        
+        productEl.value = "";
+    }
 </script>

@@ -3,18 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 #--Bright IT Solutions--#  
 
 class Invoice_model extends CI_Model {
-
-
- public function customer_list(){
-     $query = $this->db->select('*')
-                ->from('customer_information')
-                ->where('status', '1')
-                ->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
-        return false;
- }
+    
+    public function customer_list(){
+        $query = $this->db->select('*')
+                    ->from('customer_information')
+                    ->where('status', '1')
+                    ->get();
+            if ($query->num_rows() > 0) {
+                return $query->result_array();
+            }
+            return false;
+    }
 
     public function tax_fileds(){
         return $taxfield = $this->db->select('tax_name,default_value')
@@ -1345,6 +1344,23 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         ->where('a.status', 1)
         ->get()
         ->result();
+    }
+
+
+
+
+    public function getOutgoing($inv_id){
+        $query = $this->db->select('outgoing_stock.*, product_information.product_name, product_information.product_model, product_information.price, users.last_name, users.first_name  ')
+                   ->from('outgoing_stock')
+                   ->join('product_information', 'product_information.product_id = outgoing_stock.product_id')
+                   ->join('users', 'users.user_id = outgoing_stock.user_id')
+                   ->where('outgoing_stock.invoice_id', $inv_id)
+                   ->order_by('outgoing_stock.created_at', 'DESC')
+                   ->get();
+        if ($query) {
+            return $query->result_array();
+        }
+        return false;
     }
 }
 

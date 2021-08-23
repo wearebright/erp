@@ -61,7 +61,7 @@ class Report_model extends CI_Model {
          $sl =1;
          foreach($records as $record ){
           $stockin = $this->db->select('sum(quantity) as totalSalesQnty')->from('invoice_details')->where('product_id',$record->product_id)->get()->row();
-         $stockout = $this->db->select('sum(quantity) as totalPurchaseQnty,Avg(rate) as purchaseprice')->from('product_purchase_details')->where('product_id',$record->product_id)->get()->row();
+         $stockout = $this->db->select('sum(quantity_received) as totalPurchaseQnty,Avg(rate) as purchaseprice')->from('product_purchase_details')->where('product_id',$record->product_id)->get()->row();
             
 
             $sprice = (!empty($record->price)?$record->price:0);
@@ -78,6 +78,7 @@ class Report_model extends CI_Model {
                 'stok_quantity' => sprintf('%0.2f',$stock),
                 'total_sale_price'=> ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$sprice,
                 'purchase_total' =>  ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$pprice,
+                'button' =>  '<button data-id="'.$record->id.'" data-quantity="'.$stockout->totalPurchaseQnty.'" class="btn btn-info btn-sm editQuantity"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Stock</button>',
             ); 
             $sl++;
          }
@@ -787,6 +788,40 @@ class Report_model extends CI_Model {
         ->where('a.status', 1)
         ->get()
         ->result();
+    }
+
+
+
+    function getEditLogs($from, $to, $product_id = null){
+        $query = $this->db->select('stock_edit_logs.*, product_information.product_name, product_information.product_model, product_information.price, users.last_name, users.first_name ')
+                ->from('stock_edit_logs')
+                ->join('product_information', 'product_information.id = stock_edit_logs.product_id')
+                ->join('users', 'users.user_id = stock_edit_logs.user_id')
+                ->order_by('stock_edit_logs.created_at', 'DESC');
+        if($from && $to){
+            $this->db->where('stock_edit_logs.created_at >=', date('Y-m-d', strtotime($from)));
+            $this->db->where('stock_edit_logs.created_at <=', date('Y-m-d', strtotime($to)));
+        }
+        
+        if($product_id && $product_id !== 'all'){
+            $this->db->where('stock_edit_logs.product_id', $product_id);   
+        }
+        
+        $query = $query->get();
+        if ($query) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    function saveEditLog($data){
+        return $this->db->insert('stock_edit_logs', $data);
+    }
+
+    function updateProductQuantity($product_id, $quantity){
+        return $this->db->set('quantity_modification', $quantity)
+                        ->where('id', $product_id)
+                        ->update('product_information');
     }
 
 }

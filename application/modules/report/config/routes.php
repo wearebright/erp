@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['stock']          = "report/report/bdtask_stock_report";
+$route['stock_edit_logs'] = "report/report/stock_edit_logs";
 $route['reports/(:num)'] = 'report/report/bdtask_purchase_edit_form/$1';
 $route['closing_form']   = "report/report/bdtask_cash_closing";
 $route['closing_report'] = "report/report/bdtask_closing_report";
