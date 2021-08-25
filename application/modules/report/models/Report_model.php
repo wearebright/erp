@@ -73,12 +73,12 @@ class Report_model extends CI_Model {
                 'product_model' =>  $record->product_model,
                 'sales_price'   =>  sprintf('%0.2f',$sprice),
                 'purchase_p'    =>  $pprice,
-                'totalPurchaseQnty'=>$stockout->totalPurchaseQnty,
+                'totalPurchaseQnty'=>$stockout->totalPurchaseQnty + ($record->quantity_modification),
                 'totalSalesQnty'=>  $stockin->totalSalesQnty,
                 'stok_quantity' => sprintf('%0.2f',$stock),
                 'total_sale_price'=> ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$sprice,
                 'purchase_total' =>  ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$pprice,
-                'button' =>  '<button data-id="'.$record->id.'" data-quantity="'.$stockout->totalPurchaseQnty.'" class="btn btn-info btn-sm editQuantity"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Stock</button>',
+                'button' =>  '<button data-id="'.$record->id.'" data-quantity="'.($stockout->totalPurchaseQnty + ($record->quantity_modification)).'" class="btn btn-info btn-sm editQuantity"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Stock</button>',
             ); 
             $sl++;
          }
@@ -819,6 +819,12 @@ class Report_model extends CI_Model {
     }
 
     function updateProductQuantity($product_id, $quantity){
+        $query = $this->db->select('*')
+                ->from('product_information')
+                ->join('product_purchase_details', 'product_purchase_details.product_id = product_information.product_id')
+                ->where('product_information.id', $product_id)->get();
+
+
         return $this->db->set('quantity_modification', $quantity)
                         ->where('id', $product_id)
                         ->update('product_information');
