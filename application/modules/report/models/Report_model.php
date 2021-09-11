@@ -5,98 +5,187 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Report_model extends CI_Model {
 
- public function bdtask_getStock($postData=null){
+    public function bdtask_getStock($postData=null){
 
-         $response = array();
+        $response = array();
 
-         ## Read value
-         $draw = $postData['draw'];
-         $start = $postData['start'];
-         $rowperpage = $postData['length']; // Rows display per page
-         $columnIndex = $postData['order'][0]['column']; // Column index
-         $columnName = $postData['columns'][$columnIndex]['data']; // Column name
-         $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
-         $searchValue = $postData['search']['value']; // Search value
+        ## Read value
+        $draw = $postData['draw'];
+        $start = $postData['start'];
+        $rowperpage = $postData['length']; // Rows display per page
+        $columnIndex = $postData['order'][0]['column']; // Column index
+        $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+        $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+        $searchValue = $postData['search']['value']; // Search value
 
-         ## Search 
-         $searchQuery = "";
-         if($searchValue != ''){
+        ## Search 
+        $searchQuery = "";
+        if($searchValue != ''){
             $searchQuery = " (a.product_name like '%".$searchValue."%' or a.product_model like '%".$searchValue."%') ";
-         }
+        }
 
-         ## Total number of records without filtering
-         $this->db->select('count(*) as allcount');
-         $this->db->from('product_information a');
-          if($searchValue != ''){
-         $this->db->where($searchQuery);
-     }
-        $this->db->group_by('a.product_id');
-         $records = $this->db->get()->num_rows();
-         $totalRecords = $records;
-
-         ## Total number of record with filtering
-         $this->db->select('count(*) as allcount');
-         $this->db->from('product_information a');
-         if($searchValue != ''){
+        ## Total number of records without filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_information a');
+        if($searchValue != ''){
             $this->db->where($searchQuery);
         }
-         $this->db->group_by('a.product_id');
-         $records = $this->db->get()->num_rows();
-         $totalRecordwithFilter = $records;
+        $this->db->group_by('a.product_id');
+        $records = $this->db->get()->num_rows();
+        $totalRecords = $records;
 
-         ## Fetch records
-         $this->db->select("a.*,
-                a.product_name,
-                a.product_id,
-                a.product_model
-                ");
-         $this->db->from('product_information a');
-         if($searchValue != '')
-         $this->db->where($searchQuery);
-         $this->db->order_by($columnName, $columnSortOrder);
-         $this->db->group_by('a.product_id');
-         $this->db->limit($rowperpage, $start);
-         $records = $this->db->get()->result();
-         $data = array();
-         $sl =1;
-         foreach($records as $record ){
-          $stockin = $this->db->select('sum(quantity) as totalSalesQnty')->from('invoice_details')->where('product_id',$record->product_id)->get()->row();
-         $stockout = $this->db->select('sum(quantity_received) as totalPurchaseQnty,Avg(rate) as purchaseprice')->from('product_purchase_details')->where('product_id',$record->product_id)->get()->row();
-            
+        ## Total number of record with filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_information a');
+        if($searchValue != ''){
+            $this->db->where($searchQuery);
+        }
+        $this->db->group_by('a.product_id');
+        $records = $this->db->get()->num_rows();
+        $totalRecordwithFilter = $records;
+
+        ## Fetch records
+        $this->db->select("a.*,
+            a.product_name,
+            a.product_id,
+            a.product_model
+            ");
+        $this->db->from('product_information a');
+        if($searchValue != '')
+        $this->db->where($searchQuery);
+        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->group_by('a.product_id');
+        $this->db->limit($rowperpage, $start);
+        $records = $this->db->get()->result();
+        $data = array();
+        $sl =1;
+        foreach($records as $record ){
+            /* sales order */
+            $stockout = $this->db->select('sum(quantity) as totalSalesQnty')
+                        ->from('invoice_details')
+                        ->where('product_id',$record->product_id)
+                        ->where('product_id',$record->product_id)
+                        ->get()
+                        ->row();
 
             $sprice = (!empty($record->price)?$record->price:0);
-            $pprice = (!empty($stockout->purchaseprice)?sprintf('%0.2f',$stockout->purchaseprice):0); 
-            $stock =  (!empty($stockout->totalPurchaseQnty)?$stockout->totalPurchaseQnty:0)-(!empty($stockin->totalSalesQnty)?$stockin->totalSalesQnty:0);
+            $stock =  $record->total_stock - $stockout->totalSalesQnty;
             $data[] = array( 
                 'sl'            =>   $sl,
                 'product_name'  =>  $record->product_name,
                 'product_model' =>  $record->product_model,
                 'sales_price'   =>  sprintf('%0.2f',$sprice),
-                'purchase_p'    =>  $pprice,
-                'totalPurchaseQnty'=>$stockout->totalPurchaseQnty + ($record->quantity_modification),
-                'totalSalesQnty'=>  $stockin->totalSalesQnty,
+                'totalPurchaseQnty'=> $record->total_stock,
+                'totalSalesQnty'=>  $stockout->totalSalesQnty,
                 'stok_quantity' => sprintf('%0.2f',$stock),
-                'total_sale_price'=> ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$sprice,
-                'purchase_total' =>  ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$pprice,
-                'button' =>  '<button data-id="'.$record->id.'" data-quantity="'.($stockout->totalPurchaseQnty + ($record->quantity_modification)).'" class="btn btn-info btn-sm editQuantity"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Stock</button>',
+                /* 'total_sale_price'=> $stock* $sprice, */
             ); 
             $sl++;
-         }
+        }
 
-         ## Response
-         $response = array(
+        ## Response
+        $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecordwithFilter,
             "iTotalDisplayRecords" => $totalRecords,
             "aaData" => $data
-         );
+        );
 
-         return $response; 
+        return $response; 
     }
 
+    /* public function bdtask_getStock($postData=null){
+
+        $response = array();
+
+        ## Read value
+        $draw = $postData['draw'];
+        $start = $postData['start'];
+        $rowperpage = $postData['length']; // Rows display per page
+        $columnIndex = $postData['order'][0]['column']; // Column index
+        $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+        $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+        $searchValue = $postData['search']['value']; // Search value
+
+        ## Search 
+        $searchQuery = "";
+        if($searchValue != ''){
+           $searchQuery = " (a.product_name like '%".$searchValue."%' or a.product_model like '%".$searchValue."%') ";
+        }
+
+        ## Total number of records without filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_information a');
+        if($searchValue != ''){
+            $this->db->where($searchQuery);
+        }
+       $this->db->group_by('a.product_id');
+        $records = $this->db->get()->num_rows();
+        $totalRecords = $records;
+
+        ## Total number of record with filtering
+        $this->db->select('count(*) as allcount');
+        $this->db->from('product_information a');
+        if($searchValue != ''){
+           $this->db->where($searchQuery);
+       }
+        $this->db->group_by('a.product_id');
+        $records = $this->db->get()->num_rows();
+        $totalRecordwithFilter = $records;
+
+        ## Fetch records
+        $this->db->select("a.*,
+               a.product_name,
+               a.product_id,
+               a.product_model
+               ");
+        $this->db->from('product_information a');
+        if($searchValue != '')
+        $this->db->where($searchQuery);
+        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->group_by('a.product_id');
+        $this->db->limit($rowperpage, $start);
+        $records = $this->db->get()->result();
+        $data = array();
+        $sl =1;
+        foreach($records as $record ){
+         $stockin = $this->db->select('sum(quantity) as totalSalesQnty')->from('invoice_details')->where('product_id',$record->product_id)->get()->row();
+        $stockout = $this->db->select('sum(quantity_received) as totalPurchaseQnty,Avg(rate) as purchaseprice')->from('product_purchase_details')->where('product_id',$record->product_id)->get()->row();
+           
+
+           $sprice = (!empty($record->price)?$record->price:0);
+           $pprice = (!empty($stockout->purchaseprice)?sprintf('%0.2f',$stockout->purchaseprice):0); 
+           $stock =  (!empty($stockout->totalPurchaseQnty)?$stockout->totalPurchaseQnty:0)-(!empty($stockin->totalSalesQnty)?$stockin->totalSalesQnty:0);
+           $data[] = array( 
+               'sl'            =>   $sl,
+               'product_name'  =>  $record->product_name,
+               'product_model' =>  $record->product_model,
+               'sales_price'   =>  sprintf('%0.2f',$sprice),
+               'purchase_p'    =>  $pprice,
+               'totalPurchaseQnty'=>$stockout->totalPurchaseQnty + ($record->quantity_modification),
+               'totalSalesQnty'=>  $stockin->totalSalesQnty,
+               'stok_quantity' => sprintf('%0.2f',$stock),
+               'total_sale_price'=> ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$sprice,
+               'purchase_total' =>  ($stockout->totalPurchaseQnty-$stockin->totalSalesQnty)*$pprice,
+               'button' =>  '<button data-id="'.$record->id.'" data-quantity="'.($stockout->totalPurchaseQnty + ($record->quantity_modification)).'" class="btn btn-info btn-sm editQuantity"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Stock</button>',
+           ); 
+           $sl++;
+        }
+
+        ## Response
+        $response = array(
+           "draw" => intval($draw),
+           "iTotalRecords" => $totalRecordwithFilter,
+           "iTotalDisplayRecords" => $totalRecords,
+           "aaData" => $data
+        );
+
+        return $response; 
+    } */
 
 
-        public function totalnumberof_product(){
+
+    public function totalnumberof_product(){
 
         $this->db->select("a.*,
                 a.product_name,
@@ -795,7 +884,7 @@ class Report_model extends CI_Model {
     function getEditLogs($from, $to, $product_id = null){
         $query = $this->db->select('stock_edit_logs.*, product_information.product_name, product_information.product_model, product_information.price, users.last_name, users.first_name ')
                 ->from('stock_edit_logs')
-                ->join('product_information', 'product_information.id = stock_edit_logs.product_id')
+                ->join('product_information', 'product_information.product_id = stock_edit_logs.product_id')
                 ->join('users', 'users.user_id = stock_edit_logs.user_id')
                 ->order_by('stock_edit_logs.created_at', 'DESC');
         if($from && $to){
@@ -819,13 +908,7 @@ class Report_model extends CI_Model {
     }
 
     function updateProductQuantity($product_id, $quantity){
-        $query = $this->db->select('*')
-                ->from('product_information')
-                ->join('product_purchase_details', 'product_purchase_details.product_id = product_information.product_id')
-                ->where('product_information.id', $product_id)->get();
-
-
-        return $this->db->set('quantity_modification', $quantity)
+        return $this->db->set('total_stock', $quantity)
                         ->where('id', $product_id)
                         ->update('product_information');
     }

@@ -11,30 +11,25 @@
                                <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="checkListStockList">
                                     <thead>
                                         <tr>
-                                    <th class="text-center"><?php echo display('sl') ?></th>
-                                    <th class="text-center"><?php echo display('product_name') ?></th>
-                                    <th class="text-center"><?php echo display('product_model') ?></th>
-                                    <th class="text-center"><?php echo display('sell_price') ?></th>
-                                    <th class="text-center"><?php echo display('purchase_price') ?></th>
-                                    <th class="text-center"><?php echo display('in_qnty') ?></th>
-                                    <th class="text-center"><?php echo display('out_qnty') ?></th>
-                                    <th class="text-center"><?php echo display('stock') ?></th>
-                                    <th class="text-center"><?php echo display('stock_sale')?></th>
-                                    <th class="text-center"><?php echo display('stock_purchase_price')?></th>
-                                    <th class="text-center"><?php echo display('action')?></th>
+                                            <th class="text-center"><?php echo display('sl') ?></th>
+                                            <th class="text-center"><?php echo display('product_name') ?></th>
+                                            <th class="text-center"><?php echo display('product_model') ?></th>
+                                            <th class="text-center"><?php echo display('sell_price') ?></th>
+                                            <th class="text-center"><?php echo display('in_qnty') ?></th>
+                                            <th class="text-center"><?php echo display('out_qnty') ?></th>
+                                            <th class="text-center"><?php echo display('stock') ?></th>
+                                            <!-- <th class="text-center"><?php echo display('stock_sale')?></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
-                                         <tfoot>
+                                        <tfoot>
                                             <tr>
-                <th colspan="7" class="text-right"><?php echo display('total')?> :</th>
-                <th id="stockqty"></th>
-                  <th></th>  <th></th> 
-            </tr>
-                                            
-                                        </tfoot> 
-                                
+                                                <th colspan="6" class="text-right"><?php echo display('total')?> :</th>
+                                                <th id="stockqty"></th>
+                                                <!-- <th></th> -->
+                                            </tr>
+                                        </tfoot>
                                 </table>
                             </div>
                             </div>

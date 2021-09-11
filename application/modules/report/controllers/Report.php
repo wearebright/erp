@@ -804,14 +804,13 @@ class Report extends MX_Controller {
 
 
     /* stock edit logs */
-    public function stock_edit_logs(){
+    public function stock_logs(){
         $from_date =(!empty($this->input->get('from_date'))?$this->input->get('from_date'):date('Y-m-d')) ;
         $to_date = (!empty($this->input->get('to_date'))?$this->input->get('to_date'):date('Y-m-d'));
         $product_id = $this->input->get('product_id');
 
         $editLogs = $this->report_model->getEditLogs($from_date, $to_date, $product_id);
         $product_list = $this->report_model->product_list();
-        
         
         $data = array(
             'from'           => $from_date,
@@ -829,13 +828,14 @@ class Report extends MX_Controller {
 
     public function saveNewQuantity(){
 
-        $data['quantity_before'] = (int) $this->input->post('current_quantity', true);
-        $data['quantity_after'] = $this->input->post('new_quantity', true);
+        $data['current_quantity'] = (int) $this->input->post('current_quantity', true);
+        $data['adjustment'] = $this->input->post('new_quantity', true);
+
         $data['product_id'] = $this->input->post('product_id', true);
         $data['user_id'] = $this->session->userdata('id');
         $data['comment'] = $this->input->post('comment', true);
 
-        $quantity = $data['quantity_after'] - $data['quantity_before'];
+        $quantity = $data['current_quantity'] + $data['adjustment'];
 
         if( $this->report_model->updateProductQuantity($data['product_id'], $quantity) ){
             if($this->report_model->saveEditLog($data)){

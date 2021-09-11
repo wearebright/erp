@@ -433,18 +433,18 @@
             product_id: productEl.value,
             invoice_id: $('input[name=invoice_id]').val(),
           },
-          success: function( data ) {
-            console.log( data );
-            if(!data.error){
+          success: function( res ) {
+            console.log( res );
+            if(!res.error){
                 let html  = "";
-                data.data.forEach((element, index) => {
-                    html += "<tr><td>"+data.data.id+"</td><td>"+data.data.product_id+"</td><td>"+data.data.product_name+"</td><td>"+data.data.product_model+"</td><td>"+data.data.first_name+" "+ data.data.last_name+"</td><td>"+data.data.price+"</td><td>"+data.data.quantity+"</td><td>"+data.data.created_at+"</td><td class='text-center'><a href='"+base_url+"/tracking/outgoing/remove/"+data.data.id+"' class='btn btn-xs btn-danger' onclick='return confirm('Are You Sure ?')'><i class='fa fa-trash'></i></a></td></tr>"
-                    if( (index+1) >= data.data.length()){
+                res.data.forEach((element, index) => {
+                    html += "<tr><td>"+element.id+"</td><td>"+element.product_id+"</td><td>"+element.product_name+"</td><td>"+element.product_model+"</td><td>"+element.first_name+" "+ element.last_name+"</td><td>"+element.price+"</td><td>"+element.quantity+"</td><td>"+element.created_at+"</td><td class='text-center'><a href='"+base_url+"/tracking/outgoing/remove/"+element.id+"' class='btn btn-xs btn-danger' onclick='return confirm('Are You Sure ?')'><i class='fa fa-trash'></i></a></td></tr>"
+                    if( (index+1) >= res.data.length){
                         $('#PrdScan tbody').html(html);
                     }
                 });
             }else{
-                alert(data.message);
+                alert(res.message);
             }
           }
         });

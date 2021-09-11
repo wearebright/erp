@@ -57,9 +57,20 @@ class Outgoing_model extends CI_Model {
 
     public function saveOutgoing(){
 
-        $this->db->set('status', Self::OUTGOING_PUBLISH, FALSE);
-            $this->db->where('status', Self::OUTGOING_PENDING);
+        $list = $this->db->from('outgoing_stock')->where('status', Self::OUTGOING_PENDING)->get()->result();
+        
+        foreach ($list as $key => $value) {
+            $this->db->set('status', Self::OUTGOING_PUBLISH, FALSE);
+            $this->db->where('id', $value->id);
             $this->db->update('outgoing_stock');
+            $data['quantity_adjustment'] = -$value->quantity;
+            $data['invoice_id'] = $value->invoice_id;
+            $data['product_id'] = $value->product_id;
+            $data['user_id'] = $this->session->userdata('id');
+            $data['movement_type'] = 'OUTGOING';
+
+            $this->db->insert('stock_edit_logs', $data);
+        }
 
         if ($this->db->affected_rows()) {
             return true;

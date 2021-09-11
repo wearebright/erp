@@ -3,7 +3,7 @@
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body"> 
-                        <?php echo form_open('stock_edit_logs', array('class' => 'form-inline', 'method' => 'get')) ?>
+                        <?php echo form_open('stock_logs', array('class' => 'form-inline', 'method' => 'get')) ?>
                         
                             <div class="col-sm-3">
                            
@@ -46,7 +46,7 @@
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <span><?php echo display('outgoing_stocks') ?></span>
+                            <span><?php echo display('stock_logs') ?></span>
                         </div>
                     </div>
                  
@@ -60,9 +60,10 @@
                                     <th><?php echo display('product_id') ?></th>
                                     <th><?php echo display('product_name') ?></th>
                                     <th><?php echo display('product_model') ?></th>
-                                    <th><?php echo display('comments') ?></th>
                                     <th><?php echo display('adjustment') ?></th>
-                                    <th><?php echo display('modified_by') ?></th>
+                                    <th><?php echo display('movement_type') ?></th>
+                                    <th><?php echo display('remarks') ?></th>
+                                    <th><?php echo display('adjusted_by') ?></th>
                                     <th><?php echo display('date') ?></th>
                                     <!-- <th class="text-center"><?php echo display('action') ?></th> -->
                                     </tr>
@@ -75,8 +76,9 @@
                                             <td><?= $value['product_id'] ?></td>
                                             <td><?= $value['product_name'] ?></td>
                                             <td><?= $value['product_model'] ?></td>
+                                            <td><?= $value['quantity_adjustment'] ?></td>
+                                            <td><?= $value['movement_type'] ?></td>
                                             <td><?= $value['comment'] ?></td>
-                                            <td><?= $value['quantity_after'] - $value['quantity_before'] ?></td>
                                             <td><?= $value['first_name']. " ". $value['last_name'] ?></td>
                                             <td><?= $value['created_at'] ?></td>
                                             <!-- <td class="text-center">

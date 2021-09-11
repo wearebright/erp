@@ -61,7 +61,7 @@ class Outgoing extends MX_Controller {
     }
 
     public function saveOutgoing(){
-        if ($this->outgoing_model->saveOutgoing($id)) {
+        if ($this->outgoing_model->saveOutgoing()) {
             $this->session->set_flashdata('message', display('save_successfully'));
         } else {
             $this->session->set_flashdata('exception', display('please_try_again'));
