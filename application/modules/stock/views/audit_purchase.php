@@ -100,8 +100,8 @@
                                      <tr>
                                             <th width="20%"><?php echo display('item_information') ?></th> 
                                             <th class="text-right"><?php echo display('quantity') ?></th>
-                                            <th class="text-right"><?php echo display('received') ?></th>
-                                            <th class="text-right"><?php echo display('remaining') ?></th>
+                                            <th class="text-right"><?php echo display('total_received') ?></th>
+                                            <th class="text-right"><?php echo display('receive') ?></th>
                                         </tr>
                                 </thead>
                                 <tbody id="addPurchaseItem">
@@ -116,14 +116,15 @@
                                         </td>
                                         
                                             <td class="text-right">
-                                            <input type="text" name="product_quantity[]" id="cartoon_<?php echo $purchases['sl']?>" class="form-control text-right store_cal_<?php echo $purchases['sl']?>" onkeyup="calculate_store(<?php echo $purchases['sl']?>);" onchange="calculate_store(<?php echo $purchases['sl']?>);" placeholder="0.00" value="<?php echo $purchases['quantity']?>" readonly min="0" tabindex="6"/>
+                                                <input type="text" name="product_quantity[]" id="cartoon_<?php echo $purchases['sl']?>" class="form-control text-right store_cal_<?php echo $purchases['sl']?>" onkeyup="calculate_store(<?php echo $purchases['sl']?>);" onchange="calculate_store(<?php echo $purchases['sl']?>);" placeholder="0.00" value="<?php echo $purchases['quantity']?>" readonly min="0" tabindex="6"/>
                                             </td>
                                            
                                             <td class="text-right">
-                                                <input class="form-control text-right" name="product_quantity_received[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" />
+                                                <input class="form-control text-right" name="product_quantity_received[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" readonly="readonly"/>
+                                                <input class="form-control text-right" type="hidden" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="current_received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" readonly="readonly"/>
                                             </td>
                                             <td class="text-right">
-                                                <input class="form-control text-right" name="product_quantity_pending[]"  type="text" name="" id="pending_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_pending']?>" readonly="readonly" />
+                                                <input class="form-control text-right" name="receive[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="receive_<?php echo $purchases['sl']?>" value=""  />
                                             </td>
                                     </tr>
                                 <?php }?>

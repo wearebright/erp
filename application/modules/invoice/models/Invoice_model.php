@@ -1073,7 +1073,7 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         $this->db->where(array('a.product_id' => $product_id, 'a.status' => 1));
         $product_information = $this->db->get()->row();
         
-        $available_quantity = ($total_purchase->total_purchase - $total_sale->total_sale);
+        $available_quantity = (int) $product_information->total_stock;
         $tablecolumn = $this->db->list_fields('tax_collection');
                $num_column = count($tablecolumn)-4;
   $taxfield='';
@@ -1251,7 +1251,7 @@ if(!empty($this->input->post('paid_amount',TRUE))){
     }
 
 
-       public function product_list() {
+    public function product_list() {
         $this->db->select('*');
         $this->db->from('product_information');
         $this->db->where('status',1);
@@ -1361,6 +1361,46 @@ if(!empty($this->input->post('paid_amount',TRUE))){
             return $query->result_array();
         }
         return false;
+    }
+
+    public function getInvoiceProducts($invoice_id) {
+        $this->db->select('*');
+        $this->db->from('invoice_details');
+        $this->db->where('invoice_id', $invoice_id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
+    function saveEditLog($data){
+        try {
+            return $this->db->insert('stock_edit_logs', $data);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    function updateProductQuantity( $product_id, $quantity ){
+        try {
+
+            $q = $this->db->from('product_information')->where('product_id', $product_id)->get();
+            if ($q->num_rows() > 0)
+            {
+                $product = $q->row(); 
+
+                $quantity = (int) $quantity;
+                
+                return $this->db->set('total_stock', $product->total_stock - $quantity)
+                ->where('product_id', $product_id)
+                ->update('product_information');
+            }
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
 }
 

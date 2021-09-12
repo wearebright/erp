@@ -63,6 +63,11 @@ class Outgoing_model extends CI_Model {
             $this->db->set('status', Self::OUTGOING_PUBLISH, FALSE);
             $this->db->where('id', $value->id);
             $this->db->update('outgoing_stock');
+
+            $this->db->set('total_stock', 'total_stock'.-$value->quantity, FALSE);
+            $this->db->where('product_id', $value->product_id);
+            $this->db->update('product_information');
+
             $data['quantity_adjustment'] = -$value->quantity;
             $data['invoice_id'] = $value->invoice_id;
             $data['product_id'] = $value->product_id;

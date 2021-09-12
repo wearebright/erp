@@ -1,5 +1,20 @@
-RewriteEngine on 
+##RewriteEngine On
+##RewriteCond %{REQUEST_FILENAME} !-f
+##RewriteCond %{REQUEST_FILENAME} !-d
+##RewriteRule ^(.*)$ index.php?$1 [L]
+
+##RewriteEngine On
+##RewriteCond %{HTTPS} !=on
+##RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteCond $1 !^(index\.php|resources|robots\.txt|public)
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?/$1 [L]
+RewriteRule ^(.*)$ index.php?/$1 [QSA,L] 
  

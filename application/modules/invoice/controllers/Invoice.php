@@ -183,7 +183,7 @@ class Invoice extends MX_Controller {
             if($order_status === 'SHIPPED'){
                 $shipped_date = date('Y-m-d');
             }
-            // var_dump($order_status); die;
+
             $postData = [
                 'invoice_id'    => $this->input->post('invoice_id',true),
                 'order_status'  => $order_status,
@@ -198,6 +198,26 @@ class Invoice extends MX_Controller {
             
 
             if ($this->invoice_model->updateOrderStatus($postData)) {
+                if($order_status === 'RETURN_TO_SENDER'){
+                    $invoice_products = $this->invoice_model->getInvoiceProducts($this->input->post('invoice_id',true));
+                    if($invoice_products){
+                        foreach ($invoice_products as $key => $value) {
+                            if( $this->invoice_model->updateProductQuantity( $value['product_id'], $value['quantity'] )){
+                                
+                                $data['quantity_adjustment'] = $value['quantity'];
+                                $data['product_id'] = $value['product_id'];
+                                $data['user_id'] = $this->session->userdata('id');
+                                $data['comment'] = 'Return to sender';
+                                $data['movement_type'] = 'RETURN TO SENDER';
+
+                                if($this->invoice_model->saveEditLog($data)){
+
+                                }
+                            }
+                        }
+                    }
+                }
+
                 #set success message
                 $this->session->set_flashdata('message', display('save_successfully'));
             } else {

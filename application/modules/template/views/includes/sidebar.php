@@ -293,7 +293,7 @@
       <!-- Stock menu start -->
             <?php if($this->permission1->method('stock','read')->access()){?>
         <li class="treeview <?php
-        if ($this->uri->segment('1') == ("stock") || $this->uri->segment('1') === ('audit_purchase') || $this->uri->segment('1') === 'stock_logs' || $this->uri->segment('1') === 'outgoing_stocks' ) {
+        if ($this->uri->segment('1') == ("stock") || $this->uri->segment('1') === ('audit_purchase') || $this->uri->segment('1') === 'stock_logs' || $this->uri->segment('1') === 'outgoing_stocks' || $this->uri->segment('1') === 'edit_stocks' ) {
             echo "active";
         } else {
             echo " ";
@@ -316,6 +316,16 @@
                         <a href="<?php echo base_url('audit_purchase') ?>"><?php echo display('receive_stock') ?></a>
                     </li>
                 <?php } ?>
+                
+                <?php 
+                    if($this->permission1->method('edit_stocks','read')->access()){ 
+                ?>
+                    <li  class="treeview <?= $this->uri->segment('1') == ("edit_stocks") ? "active": ""?>">
+                        <a href="<?php echo base_url('edit_stocks') ?>"><?php echo display('edit_stocks') ?></a></li>
+                    </li>
+                <?php
+                    }
+                ?>
                 <?php if($this->permission1->method('stock_logs','read')->access()){ ?>
                     <li class="treeview <?= $this->uri->segment('1') == ("stock_logs")? "active" : '' ?>">
                         <a href="<?php echo base_url('stock_logs') ?>"><?php echo display('stock_logs') ?></a>

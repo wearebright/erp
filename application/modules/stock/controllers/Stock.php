@@ -92,20 +92,29 @@ class Stock extends MX_Controller {
             $p_id     = $this->input->post('product_id',TRUE);
             $ids     = $this->input->post('id',TRUE);
             $quantity = $this->input->post('product_quantity',TRUE);
-            $quantity_pending = $this->input->post('product_quantity_pending',TRUE);
+            $receive = $this->input->post('receive',TRUE);
             $quantity_received = $this->input->post('product_quantity_received',TRUE);
     
             for ($i = 0, $n = count($p_id); $i < $n; $i++) {
-                $product_quantity_pending = $quantity_pending[$i];
+                $receive2 = $receive[$i];
                 $product_quantity_received = $quantity_received[$i];
     
                 $data = array(
                     'purchase_detail_id' => $this->generator(15),
                     'quantity_received'  => $product_quantity_received,
-                    'quantity_pending'   => $product_quantity_pending,
                 );
+                
+                if($receive2 != ''){
+                    $data2['product_id'] = $p_id[$i];
+                    $data2['quantity_adjustment'] = $receive2;
+                    $data2['user_id'] = $this->session->userdata('id');
+                    $data2['comment'] = 'Receive Purchase Order';
+                    $data2['movement_type'] = "PURCHASE ORDER";
+                    $this->db->insert('stock_edit_logs', $data2);
+                    $this->stock_model->updateProductQuantity($p_id[$i], $receive2);
+                }
+                
 
-    
                 $this->db->where('id', $ids[$i]);
                 $this->db->update('product_purchase_details', $data);
             }
@@ -144,6 +153,30 @@ class Stock extends MX_Controller {
         $data['module']     = "stock";
         $data['page']       = "purchase_list"; 
         echo modules::run('template/layout', $data);
+    }
+
+    public function editStocks(){
+        $data['title']      = display('purchase');
+        $data['module']     = "stock";
+        $data['page']       = "adjust_stock"; 
+        echo modules::run('template/layout', $data);
+    }
+
+    public function productDetails(){
+
+        $product_details = $this->stock_model->product_details($this->input->post('product_id',TRUE));
+
+        if($product_details){
+            $res['error'] = 0;
+            $res['data'] = $product_details;
+        }else{
+            $res['error'] = 1;
+            $res['message'] = 'Product not found.';
+        }
+        
+
+        echo json_encode($res);
+        die;
     }
 }
 

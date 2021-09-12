@@ -1,12 +1,12 @@
 //Calculate total pending purchase quantity
 "use strict";
 function calculate_pendingPurchase(sl) {
-    var pen_tot = 0;
-    var prch_qty = $('#cartoon_'+sl).val();
-    var rcvd_qty = $('#received_quantity_'+sl).val();
+    var tot_rcvd = 0;
+    var prch_qty = $('#current_received_quantity_'+sl).val();
+    var rcvd_qty = $('#receive_'+sl).val();
 
-    var pen_tot = prch_qty - rcvd_qty;
-    $("#pending_quantity_"+sl).val(pen_tot.toFixed(2,2));
+    var tot_rcvd = parseInt(prch_qty) + parseInt(rcvd_qty);
+    $("#received_quantity_"+sl).val(tot_rcvd.toFixed(2,2));
 }
 
 $(document).ready(function() { 

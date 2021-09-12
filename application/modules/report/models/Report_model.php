@@ -64,19 +64,30 @@ class Report_model extends CI_Model {
             $stockout = $this->db->select('sum(quantity) as totalSalesQnty')
                         ->from('invoice_details')
                         ->where('product_id',$record->product_id)
-                        ->where('product_id',$record->product_id)
                         ->get()
                         ->row();
 
+            $out_query = $this->db->select('sum(quantity) as outgoing')
+                        ->from('outgoing_stock')
+                        ->where('product_id', $record->product_id)
+                        ->get();
+            
+            $outgoing_stock = 0;
+            if ($out_query->num_rows() > 0) {
+                $out_query = $out_query->row();
+                $outgoing_stock = $out_query->outgoing;
+            }
+
             $sprice = (!empty($record->price)?$record->price:0);
             $stock =  $record->total_stock - $stockout->totalSalesQnty;
+
             $data[] = array( 
                 'sl'            =>   $sl,
                 'product_name'  =>  $record->product_name,
                 'product_model' =>  $record->product_model,
                 'sales_price'   =>  sprintf('%0.2f',$sprice),
                 'totalPurchaseQnty'=> $record->total_stock,
-                'totalSalesQnty'=>  $stockout->totalSalesQnty,
+                'totalSalesQnty'=>  $stockout->totalSalesQnty - $outgoing_stock,
                 'stok_quantity' => sprintf('%0.2f',$stock),
                 /* 'total_sale_price'=> $stock* $sprice, */
             ); 
@@ -904,13 +915,38 @@ class Report_model extends CI_Model {
     }
 
     function saveEditLog($data){
-        return $this->db->insert('stock_edit_logs', $data);
+        try {
+            return $this->db->insert('stock_edit_logs', $data);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
-    function updateProductQuantity($product_id, $quantity){
-        return $this->db->set('total_stock', $quantity)
-                        ->where('id', $product_id)
-                        ->update('product_information');
+    function updateProductQuantity($product_id, $quantity, $type){
+        try {
+
+            $q = $this->db->from('product_information')->where('product_id', $product_id)->get();
+            if ($q->num_rows() > 0)
+            {
+                $product = $q->row(); 
+
+                if($type == 'WASTAGE'){
+                    $quantity = '-'.$quantity;
+                }else if($type == 'RETURN TO SUPPLIER'){
+                    $quantity = '-'.$quantity;
+                }
+
+                $quantity = (int) $quantity;
+                
+                return $this->db->set('total_stock', $product->total_stock + ($quantity))
+                ->where('product_id', $product_id)
+                ->update('product_information');
+            }
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
 
 }

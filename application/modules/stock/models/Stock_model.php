@@ -53,5 +53,44 @@ class Stock_model extends CI_Model {
         return false;
     }
 
+    public function product_details($product_id){
+        $query = $this->db->select('*')
+                   ->from('product_information')
+                   ->where('product_id', $product_id)
+                   ->where('status', '1')
+                   ->get();
+           if ($query->num_rows() > 0) {
+               return $query->row();
+           }
+           return false;
+    }
+
+    function updateProductQuantity($product_id, $quantity){
+        try {
+            // var_dump($quantity); die;
+
+            $que = $this->db->from('product_information')->where('product_id',$product_id)->get();
+            if ($que->num_rows() > 0)
+            {
+                $product = $que->row(); 
+                
+                $quantity = (int) $quantity;
+                if($quantity > 0){
+                    return $this->db->set('total_stock', $product->total_stock + $quantity)
+                    ->where('product_id', $product_id)
+                    ->update('product_information');
+                }else{
+                    return $this->db->set('total_stock', $product->total_stock + ($quantity))
+                    ->where('product_id', $product_id)
+                    ->update('product_information');
+                }
+            }
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
+    }
+
 }
 
