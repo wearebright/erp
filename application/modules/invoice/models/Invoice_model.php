@@ -128,12 +128,20 @@ class Invoice_model extends CI_Model {
         $this->db->where('a.order_status','RETURN_TO_SENDER');
         $return_to_sender = $this->db->get()->result();
 
+        $this->db->select('*');
+        $this->db->from('invoice a');
+        $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
+        $this->db->where('a.order_status','RETURN_TO_SENDER');
+        $this->db->where('date >=', date('Y-m-d', strtotime('-7 days')));
+        $completed = $this->db->get()->result();
+
         $response = array(
             "NEW" => $orders_new,
             "WAREHOUSE" => $orders_warehouse,
             "READY" => $orders_ready,            
             "SHIPPED" => $orders_shipped,
             "RETURN_TO_SENDER" => $return_to_sender,
+            "COMPLETED" => $completed,
         );
 
         return $response;

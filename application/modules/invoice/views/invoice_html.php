@@ -15,11 +15,12 @@
                                                 </label>
                                                 <div class="form-group">
                                                     <select name="order_status" class="form-control" required="" onchange="selectStatus()">
-                                                        <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> value="NEW">New Order</option>
-                                                        <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> value="WAREHOUSE">For Packaging</option> 
-                                                        <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> value="READY">For Pickup</option> 
-                                                        <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> value="SHIPPED">Shipped</option> 
-                                                        <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option> 
+                                                        <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> <?= $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?>  value="NEW">New Order</option>
+                                                        <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> <?= $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="WAREHOUSE">In Packaging</option> 
+                                                        <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="READY">For Shipment</option> 
+                                                        <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="SHIPPED">Shipped</option> 
+                                                        <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "WAREHOUSE" ? "disabled" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option>
+                                                        <option <?= $invoice_order_status == "COMPLETED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="COMPLETED">Completed</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -32,6 +33,20 @@
                                                         <?php foreach($logistics_list as $logistics){?>
                                                             <option <?= $courier == $logistics['logistics_name'] ? "selected" : "" ?> value="<?= $logistics['logistics_name'] ?>"><?= $logistics['logistics_name'] ?></option>
                                                         <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12" id="payment_from">
+                                                <div class="form-group">
+                                                    <label for="payment_type" class="col-form-label"><?php
+                                                        echo display('payment_type');
+                                                        ?> <i class="text-danger">*</i>
+                                                    </label>                                   
+                                                    <select name="paytype" class="form-control" required="" tabindex="3" <?= $invoice_order_status == 'RETURN_TO_SENDER' || $invoice_order_status == 'SHIPPED' || $invoice_order_status == 'COMPLETED' ? 'disabled': ''; ?>>
+                                                        <option <?= $payment_type == "1" ? "selected" : "" ?> value="1">Cash On Delivery</option>
+                                                        <option <?= $payment_type == "2" ? "selected" : "" ?> value="2">Cash On Pick-up</option> 
+                                                        <option <?= $payment_type == "3" ? "selected" : "" ?> value="3">Online Payment</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -61,11 +76,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="awbField"  >
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="order_status" class="col-form-label">AWB</label>
-                                                    <input type="text" class="form-control" name="awb" value="<?= $awb ?>">
+                                                    <input type="text" class="form-control" name="awb" value="<?= $awb ?>" <?= $invoice_order_status == 'RETURN_TO_SENDER' || $invoice_order_status == 'SHIPPED' ? 'disabled': ''; ?> >
                                                 </div>
                                             </div>
                                         </div>
@@ -93,7 +108,7 @@
                                                     }
                                                 ?>
                                                 <div class="col-md-6">
-                                                <div class="form-group ">
+                                                <div class="form-group " id="attachmentField" style="display: <?= $invoice_order_status == 'SHIPPED' ? 'none': 'block'; ?>">
                                                     <?php
                                                     if($invoice_attachment){
                                                     ?>
@@ -288,7 +303,7 @@
                             
                             
                             <div class="row" style="margin: 15px 0px;">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12" id="actionBar" style="display: <?= $invoice_order_status == 'RETURN_TO_SENDER' || $invoice_order_status == 'COMPLETED' ? 'none': 'block'; ?>">
                                     <div class="form-group row">
                                         <label class="col-sm-1 col-form-label" style="padding: 13px 0px;">
                                             <?= display('scan_barcode')?>
@@ -368,8 +383,33 @@
 
         if(order_status === 'RETURN_TO_SENDER'){
             $('#returnAdditionalFields').show();
+            $('select[name=paytype]').attr('disabled', true);
+            $('#awbField').hide();
         }else{
             $('#returnAdditionalFields').hide();
+            $('select[name=paytype]').attr('disabled', false);
+            $('#awbField').show();
+        }
+
+        if(order_status === 'READY'){
+            $('input[name=awb]').attr('required', true);
+        }else{
+            $('input[name=awb]').attr('required', false);
+        }
+
+        if(order_status === 'RETURN_TO_SENDER' || order_status === 'COMPLETED'){
+            $('#actionBar').hide();
+        }else{
+            $('#actionBar').show();
+        }
+
+        if(order_status === 'SHIPPED' || order_status === 'COMPLETED'){
+            $('input[name=awb]').attr('disabled', true);
+            $('select[name=paytype]').attr('disabled', true);
+            $('#attachmentField').hide();
+        }else{
+            $('input[name=awb]').attr('disabled', false);
+            $('#attachmentField').show();
         }
     }
 

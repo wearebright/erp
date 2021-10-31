@@ -134,6 +134,7 @@ class Invoice extends MX_Controller {
         'courier'        => $invoice_detail[0]['courier'],
         'selected_region'     => $invoice_detail[0]['region'],
         'invoice_id'        => $invoice_detail[0]['invoice_id'],
+        'payment_type'        => $invoice_detail[0]['payment_type'],
         'invoice_no'        => $invoice_detail[0]['invoice'],
         'customer_name'     => $invoice_detail[0]['customer_name'],
         'customer_address'  => $invoice_detail[0]['customer_address'],
@@ -194,6 +195,7 @@ class Invoice extends MX_Controller {
                 'region'        => $this->input->post('region',true),
                 'shipped_date'  => $shipped_date,
                 'awb'           => $this->input->post('awb',true),
+                'payment_type'           => $this->input->post('paytype',true),
             ]; 
             
 
