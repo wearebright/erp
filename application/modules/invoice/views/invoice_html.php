@@ -7,7 +7,7 @@
                                 <div class="col-sm-6 text-left">
                                     <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
                                     <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
-                                    <?php echo form_open_multipart('invoice/invoice/update_order_status',array('class' => 'form-vertical', 'id' => 'insert_sale','name' => 'insert_sale'))?>
+                                    <form action="/invoice/invoice/update_order_status" class="form-vertical" id="insert_sale" name="insert_sale" onsubmit="if(!confirm('Are you sure want to update the status?')){return false}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                         <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -36,7 +36,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6 rts_link" id="rts_link"" style="margin-bottom: 15px; display: <?= $invoice_order_status == 'RETURN_TO_SENDER' ? 'block': 'none'; ?>">
+                                                <a class="btn btn-success btn-large" target="_blank" href="/invoice_return/<?php echo $invoice_no?>">Return to Sender</a>
+                                            </div>
                                             <div class="col-sm-12" id="payment_from">
                                                 <div class="form-group">
                                                     <label for="payment_type" class="col-form-label"><?php
@@ -137,13 +139,13 @@
                                         </div>
                                         <div class="form-group row" style="margin-bottom:40px; float:right;">
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn btn-success btn-justify">Update</button>
+                                                <input  type="submit" class="btn btn-success btn-justify" value="Update">
                                             </div>
                                         </div>
-                                    <?php echo form_close()?>
+                                    </form>
                                 </div>
                                 <div class="col-sm-6">
-                                    <?php foreach($company_info as $company){?>
+                                    <!-- <?php foreach($company_info as $company){?>
                                     <img src="<?php
                                     if (isset($setting->invoice_logo)) {
                                         echo html_escape($setting->invoice_logo);
@@ -162,7 +164,7 @@
                                       <?php }?>
                                          <abbr><?php echo $tax_regno?></abbr>
                                     </address>
-                                    <br>
+                                    <br> -->
                                     <span class="label label-success-outline m-r-15"><?php echo display('billing_to') ?></span>
 
                                     <address class="customer_name_p">  
@@ -385,10 +387,12 @@
             $('#returnAdditionalFields').show();
             $('select[name=paytype]').attr('disabled', true);
             $('#awbField').hide();
+            $('#rts_link').show();
         }else{
             $('#returnAdditionalFields').hide();
             $('select[name=paytype]').attr('disabled', false);
             $('#awbField').show();
+            $('#rts_link').hide();
         }
 
         if(order_status === 'READY'){

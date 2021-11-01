@@ -152,12 +152,15 @@ class Invoice_model extends CI_Model {
          $fromdate = $this->input->post('fromdate',TRUE);
          $todate   = $this->input->post('todate',TRUE);
          $sales_channel = $this->input->post('sales_channel',TRUE);
+         $order_status = $this->input->post('order_status',TRUE);
          
          if(!empty($fromdate)){
             $datbetween = "(a.date BETWEEN '$fromdate' AND '$todate')";
          }else{
             $datbetween = "";
          }
+
+         
          ## Read value
          $draw         = $postData['draw'];
          $start        = $postData['start'];
@@ -185,7 +188,12 @@ class Invoice_model extends CI_Model {
          if(!empty($sales_channel)){
             $this->db->where('a.sales_channel', $sales_channel);
          }
-          if(!empty($fromdate) && !empty($todate)){
+
+        if(!empty($order_status)){
+            $this->db->where('a.sales_channel', $order_status);
+        }
+
+        if(!empty($fromdate) && !empty($todate)){
              $this->db->where($datbetween);
          }
           if($searchValue != '')
@@ -202,6 +210,9 @@ class Invoice_model extends CI_Model {
          if($usertype == 2){
           $this->db->where('a.sales_by',$this->session->userdata('user_id'));
          }
+         if(!empty($order_status)){
+            $this->db->where('a.order_status', $order_status);
+        }
          if(!empty($fromdate) && !empty($todate)){
              $this->db->where($datbetween);
          }
@@ -212,7 +223,7 @@ class Invoice_model extends CI_Model {
          $totalRecordwithFilter = $records[0]->allcount;
 
          ## Fetch records
-         $this->db->select("a.*,b.customer_name,u.first_name,u.last_name");
+         $this->db->select("a.*,b.customer_name,b.customer_address,b.customer_mobile,u.first_name,u.last_name");
          $this->db->from('invoice a');
          $this->db->join('customer_information b', 'b.customer_id = a.customer_id','left');
          $this->db->join('users u', 'u.user_id = a.sales_by','left');
@@ -221,6 +232,9 @@ class Invoice_model extends CI_Model {
          }
          if(!empty($sales_channel)){
             $this->db->where('a.sales_channel', $sales_channel);
+         }
+         if(!empty($order_status)){
+            $this->db->where('a.order_status', $order_status);
          }
           if(!empty($fromdate) && !empty($todate)){
              $this->db->where($datbetween);
@@ -235,33 +249,51 @@ class Invoice_model extends CI_Model {
          $sl =1;
   
          foreach($records as $record ){
-          $button = '';
-          $base_url = base_url();
-          $jsaction = "return confirm('Are You Sure ?')";
 
-           $button .='  <a href="'.$base_url.'invoice_details/'.$record->invoice_id.'" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="'.display('invoice').'"><i class="fa fa-window-restore" aria-hidden="true"></i></a>';
+            $this->db->select("a.*,b.*");
+            $this->db->from('invoice_details a');
+            $this->db->join('product_information b', 'b.product_id = a.product_id','left');
+            $this->db->where('a.invoice_id', $record->invoice_id);
+            $orders = $this->db->get()->result();
 
-      $button .='  <a href="'.$base_url.'download_invoice/'.$record->invoice_id.'" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="left" title="'.display('download').'"><i class="fa fa-download"></i></a>';
+            $total_quantity = 0;
+            $order_label = '';
+            foreach ($orders as $key => $value) {
+                $total_quantity += $value->quantity;
+                $order_label .= (int)$value->quantity.' x '.$value->product_name.',';
+            }
 
-      if($this->permission1->method('manage_invoice','update')->access()){
-         $button .=' <a href="'.$base_url.'invoice_edit/'.$record->invoice_id.'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="'. display('update').'"><i class="fa fa-pencil" aria-hidden="true"></i></a> ';
-     }
+            $button = '';
+            $base_url = base_url();
+            $jsaction = "return confirm('Are You Sure ?')";
 
-       
+            $button .='  <a href="'.$base_url.'invoice_details/'.$record->invoice_id.'" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="'.display('invoice').'"><i class="fa fa-window-restore" aria-hidden="true"></i></a>';
 
-          $details ='  <a href="'.$base_url.'invoice_details/'.$record->invoice_id.'" class="" >'.$record->invoice.'</a>';
-               
-            $data[] = array( 
-                'sl'               =>$sl,
-                'invoice'          =>$details,
-                'salesman'         =>$record->first_name.' '.$record->last_name,
-                'customer_name'    =>$record->customer_name,
-                'final_date'       =>date("d-M-Y",strtotime($record->date)),
-                'total_amount'     =>$record->total_amount,
-                'button'           =>$button,
+            $button .='  <a href="'.$base_url.'download_invoice/'.$record->invoice_id.'" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="left" title="'.display('download').'"><i class="fa fa-download"></i></a>';
+
+            if($this->permission1->method('manage_invoice','update')->access()){
+                $button .=' <a href="'.$base_url.'invoice_edit/'.$record->invoice_id.'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="left" title="'. display('update').'"><i class="fa fa-pencil" aria-hidden="true"></i></a> ';
+            }
+
+        
+
+            $details ='  <a href="'.$base_url.'invoice_details/'.$record->invoice_id.'" class="" >'.$record->invoice.'</a>';
                 
-            ); 
-            $sl++;
+                $data[] = array( 
+                    'sl'               =>$sl,
+                    'invoice'          =>$details,
+                    'salesman'         =>$record->first_name.' '.$record->last_name,
+                    'customer_name'    =>$record->customer_name,
+                    'customer_address'    =>$record->customer_address,
+                    'customer_mobile'    =>$record->customer_mobile,
+                    'customer_mobile'    =>$record->customer_mobile,
+                    'total_quantity'    => $total_quantity,
+                    'order_label'      => $order_label,
+                    'final_date'       =>date("d-M-Y",strtotime($record->date)),
+                    'total_amount'     =>$record->total_amount,
+                    'button'           =>$button,
+                ); 
+                $sl++;
          }
 
          ## Response

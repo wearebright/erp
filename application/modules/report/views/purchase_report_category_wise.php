@@ -76,35 +76,35 @@
                     <div class="panel-body">
                         <div id="purchase_div">
                             <div class="paddin5ps">
-                                   <table class="print-table" width="100%">
+                                <!-- <table class="print-table" width="100%">
             
-            <tr>
-                <td align="left" class="print-table-tr">
-                    <img src="<?php echo base_url().$setting->logo;?>" alt="logo">
-                </td>
-                <td align="center" class="print-cominfo">
-                    <span class="company-txt">
-                        <?php echo $company_info[0]['company_name'];?>
-                       
-                    </span><br>
-                    <?php echo $company_info[0]['address'];?>
-                    <br>
-                    <?php echo $company_info[0]['email'];?>
-                    <br>
-                     <?php echo $company_info[0]['mobile'];?>
-                    
-                </td>
-               
-                 <td align="right" class="print-table-tr">
-                    <date>
-                    <?php echo display('date')?>: <?php
-                    echo date('d-M-Y');
-                    ?> 
-                </date>
-                </td>
-            </tr>            
+                                    <tr>
+                                        <td align="left" class="print-table-tr">
+                                            <img src="<?php echo base_url().$setting->logo;?>" alt="logo">
+                                        </td>
+                                        <td align="center" class="print-cominfo">
+                                            <span class="company-txt">
+                                                <?php echo $company_info[0]['company_name'];?>
+                                            
+                                            </span><br>
+                                            <?php echo $company_info[0]['address'];?>
+                                            <br>
+                                            <?php echo $company_info[0]['email'];?>
+                                            <br>
+                                            <?php echo $company_info[0]['mobile'];?>
+                                            
+                                        </td>
+                                    
+                                        <td align="right" class="print-table-tr">
+                                            <date>
+                                            <?php echo display('date')?>: <?php
+                                            echo date('d-M-Y');
+                                            ?> 
+                                        </date>
+                                        </td>
+                                    </tr>            
                                    
-                                </table>
+                                </table> -->
                             </div>
                             <div class="table-responsive paddin5ps">
                                 <table class="table table-bordered table-striped table-hover">

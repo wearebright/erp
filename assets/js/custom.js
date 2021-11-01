@@ -133,66 +133,65 @@ $(document).ready(function() {
    var total_invoice = $("#total_invoice").val();
    var currency = $("#currency").val();
    var invoicedatatable = $('#InvList').DataTable({ 
-             responsive: true,
-
-             "aaSorting": [[ 1, "desc" ]],
-             "columnDefs": [
-                { "bSortable": false, "aTargets": [0,2,3,4,5,6] },
+            responsive: true,
+            "aaSorting": [[ 1, "desc" ]],
+            "columnDefs": [
+              { "bSortable": false, "aTargets": [0,2,3,4,5,6] },
 
             ],
            'processing': true,
            'serverSide': true,
-
-          
            'lengthMenu':[[10, 25, 50,100,250,500, total_invoice], [10, 25, 50,100,250,500, "All"]],
-
-             dom:"'<'col-sm-4'l><'col-sm-4 text-center'><'col-sm-4'>Bfrtip", buttons:[ {
-                extend: "copy",exportOptions: {
-                       columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want
-                           }, className: "btn-sm prints"
-            }
-            , {
-                extend: "csv", title: "InvoiceList",exportOptions: {
-                       columns: [ 0, 1, 2, 3,4,5] //Your Colume value those you want print
-                           }, className: "btn-sm prints"
-            }
-            , {
-                extend: "excel",exportOptions: {
-                       columns: [ 0, 1, 2, 3,4,5] //Your Colume value those you want print
-                           }, title: "InvoiceList", className: "btn-sm prints"
-            }
-            , {
-                extend: "pdf",exportOptions: {
-                       columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want print
-                           }, title: "Invoice List", className: "btn-sm prints"
-            }
-            , {
-                extend: "print",exportOptions: {
-                       columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want print
-                           }, title: "<center> Invoice List</center>", className: "btn-sm prints"
-            }
+            dom:"'<'col-sm-4'l><'col-sm-4 text-center'><'col-sm-4'>Bfrtip", buttons:[ {
+                  extend: "copy",exportOptions: {
+                        columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want
+                  }, className: "btn-sm prints"
+              }, 
+              {
+                  extend: "csv", title: "InvoiceList",exportOptions: {
+                        columns: [ 0, 1, 2, 3,4,5] //Your Colume value those you want print
+                            }, className: "btn-sm prints"
+              }, 
+              {
+                  extend: "excel",exportOptions: {
+                        columns: [ 0, 1, 2, 3,4,5] //Your Colume value those you want print
+                            }, title: "InvoiceList", className: "btn-sm prints"
+              }, 
+              {
+                  extend: "pdf",exportOptions: {
+                        columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want print
+                            }, title: "Invoice List", className: "btn-sm prints"
+              }, 
+              {
+                  extend: "print",exportOptions: {
+                        columns: [ 0, 1, 2, 3,4,5 ] //Your Colume value those you want print
+                  }, title: "<center> Invoice List</center>", className: "btn-sm prints"
+              }
             ],
-
-            
             'serverMethod': 'post',
             'ajax': {
-               'url': base_url + 'invoice/invoice/CheckInvoiceList',
-                 "data": function ( data) {
-          data.sales_channel = $('select[name=sales_channel]').val();
-         data.fromdate = $('#from_date').val();
-         data.todate = $('#to_date').val();
-        data.csrf_test_name = csrf_test_name;
-}
-            },
-          'columns': [
-             { data: 'sl' },
-             { data: 'invoice' },
-             { data: 'salesman' },
-             { data: 'customer_name'},
-             { data: 'final_date' },
-             { data: 'total_amount',class:"total_sale text-right",render: $.fn.dataTable.render.number( ',', '.', 2, currency )},
-             { data: 'button'},
-          ],
+                'url': base_url + 'invoice/invoice/CheckInvoiceList',
+                "data": function ( data) {
+                  data.sales_channel = $('select[name=sales_channel]').val();
+                  data.order_status = $('select[name=status]').val();
+                  data.fromdate = $('#from_date').val();
+                  data.todate = $('#to_date').val();
+                  data.csrf_test_name = csrf_test_name;
+              }
+          },
+            'columns': [
+                { data: 'final_date' },
+              /* { data: 'sl' }, */
+              /* { data: 'invoice' }, */
+              /* { data: 'salesman' }, */
+              { data: 'customer_name'},
+              { data: 'customer_address'},
+              { data: 'customer_mobile'},
+              { data: 'total_quantity'},
+              { data: 'order_label'},
+              { data: 'total_amount',class:"total_sale text-right",render: $.fn.dataTable.render.number( ',', '.', 2, currency )},
+              { data: 'button'},
+            ],
 
   "footerCallback": function(row, data, start, end, display) {
   var api = this.api();
@@ -904,6 +903,13 @@ $(document).ready(function() {
         var form          = $("#customer_form");
         var custome_id    = $("#customer_id").val();
         var customer_name = $("#customer_name").val();
+        var customer_mobile = $("#customer_mobile").val();
+        var customer_address = $("#customer_address").val();
+        var address2 = $("#address2").val();
+        var city = $("#city").val();
+        var state = $("#state").val();
+        var zip = $("#zip").val();
+
          var base_url     = $("#base_url").val();
         if(custome_id !==''){
           var form_url = base_url+'edit_customer/'+custome_id;
@@ -911,14 +917,62 @@ $(document).ready(function() {
           var form_url = base_url+'add_customer';
         }
 
-         if (customer_name == '') {
-        $("#customer_name").focus();
-        toastr["error"]("Customer name must be required");
-        setTimeout(function () {
-        }, 500);
-        return false;
-    }
-       
+        if (customer_name == '') {
+          $("#customer_name").focus();
+          toastr["error"]("Customer name must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (customer_mobile == '') {
+          $("#customer_mobile").focus();
+          toastr["error"]("Customer Mobile no. must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (customer_address == '') {
+          $("#customer_address").focus();
+          toastr["error"]("Address name must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (address2 == '') {
+          $("#address2").focus();
+          toastr["error"]("Barangay must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (city == '') {
+          $("#city").focus();
+          toastr["error"]("City/Municipality must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (state == '') {
+          $("#state").focus();
+          toastr["error"]("State/Province must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
+        if (zip == '') {
+          $("#zip").focus();
+          toastr["error"]("Zip code must be required");
+          setTimeout(function () {
+          }, 500);
+          return false;
+        }
+
         $.ajax({
             url : form_url,
             method : 'POST',
@@ -956,7 +1010,7 @@ $(document).ready(function() {
 
              "aaSorting": [[ 1, "asc" ]],
              "columnDefs": [
-                { "bSortable": false, "aTargets": [0,2,3,4,5,6,7,8,9] },
+                { "bSortable": false, "aTargets": [0,2,3,4,5,6,7,8] },
 
             ],
            'processing': true,
@@ -984,8 +1038,8 @@ $(document).ready(function() {
              { data: 'city'},
              { data: 'state'},
              { data: 'zip'},
-             { data: 'country'},
-             { data: 'balance',class:"balance" },
+            //  { data: 'country'},
+            //  { data: 'balance',class:"balance" },
              { data: 'button'},
           ],
 

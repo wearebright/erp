@@ -72,7 +72,7 @@
                     <div class="panel-body">
                         <div id="purchase_div">
                             <div class="paddin5ps">
-                               <table class="print-table" width="100%">
+                               <!-- <table class="print-table" width="100%">
                                                 
                                                 <tr>
                                                     <td align="left" class="print-table-tr">
@@ -100,7 +100,7 @@
                                                     </td>
                                                 </tr>            
                                    
-                                </table>
+                                </table> -->
                             </div>
                             <div class="table-responsive paddin5ps">
                                 <table class="table table-bordered table-striped table-hover">

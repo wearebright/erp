@@ -28,7 +28,7 @@
 
                     <div id="printableArea">
                         <div class="paddin5ps">
-                            <table class="print-table" width="100%">
+                            <!-- <table class="print-table" width="100%">
                                             
                                             <tr>
                                                 <td align="left" class="print-table-tr">
@@ -56,7 +56,7 @@
                                                 </td>
                                             </tr>            
                                
-                            </table>
+                            </table> -->
                         </div>
                         <div class="table-responsive paddin5ps">
                             <table class="table table-bordered table-striped table-hover">
@@ -126,7 +126,7 @@
 
 
                     <div id="purchase_div">
-                                  <table class="print-table" width="100%">
+                                <!-- <table class="print-table" width="100%">
                                             
                                             <tr>
                                                 <td align="left" class="print-table-tr">
@@ -154,7 +154,7 @@
                                                 </td>
                                             </tr>            
                                
-                            </table>
+                                </table> -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-hover">
                                 <thead>

@@ -7,13 +7,14 @@
                         </div>
                     </div>
                    
-                    <div class="panel-body">
+                    <div class="panel-body row">
+                        <div class="col-md-7">
                             	<?php echo form_open('','class="" id="customer_form"')?>
                             	
                             	<input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customer->customer_id?>">
                                 <div class="form-group row">
-                                    <label for="customer_name" class="col-sm-2 text-right col-form-label"><?php echo display('customer_name')?> <i class="text-danger"> * </i>:</label>
-                                    <div class="col-sm-4">
+                                    <label for="customer_name" class="col-sm-4 text-right col-form-label"><?php echo display('customer_name')?> <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
                                         <div class="">
                                            
                                             <input type="text" name="customer_name" class="form-control" id="customer_name" placeholder="<?php echo display('customer_name')?>" value="<?php echo $customer->customer_name?>">
@@ -22,7 +23,20 @@
                                         </div>
                                        
                                     </div>
-                                     <label for="customer_mobile" class="col-sm-2 text-right col-form-label"><?php echo display('mobile_no')?> <i class="text-danger">  </i>:</label>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_email" class="col-sm-4 text-right col-form-label"><?php echo "Customer Email"?>:</label>
+                                    <div class="col-sm-8">
+                                        <div class="">
+                                           
+                                            <input type="text" class="form-control input-mask-trigger" name="customer_email" id="email" data-inputmask="'alias': 'email'" im-insert="true" placeholder="<?php echo display('email')?>" value="<?php echo $customer->customer_email?>">
+    
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_mobile" class="col-sm-4 text-right col-form-label"><?php echo display('mobile_no')?> <i class="text-danger"> * </i>:</label>
                                     <div class="col-sm-4">
                                         <div class="">
                                            
@@ -32,17 +46,79 @@
                                        
                                     </div>
                                 </div>
-                                 <div class="form-group row">
-                                    <label for="customer_email" class="col-sm-2 text-right col-form-label"><?php echo display('email_address')?>1:</label>
-                                    <div class="col-sm-4">
+                                <div class="form-group row">
+                                    <label for="address1" class="col-sm-4 text-right col-form-label"><?php echo display('address')?> <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
                                         <div class="">
-                                           
-                                            <input type="text" class="form-control input-mask-trigger" name="customer_email" id="email" data-inputmask="'alias': 'email'" im-insert="true" placeholder="<?php echo display('email')?>" value="<?php echo $customer->customer_email?>">
+                                            
+                                           <textarea name="customer_address" id="customer_address" class="form-control" placeholder="#124 Blg 1, 2F, Unit 24"><?php echo $customer->customer_address?></textarea>
+    
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="address2" class="col-sm-4 text-right col-form-label">Barangay/Village <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
+                                        <div class="">
+                                            
+                                           <textarea name="address2" id="address2" class="form-control" placeholder="Barangay/Village"><?php echo $customer->address2?></textarea>
+    
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="form-group row">
+                                    <label for="city" class="col-sm-4 text-right col-form-label">City/Municipality <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
+                                        <div class="">
+                                            
+                                            <input type="text" name="city" class="form-control" id="city" placeholder="City/Municipality" value="<?php echo $customer->city?>">
     
                                         </div>
                                        
                                     </div>
-                                      <label for="email_address" class="col-sm-2 text-right col-form-label"><?php echo display('email_address')?>2:</label>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="state" class="col-sm-4 text-right col-form-label">State/Province <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
+                                        <div class="">
+                                           
+                                            <input type="text" name="state" class="form-control" id="state" placeholder="State/Province"  value="<?php echo $customer->state?>">
+    
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="zip" class="col-sm-4 text-right col-form-label"><?php echo display('zip')?> <i class="text-danger"> * </i>:</label>
+                                    <div class="col-sm-8">
+                                        <div class="">
+                                           
+                                            <input name="zip" type="text" class="form-control" id="zip" placeholder="<?php echo display('zip')?>" value="<?php echo $customer->zip?>">
+    
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                
+                                <!-- <div class="form-group row hidden"> 
+                                    <label for="fax" class="col-sm-2 text-right col-form-label"><?php echo display('fax')?>:</label>
+                                    <div class="col-sm-4">
+                                        <div class="">
+                                            
+                                            <input type="text" name="fax" class="form-control" id="fax" placeholder="<?php echo display('fax')?>" value="<?php echo $customer->fax?>">
+    
+                                        </div>
+                                       
+                                    </div>
+                                </div> -->
+                                <!-- <div class="form-group row hidden">
+                                    
+                                    <label for="email_address" class="col-sm-2 text-right col-form-label"><?php echo display('email_address')?>2:</label>
                                     <div class="col-sm-4">
                                         <div class="">
                                            
@@ -52,7 +128,7 @@
                                        
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row hidden">
                                     <label for="phone" class="col-sm-2 text-right col-form-label"><?php echo display('phone')?>:</label>
                                     <div class="col-sm-4">
                                         <div class="">
@@ -73,68 +149,7 @@
                                        
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="address1" class="col-sm-2 text-right col-form-label"><?php echo display('address1')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                            
-                                           <textarea name="customer_address" id="customer_address" class="form-control" placeholder="<?php echo display('address1')?>"><?php echo $customer->customer_address?></textarea>
-    
-                                        </div>
-                                      
-                                    </div>
-
-                                          <label for="address2" class="col-sm-2 text-right col-form-label"><?php echo display('address2')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                            
-                                           <textarea name="address2" id="address2" class="form-control" placeholder="<?php echo display('address2')?>"><?php echo $customer->address2?></textarea>
-    
-                                        </div>
-                                      
-                                    </div>
-                                </div>
-                                <div class="form-group row"> 
-                                    <label for="fax" class="col-sm-2 text-right col-form-label"><?php echo display('fax')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                            
-                                            <input type="text" name="fax" class="form-control" id="fax" placeholder="<?php echo display('fax')?>" value="<?php echo $customer->fax?>">
-    
-                                        </div>
-                                       
-                                    </div>
-                                    <label for="city" class="col-sm-2 text-right col-form-label"><?php echo display('city')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                            
-                                            <input type="text" name="city" class="form-control" id="city" placeholder="<?php echo display('city')?>" value="<?php echo $customer->city?>">
-    
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="state" class="col-sm-2 text-right col-form-label"><?php echo display('state')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                           
-                                            <input type="text" name="state" class="form-control" id="state" placeholder="<?php echo display('state')?>"  value="<?php echo $customer->state?>">
-    
-                                        </div>
-                                       
-                                    </div>
-                                    <label for="zip" class="col-sm-2 text-right col-form-label"><?php echo display('zip')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                           
-                                            <input name="zip" type="text" class="form-control" id="zip" placeholder="<?php echo display('zip')?>" value="<?php echo $customer->zip?>">
-    
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                <div class="form-group row">
+                                <div class="form-group row  hidden">
                                     <label for="country" class="col-sm-2 text-right col-form-label"><?php echo display('country')?>:</label>
                                     <div class="col-sm-4">
                                         <div class="">
@@ -146,39 +161,36 @@
                                     </div>
                                     <?php if(empty($customer->customer_id)){?>
 
-                                     <label for="previous_balance" class="col-sm-2 text-right col-form-label"><?php echo display('previous_balance')?>:</label>
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                           
-                                            <input name="previous_balance" type="number" class="form-control text-right input-mask-trigger" placeholder="<?php echo display('previous_balance')?>"  data-inputmask="'alias': 'decimal', 'groupSeparator': '', 'autoGroup': true" im-insert="true" >
-    
+                                        <label for="previous_balance" class="col-sm-2 text-right col-form-label"><?php echo display('previous_balance')?>:</label>
+                                        <div class="col-sm-4">
+                                            <div class="">
+                                            
+                                                <input name="previous_balance" type="number" class="form-control text-right input-mask-trigger" placeholder="<?php echo display('previous_balance')?>"  data-inputmask="'alias': 'decimal', 'groupSeparator': '', 'autoGroup': true" im-insert="true" >
+        
+                                            </div>
+                                        
                                         </div>
-                                       
-                                    </div>
-                                <?php }?>
+                                    <?php }?>
                                     
-                                </div>
-
-                              
-
-                         <div class="form-group row">
-                                   <div class="col-sm-6 text-right">
-                                   </div>
-                                     <div class="col-sm-6 text-right">
-                                        <div class="">
-                                           
-                                            <button type="button" onclick="customer_form()" class="btn btn-success">
-                                            	<?php echo (empty($customer->customer_id)?display('save'):display('update')) ?></button>
-    
+                                </div> -->
+                                <div class="form-group row ">
+                                        <div class="col-sm-6 text-right">
                                         </div>
-                                       
-                                    </div>
-                                </div>
-                               
+                                            <div class="col-sm-6 text-right">
+                                                <div class="">
+                                                
+                                                    <button type="button" onclick="customer_form()" class="btn btn-success">
+                                                        <?php echo (empty($customer->customer_id)?display('save'):display('update')) ?></button>
+            
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    
 
-                                <?php echo form_close();?>
-                            </div>
-    
+                                        <?php echo form_close();?>
+                                    </div>
                         </div>
+                    </div>
                     </div>
                 </div>

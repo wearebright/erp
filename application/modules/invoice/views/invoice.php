@@ -20,14 +20,27 @@
                                 <option value="SH Partner">SH Partner</option> 
                             </select> 
                         </div>    -->
+
+                        <div class="form-group col-md-3" style="display: flex; align-items:center;">
+                            <label class="" style="margin-right: 2px;" for="from_date"><?php echo display('status') ?></label>
+                            <select name="status" class="form-control" required="">
+                                <option value=""></option>
+                                <option value="NEW">New Order</option>
+                                <option value="WAREHOUSE">In Packaging</option> 
+                                <option value="READY">For Shipment</option> 
+                                <option value="SHIPPED">Shipped</option> 
+                                <option value="RETURN_TO_SENDER">Return to Sender</option>
+                                <option value="COMPLETED">Completed</option> 
+                            </select> 
+                        </div>   
                         <div class="form-group">
                             <label class="" for="from_date"><?php echo display('start_date') ?></label>
-                            <input type="text" name="from_date" class="form-control datepicker" id="from_date" value="" placeholder="<?php echo display('start_date') ?>" >
+                            <input autocomplete="off" type="text" name="from_date" class="form-control datepicker" id="from_date" value="" placeholder="<?php echo display('start_date') ?>" >
                         </div> 
 
                         <div class="form-group">
                             <label class="" for="to_date"><?php echo display('end_date') ?></label>
-                            <input type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="">
+                            <input autocomplete="off" type="text" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="">
                         </div>  
 
                         <button type="button" id="btn-filter" class="btn btn-success"><?php echo display('find') ?></button>
@@ -63,12 +76,18 @@
                             <table class="table table-hover table-bordered" cellspacing="0" width="100%" id="InvList"> 
                                 <thead>
                                     <tr>
-                                    <th><?php echo display('sl') ?></th>
-                                    <th><?php echo display('invoice_no') ?></th>
-                                    <th><?php echo display('sale_by') ?></th>
-                                    <th><?php echo display('customer_name') ?></th>
                                     <th><?php echo display('date') ?></th>
-                                    <th><?php echo display('total_amount') ?></th>
+                                    <th><?php echo display('customer_name') ?></th>
+                                    <th><?php echo "Address" ?></th>
+                                    <th><?php echo "CP #" ?></th>
+                                    <th><?php echo "QTY" ?></th>
+                                    <th><?php echo "Order" ?></th>
+                                    <th><?php echo "Bill" ?></th>
+                                    <!-- <th><?php echo display('sl') ?></th> -->
+                                    <!-- <th><?php echo display('invoice_no') ?></th> -->
+                                    <!-- <th><?php echo display('sale_by') ?></th> -->
+                                    <!-- <th><?php echo display('date') ?></th> -->
+                                    <!-- <th><?php echo display('total_amount') ?></th> -->
                                     <th class="text-center"><?php echo display('action') ?></th>
                                     </tr>
                                 </thead>

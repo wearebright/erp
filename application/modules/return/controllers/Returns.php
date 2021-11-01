@@ -24,9 +24,11 @@ class Returns extends MX_Controller {
    }
 
 
-    public function bdtask_invoice_return_form() {
-
-        $invoice_id = trim($this->input->post('invoice_id',TRUE));
+    public function bdtask_invoice_return_form($invoice_id = null) {
+        if(!$invoice_id){
+            $invoice_id = trim($this->input->post('invoice_id',TRUE));
+        }
+        
         $invid = $this->db->select('invoice_id')->from('invoice')->where('invoice', $invoice_id)->get()->row();
         $query = $this->db->select('invoice_id')->from('invoice')->where('invoice', $invoice_id)->get();
 
