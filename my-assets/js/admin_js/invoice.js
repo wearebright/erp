@@ -69,7 +69,7 @@ function bdtask_invoice_quantity_calculate(item) {
     var dis_type = $("#discount_type").val();
     if (parseInt(quantity) > parseInt(available_quantity)) {
         var message = "Notice: " + available_quantity + " stocks available";
-        toastr["error"](message);
+        // toastr["error"](message);
         // $("#total_qntt_" + item).val('');
         // var quantity = 0;
         // $("#total_price_" + item).val(0);
@@ -485,7 +485,7 @@ $(document).ready(function() {
                         if (inputValue === true) {
                             location.reload();
                         } else {
-                            window.location.href = window.location.hostname+"home/"
+                            window.history.back();
                         }
 
                     });

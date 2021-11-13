@@ -608,34 +608,35 @@ class Invoice extends MX_Controller {
 
 
     public function bdtask_manual_sales_insert(){
+        // is_unique[invoice.invoice]
      $this->form_validation->set_rules('customer_id', display('customer_name') ,'required|max_length[15]');
     $this->form_validation->set_rules('paytype', display('payment_type') ,'required|max_length[20]');
-    $this->form_validation->set_rules('invoice_no', display('invoice_no') ,'required|max_length[20]|is_unique[invoice.invoice]');
+    $this->form_validation->set_rules('invoice_no', display('invoice_no') ,'required|max_length[20]');
     $this->form_validation->set_rules('product_id[]',display('product'),'required|max_length[20]');
     $this->form_validation->set_rules('product_quantity[]',display('quantity'),'required|max_length[20]');
     $this->form_validation->set_rules('product_rate[]',display('rate'),'required|max_length[20]');
     $normal = $this->input->post('is_normal');
-
+    // $inv_ng = number_generator();
     if ($this->form_validation->run() === true) {
-       $invoice_id = $this->invoice_model->invoice_entry();
+        $invoice_id = $this->invoice_model->invoice_entry();
         if(!empty($invoice_id)){
         $data['status'] = true;
         $data['invoice_id'] = $invoice_id;
         $data['message'] = display('save_successfully');
-        $mailsetting = $this->db->select('*')->from('email_config')->get()->result_array();
-        if($mailsetting[0]['isinvoice']==1){
-        $mail = $this->invoice_pdf_generate($invoice_id);
-        if($mail == 0){
-        $data['exception'] = $this->session->set_userdata(array('error_message' => display('please_config_your_mail_setting')));
-          }
-        }
-        if($normal == 1){
-        $printdata = $this->bdtask_invoice_details_directprint($invoice_id);
-        $data['details'] = $this->load->view('invoice/invoice_html_manual', $printdata, true);
-        }else{
-        $printdata = $this->invoice_model->bdtask_invoice_pos_print_direct($invoice_id);
-        $data['details'] = $this->load->view('invoice/pos_print', $printdata, true);
-        }
+        // $mailsetting = $this->db->select('*')->from('email_config')->get()->result_array();
+        // if($mailsetting[0]['isinvoice']==1){
+        // $mail = $this->invoice_pdf_generate($invoice_id);
+        // if($mail == 0){
+        // $data['exception'] = $this->session->set_userdata(array('error_message' => display('please_config_your_mail_setting')));
+        //   }
+        // }
+            if($normal == 1){
+                $printdata = $this->bdtask_invoice_details_directprint($invoice_id);
+                $data['details'] = $this->load->view('invoice/invoice_html_manual', $printdata, true);
+            }else{
+                $printdata = $this->invoice_model->bdtask_invoice_pos_print_direct($invoice_id);
+                $data['details'] = $this->load->view('invoice/pos_print', $printdata, true);
+            }
      
         }else{
         $data['status'] = false;
@@ -1154,6 +1155,10 @@ class Invoice extends MX_Controller {
         $data = array(
             'customer_name'    => $this->input->post('customer_name',TRUE),
             'customer_address' => $this->input->post('address',TRUE),
+            'address2' => $this->input->post('address2',TRUE),
+            'city' => $this->input->post('city',TRUE),
+            'state' => $this->input->post('state',TRUE),
+            'zip' => $this->input->post('zip',TRUE),
             'customer_mobile'  => $this->input->post('mobile',TRUE),
             'customer_email'   => $this->input->post('email',TRUE),
             'status'           => 1

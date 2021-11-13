@@ -304,7 +304,7 @@ public function invoice_taxinfo($invoice_id){
         $product_id          = $this->input->post('product_id');
         $currency_details    = $this->db->select('*')->from('web_setting')->get()->result_array();
         $quantity            = $this->input->post('product_quantity',TRUE);
-        $invoice_no_generated= $this->input->post('invoice_no');
+        $invoice_no_generated= $this->number_generator();
         $changeamount        = $this->input->post('change',TRUE);
         $sales_channel       = $this->input->post('sales_channel');
         if($changeamount > 0){
@@ -353,21 +353,21 @@ public function invoice_taxinfo($invoice_id){
             if($tax_v > 0){
             $this->db->insert('tax_collection',$taxdata);
               }
-        $checkNum = true;
-        while($checkNum){
-            $this->db->select('*');
-            $this->db->from('invoice');
-            $this->db->where('invoice', $invoice_no_generated);
-            $checkRes = $this->db->get();
+        // $checkNum = true;
+        // while($checkNum){
+        //     $this->db->select('*');
+        //     $this->db->from('invoice');
+        //     $this->db->where('invoice', $invoice_no_generated);
+        //     $checkRes = $this->db->get();
 
-            if ($checkRes->num_rows() > 0) {
-                $invoice_no_generated++;
+        //     if ($checkRes->num_rows() > 0) {
+        //         $invoice_no_generated++;
                
-            }else{
-                $checkNum = false;
-            }
+        //     }else{
+        //         $checkNum = false;
+        //     }
 
-        }
+        // }
 
         //Data inserting into invoice table
         $datainv = array(
@@ -381,10 +381,10 @@ public function invoice_taxinfo($invoice_id){
             'invoice_discount'=> $this->input->post('invoice_discount',TRUE),
             'total_discount'  => $this->input->post('total_discount',TRUE),
             'paid_amount'     => $this->input->post('paid_amount',TRUE),
-            // 'due_amount'      => $this->input->post('due_amount',TRUE),
-            // 'prevous_due'     => $this->input->post('previous',TRUE),
-            'due_amount'      => 0,
-            'prevous_due'     => 0,
+            'due_amount'      => $this->input->post('due_amount',TRUE),
+            'prevous_due'     => $this->input->post('previous',TRUE),
+            // 'due_amount'      => 0,
+            // 'prevous_due'     => 0,
             'shipping_cost'   => $this->input->post('shipping_cost',TRUE),
             'sales_by'        => $this->session->userdata('id'),
             'status'          => 1,
@@ -562,8 +562,8 @@ public function invoice_taxinfo($invoice_id){
                 'discount_per'       => $disper,
                 'tax'                => $tax,
                 'paid_amount'        => $paidamount,
-                // 'due_amount'         => $this->input->post('due_amount',TRUE),
-                'due_amount'      => 0,
+                'due_amount'         => $this->input->post('due_amount',TRUE),
+                // 'due_amount'      => 0,
                 'supplier_rate'      => $supplier_rate,
                 'total_price'        => $total_price,
                 'status'             => 1
@@ -636,13 +636,13 @@ public function invoice_taxinfo($invoice_id){
             'total_amount'    => $this->input->post('grand_total_price',TRUE),
             'total_tax'       => $this->input->post('total_tax',TRUE),
             'invoice_details' => $this->input->post('inva_details',TRUE),
-            // 'due_amount'      => $this->input->post('due_amount',TRUE),
-            'due_amount'      => 0,
-            'prevous_due'     => 0,
+            'due_amount'      => $this->input->post('due_amount',TRUE),
+            // 'due_amount'      => 0,
+            // 'prevous_due'     => 0,
             'paid_amount'     => $this->input->post('paid_amount',TRUE),
             'invoice_discount'=> $this->input->post('invoice_discount',TRUE),
             'total_discount'  => $this->input->post('total_discount',TRUE),
-            // 'prevous_due'     => $this->input->post('previous',TRUE),
+            'prevous_due'     => $this->input->post('previous',TRUE),
             'shipping_cost'   => $this->input->post('shipping_cost',TRUE),
             'payment_type'    =>  $this->input->post('paytype',TRUE),          
             'sales_channel'   =>  $this->input->post('sales_channel',TRUE),
@@ -829,8 +829,8 @@ if(!empty($this->input->post('paid_amount',TRUE))){
                 'tax'                => $this->input->post('total_tax',TRUE),
                 'paid_amount'        => $paidamount,
                 'supplier_rate'     => $supplier_rate,
-                // 'due_amount'         => $this->input->post('due_amount',TRUE),
-                'due_amount'      => 0,
+                'due_amount'         => $this->input->post('due_amount',TRUE),
+                // 'due_amount'      => 0,
                 'description'       => $desciption,
             );
             $this->db->insert('invoice_details', $data1);
@@ -1130,6 +1130,18 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         return $con;
     }
 
+    public function number_generator() {
+        $this->db->select_max('invoice', 'invoice_no');
+        $query      = $this->db->get('invoice');
+        $result     = $query->result_array();
+        $invoice_no = $result[0]['invoice_no'];
+        if ($invoice_no != '') {
+            $invoice_no = $invoice_no + 1;
+        } else {
+            $invoice_no = 1000;
+        }
+        return $invoice_no;
+    }
 
        public function stock_qty_check($product_id){
         $this->db->select('SUM(a.quantity) as total_purchase');

@@ -65,12 +65,12 @@
                                                 <td class="barcode-toptd">      
 
                                                     <div class="barcode-inner barcode-innerdiv">
-                                                        <div class="product-name barcode-productname">
-                                                            <?php echo $company_name;?>
-                                                        </div>
+                                                        <!-- <div class="product-name barcode-productname"> -->
+                                                            <?php // echo $company_name;?>
+                                                        <!-- </div> -->
                                                         <img src="<?php echo base_url('my-assets/image/barcode/'.$barcode_img) ?> ">
-                                                        <div class="product-name-details barcode-productdetails"><?php echo $product_name;?></div>
-                                                        <div class="price barcode-price"><?php echo (($position == 0) ? "$currency  $price" : "$price $currency") ?>
+                                                        <!-- <div class="product-name-details barcode-productdetails"><?php echo $product_name;?></div> -->
+                                                        <!-- <div class="price barcode-price"><?php echo (($position == 0) ? "$currency  $price" : "$price $currency") ?> -->
 
                                                         </div>
                                                     </div>
@@ -106,12 +106,12 @@
                                                 <?php } ?>
                                                 <td class="barcode-toptd">  
                                                     <div class="barcode-inner barcode-innerdiv">
-                                                        <div class="product-name barcode-productname">
-                                                            <?php echo $company_name;?>
-                                                        </div>
+                                                        <!-- <div class="product-name barcode-productname"> -->
+                                                            <?php // echo $company_name;?>
+                                                        <!-- </div> -->
                                                         <img src="<?php echo base_url('my-assets/image/barcode/'.$barcode_img) ?> ">
-                                                        <div class="product-name-details qrcode-productdetails"><?php echo $product_name?></div>
-                                                        <div class="price barcode-price"><?php echo (($position == 0) ? "$currency $price" : "$price $currency") ?>
+                                                        <!-- <div class="product-name-details qrcode-productdetails"><?php echo $product_name?></div> -->
+                                                        <!-- <div class="price barcode-price"><?php echo (($position == 0) ? "$currency $price" : "$price $currency") ?> -->
                                                         </div>
                                                     </div>
                                                 </td>
