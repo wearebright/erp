@@ -99,6 +99,7 @@ class Invoice_model extends CI_Model {
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','NEW');
         $this->db->or_where('a.order_status','');
+        $this->db->order_by('a.invoice','asc');
         $orders_new = $this->db->get()->result();
 
         // WAREHOUSE ORDERS
@@ -106,6 +107,7 @@ class Invoice_model extends CI_Model {
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','ENCODED');
+        $this->db->order_by('a.invoice','asc');
         $orders_encoded = $this->db->get()->result();
         
         // CLAIM ORDERS
@@ -113,6 +115,7 @@ class Invoice_model extends CI_Model {
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','CLAIM');
+        $this->db->order_by('a.invoice','asc');
         $orders_claims = $this->db->get()->result();
         
         // SHIPPED ORDERS
@@ -120,6 +123,7 @@ class Invoice_model extends CI_Model {
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','SHIPPED');
+        $this->db->order_by('a.invoice','asc');
         $orders_shipped = $this->db->get()->result();
 
         // WAREHOUSE ORDERS
@@ -127,12 +131,14 @@ class Invoice_model extends CI_Model {
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','RETURN_TO_SENDER');
+        $this->db->order_by('a.invoice','asc');
         $return_to_sender = $this->db->get()->result();
 
         $this->db->select('*');
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','COMPLETED');
+        $this->db->order_by('a.invoice','asc');
         $this->db->where('date >=', date('Y-m-d', strtotime('-7 days')));
         $completed = $this->db->get()->result();
 
