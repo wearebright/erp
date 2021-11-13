@@ -98,7 +98,7 @@ switch (ENVIRONMENT)
  * Set the path if it is not in the same directory as this file.
  */
 	// $system_path = '/home/sellershubph.com/public_html/system';
-	$system_path = 'system';
+	$system_path = '/home/sellershubph.com/public_html/system';
 /*
  *---------------------------------------------------------------
  * APPLICATION DIRECTORY NAME
@@ -115,7 +115,7 @@ switch (ENVIRONMENT)
  * NO TRAILING SLASH!
  */
 	// $application_folder = '/home/sellershubph.com/public_html/application';
-	$application_folder = 'application';
+	$application_folder = '/home/sellershubph.com/public_html/application';
 
 /*
  *---------------------------------------------------------------

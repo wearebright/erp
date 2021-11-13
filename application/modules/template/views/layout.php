@@ -174,12 +174,35 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="address " class="col-sm-4 col-form-label"><?php echo display('customer_address') ?></label>
+                            <label for="address " class="col-sm-4 col-form-label">Address</label>
                             <div class="col-sm-6">
-                                <textarea class="form-control" name="address" id="address " rows="3" placeholder="<?php echo display('customer_address') ?>" tabindex="4"></textarea>
+                                <textarea class="form-control" name="address" id="address " rows="3" placeholder="#124 Blg 1, 2F, Unit 23" tabindex="4"></textarea>
                             </div>
                         </div>
-                      
+                        <div class="form-group row">
+                            <label for="address2 " class="col-sm-4 col-form-label">Barangay/Village</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name ="address2" id="address2" type="text" placeholder="Brgy. Sampaguita" tabindex="5"> 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="city " class="col-sm-4 col-form-label">City/Municipality</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" name ="city" id="city" type="text" placeholder="Cavite/NCR" tabindex="6"> 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="state " class="col-sm-4 col-form-label">State/Province</label>
+                            <div class="col-sm-6">
+                            <input class="form-control" name ="state" id="state" type="text" placeholder="Cavite/NCR" tabindex="7"> 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="zip " class="col-sm-4 col-form-label">ZIP Code</label>
+                            <div class="col-sm-6">
+                            <input class="form-control" name ="zip" id="zip" type="text" placeholder="ZIP Code" tabindex="8"> 
+                            </div>
+                        </div>
                     </div>
                     
                         </div>

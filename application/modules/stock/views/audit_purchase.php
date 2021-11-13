@@ -5,11 +5,24 @@
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            <h4><?php echo display('edit_purchase') ?></h4>
+                            <h4>Receive Stocks</h4>
+                        
                         </div>
                     </div>
 
                     <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="productID" class="col-sm-4 col-form-label">Scan Barcode to Receive
+                                </label>
+                                <div class="col-sm-6">
+                                    <input autofocus  id="productID" onchange="getProductDetails()" type="text" class="form-control" style="height: 50px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <?php echo form_open_multipart('stock/stock/update_purchase',array('class' => 'form-vertical', 'id' => 'purchase_update'))?>
                         
 
@@ -116,15 +129,15 @@
                                         </td>
                                         
                                             <td class="text-right">
-                                                <input type="text" name="product_quantity[]" id="cartoon_<?php echo $purchases['sl']?>" class="form-control text-right store_cal_<?php echo $purchases['sl']?>" onkeyup="calculate_store(<?php echo $purchases['sl']?>);" onchange="calculate_store(<?php echo $purchases['sl']?>);" placeholder="0.00" value="<?php echo $purchases['quantity']?>" readonly min="0" tabindex="6"/>
+                                                <input type="text" name="product_quantity[]" id="cartoon_<?php echo $purchases['sl']?>" class="form-control text-right store_cal_<?php echo $purchases['sl']?>" onkeyup="calculate_pendingPurchase(<?php echo $purchases['product_id']?>);" onchange="calculate_pendingPurchase(<?php echo $purchases['product_id']?>);" placeholder="0.00" value="<?php echo $purchases['quantity']?>" readonly min="0" tabindex="6"/>
                                             </td>
                                            
                                             <td class="text-right">
-                                                <input class="form-control text-right" name="product_quantity_received[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" readonly="readonly"/>
-                                                <input class="form-control text-right" type="hidden" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="current_received_quantity_<?php echo $purchases['sl']?>" value="<?php echo $purchases['quantity_received']?>" readonly="readonly"/>
+                                                <input class="form-control text-right" name="product_quantity_received[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="received_quantity_<?php echo $purchases['product_id']?>" value="<?php echo $purchases['quantity_received']?>"  placeholder="0.00" readonly="readonly"/>
+                                                <input class="form-control text-right" type="hidden" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['product_id']?>);"  id="current_received_quantity_<?php echo $purchases['product_id']?>" value="<?php echo $purchases['quantity_received']?>" readonly="readonly"/>
                                             </td>
                                             <td class="text-right">
-                                                <input class="form-control text-right" name="receive[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['sl']?>);"  id="receive_<?php echo $purchases['sl']?>" value=""  />
+                                                <input class="form-control text-right" name="receive[]"  type="text" name="" onkeyup="calculate_pendingPurchase(<?php echo $purchases['product_id']?>);"  id="receive_<?php echo $purchases['product_id']?>" value=""  />
                                             </td>
                                     </tr>
                                 <?php }?>
@@ -145,3 +158,34 @@
         </div>
 
 
+<script>
+    function getProductDetails() {
+        // $('.page-loader-wrapper').show();
+        var productEl = document.getElementById('productID');
+        var CSRF_TOKEN = $('#CSRF_TOKEN').val();
+        var base_url = $('#base_url').val();
+
+        $.ajax( {
+          url: base_url + "/stock/stock/productDetails",
+          method: 'post',
+          dataType: "json",
+          data: {
+            product_id: productEl.value,
+          },
+          success: function( res ) {
+            console.log( res );
+            if(!res.error){
+                
+                var counter = $('#receive_'+res.data.product_id).val();
+                counter ++;
+                $('#receive_'+res.data.product_id).val(counter);
+            }else{
+                alert(res.message);
+            }
+            // $('.page-loader-wrapper').hide();
+          }
+        });
+        
+        productEl.value = "";
+    }
+</script>
