@@ -98,21 +98,22 @@ class Invoice_model extends CI_Model {
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
         $this->db->where('a.order_status','NEW');
+        $this->db->or_where('a.order_status','');
         $orders_new = $this->db->get()->result();
 
         // WAREHOUSE ORDERS
         $this->db->select('*');
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
-        $this->db->where('a.order_status','WAREHOUSE');
-        $orders_warehouse = $this->db->get()->result();
+        $this->db->where('a.order_status','ENCODED');
+        $orders_encoded = $this->db->get()->result();
         
-        // READY ORDERS
+        // CLAIM ORDERS
         $this->db->select('*');
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
-        $this->db->where('a.order_status','READY');
-        $orders_ready = $this->db->get()->result();
+        $this->db->where('a.order_status','CLAIM');
+        $orders_claims = $this->db->get()->result();
         
         // SHIPPED ORDERS
         $this->db->select('*');
@@ -131,14 +132,14 @@ class Invoice_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id', 'left');
-        $this->db->where('a.order_status','RETURN_TO_SENDER');
+        $this->db->where('a.order_status','COMPLETED');
         $this->db->where('date >=', date('Y-m-d', strtotime('-7 days')));
         $completed = $this->db->get()->result();
 
         $response = array(
             "NEW" => $orders_new,
-            "WAREHOUSE" => $orders_warehouse,
-            "READY" => $orders_ready,            
+            "ENCODED" => $orders_encoded,
+            "CLAIM" => $orders_claims,            
             "SHIPPED" => $orders_shipped,
             "RETURN_TO_SENDER" => $return_to_sender,
             "COMPLETED" => $completed,
