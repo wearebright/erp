@@ -13,6 +13,13 @@ html {
 	min-height: 100%
 }
 
+input:disabled{
+	background-color: #d9d9d9 !important;
+}
+select:disabled ~ .select2-container .select2-selection{
+	background-color: #d9d9d9 !important;
+}
+
 .chat_list .chat-avatar i,
 .chat_list .ctext-wrap i {
 	font-style: normal;

@@ -26,11 +26,11 @@
                             <select name="status" class="form-control" required="">
                                 <option value=""></option>
                                 <option value="NEW">New Order</option>
-                                <option value="WAREHOUSE">In Packaging</option> 
-                                <option value="READY">For Shipment</option> 
+                                <option value="ENCODED">Encoded</option> 
                                 <option value="SHIPPED">Shipped</option> 
                                 <option value="RETURN_TO_SENDER">Return to Sender</option>
                                 <option value="COMPLETED">Completed</option> 
+                                <option value="CLAIM">Claim</option> 
                             </select> 
                         </div>   
                         <div class="form-group">

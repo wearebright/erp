@@ -1403,6 +1403,12 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         return false;
     }
 
+    public function getOutgoingQTYByInvoice($inv_id){
+        $this->db->select_sum('quantity')->where('outgoing_stock.invoice_id', $inv_id)->where('outgoing_stock.status', 1);
+        $result = $this->db->get('outgoing_stock')->row();
+        return $result->quantity;
+    }
+
     public function getInvoiceProducts($invoice_id) {
         $this->db->select('*');
         $this->db->from('invoice_details');

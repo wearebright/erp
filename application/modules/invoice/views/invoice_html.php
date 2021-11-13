@@ -15,12 +15,13 @@
                                                 </label>
                                                 <div class="form-group">
                                                     <select name="order_status" class="form-control" required="" onchange="selectStatus()">
-                                                        <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> <?= $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?>  value="NEW">New Order</option>
-                                                        <option <?= $invoice_order_status == "WAREHOUSE" ? "selected" : "" ?> <?= $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="WAREHOUSE">In Packaging</option> 
-                                                        <option <?= $invoice_order_status == "READY" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="READY">For Shipment</option> 
-                                                        <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="SHIPPED">Shipped</option> 
-                                                        <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "WAREHOUSE" ? "disabled" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option>
-                                                        <option <?= $invoice_order_status == "COMPLETED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "WAREHOUSE" || $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="COMPLETED">Completed</option> 
+                                                        <option <?= $invoice_order_status == "NEW" ? "selected" : "" ?> <?= $invoice_order_status == "ENCODED" || $invoice_order_status == "READY" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?>  value="NEW">New Order</option>
+                                                        <option <?= $invoice_order_status == "ENCODED" ? "selected" : "" ?> <?= $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" || $invoice_order_status == "CLAIM" ? "disabled" : "" ?> value="ENCODED">Encoded</option> 
+                                                        <option <?= $invoice_order_status == "SHIPPED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "RETURN_TO_SENDER" || $invoice_order_status == "CLAIM" ? "disabled" : "" ?> value="SHIPPED">Shipped</option> 
+                                                        <option <?= $invoice_order_status == "COMPLETED" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "ENCODED" || $invoice_order_status == "CLAIM" || $invoice_order_status == "RETURN_TO_SENDER" ? "disabled" : "" ?> value="COMPLETED">Completed</option> 
+                                                        <option <?= $invoice_order_status == "RETURN_TO_SENDER" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "ENCODED" || $invoice_order_status == "CLAIM" || $invoice_order_status == "COMPLETED" || $invoice_order_status == "WAREHOUSE" ? "disabled" : "" ?> value="RETURN_TO_SENDER">Return to Sender</option>
+                                                        <option <?= $invoice_order_status == "CLAIM" ? "selected" : "" ?> <?= $invoice_order_status == "NEW" || $invoice_order_status == "ENCODED" || $invoice_order_status == "SHIPPED" || $invoice_order_status == "COMPLETED" ? "disabled" : "" ?> value="CLAIM">Claim</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -28,7 +29,7 @@
                                                 <label for="order_status" class="col-form-label">Logistics
                                                 </label>
                                                 <div class="form-group">
-                                                    <select name="logistics" class="form-control" required="" onchange="selectStatus()">
+                                                    <select name="logistics" class="form-control" required="" onchange="changeLogistic()">
                                                         <option disabled>Select Option</option>
                                                         <?php foreach($logistics_list as $logistics){?>
                                                             <option <?= $courier == $logistics['logistics_name'] ? "selected" : "" ?> value="<?= $logistics['logistics_name'] ?>"><?= $logistics['logistics_name'] ?></option>
@@ -374,6 +375,10 @@
             </div>
         </div>
 <script>
+    function changeLogistic(){
+        $('input[name=awb]').attr('disabled', false);
+    }
+
     function selectStatus(){
         let order_status = $('select[name=order_status] option').filter(":selected").val();
         console.log(order_status);
@@ -395,10 +400,12 @@
             $('#rts_link').hide();
         }
 
-        if(order_status === 'READY'){
+        if(order_status === 'ENCODED'){
             $('input[name=awb]').attr('required', true);
+            // $('input[name=orderAttachment]').attr('required', true);
         }else{
             $('input[name=awb]').attr('required', false);
+            // $('input[name=orderAttachment]').attr('required', false);
         }
 
         if(order_status === 'RETURN_TO_SENDER' || order_status === 'COMPLETED'){
@@ -407,12 +414,10 @@
             $('#actionBar').show();
         }
 
-        if(order_status === 'SHIPPED' || order_status === 'COMPLETED'){
-            $('input[name=awb]').attr('disabled', true);
+        if(order_status === 'COMPLETED'){
             $('select[name=paytype]').attr('disabled', true);
             $('#attachmentField').hide();
         }else{
-            $('input[name=awb]').attr('disabled', false);
             $('#attachmentField').show();
         }
     }

@@ -175,6 +175,23 @@ class Invoice extends MX_Controller {
 
         if(!empty($id)){
 
+            /* get the list of outgoing */
+            $invoice_order_quantity = 0;
+
+            $invoice_products = $this->invoice_model->getInvoiceProducts($this->input->post('invoice_id',true));
+
+            foreach ($invoice_products as $key => $value) {
+                $invoice_order_quantity += (int) $value['quantity'];
+            }
+
+            $outgoing_qty = (int) $this->invoice_model->getOutgoingQTYByInvoice($this->input->post('invoice_id',true));
+            if($outgoing_qty < $invoice_order_quantity){
+                $this->session->set_flashdata('exception', 'Unable to proceed to the new status. Please scan and save outgoing items.');
+                redirect(base_url('invoice_details/'.$id));
+            }
+
+
+
             $attachment = $this->fileupload->do_upload(
                 'uploads/invoices/attachement/', 
                 'orderAttachment'
