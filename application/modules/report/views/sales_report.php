@@ -9,7 +9,7 @@
                         $today = date('Y-m-d');
                         ?>
                         <div class="row">
-                            <div class="form-group col-md-2" style="min-width:150px;">
+                            <div class="form-group col-md-3" style="min-width:150px;">
                                 <label for="from_date"><?php echo display('sales_channel') ?></label>
                                 <select onchange="getTeam()" name="sales_channel" class="form-control">
                                     <option <?= $sales_channel=='All'?"selected":"" ?> value="All">All</option>
@@ -47,7 +47,7 @@
                                 </select> 
                             </div> 
                             <div class="form-group col-md-2" style="min-width:150px;">
-                                <label for="from_date"><?php echo display('mov') ?></label>
+                                <label for="from_date">MOV</label>
                                 <select name="paytype" class="form-control">
                                     <option <?= $paytype=='All'?"selected":"" ?> value="All">All</option>
                                     <option <?= $paytype==1?"selected":"" ?> value="1">Cash On Delivery</option>
@@ -55,17 +55,29 @@
                                     <option <?= $paytype==3?"selected":"" ?> value="3">Online Payment</option> 
                                 </select> 
                             </div> 
-                            <div class="form-group col-md-1">
+                            <div class="form-group col-md-2">
+                                <label for="from_date"><?php echo display('status') ?></label>
+                                <select name="status" class="form-control" required="">
+                                    <option value="All">All</option>
+                                    <option <?= $status=='NEW'?"selected":"" ?> value="NEW">New Order</option>
+                                    <option <?= $status=='ENCODED'?"selected":"" ?> value="ENCODED">Encoded</option> 
+                                    <option <?= $status=='SHIPPED'?"selected":"" ?> value="SHIPPED">Shipped</option> 
+                                    <option <?= $status=='RETURN_TO_SENDER'?"selected":"" ?> value="RETURN_TO_SENDER">Return to Sender</option>
+                                    <option <?= $status=='COMPLETED'?"selected":"" ?> value="COMPLETED">Completed</option> 
+                                    <option <?= $status=='CLAIM'?"selected":"" ?> value="CLAIM">Claim</option> 
+                                </select> 
+                            </div>  
+                            <div class="form-group col-md-2" style="margin-top: 10px;">
                                 <label for="from_date"><?php echo display('start_date') ?></label>
                                 <input type="text" autocomplete="off" name="from_date" class="form-control datepicker" id="from_date" placeholder="<?php echo display('start_date') ?>" value="<?php echo $from_date ?>">
                             </div> 
 
-                            <div class="form-group col-md-1">
+                            <div class="form-group col-md-2" style="margin-top: 10px;">
                                 <label for="to_date"><?php echo display('end_date') ?></label>
                                 <input type="text" autocomplete="off" name="to_date" class="form-control datepicker" id="to_date" placeholder="<?php echo display('end_date') ?>" value="<?php echo $to_date ?>">
                             </div>  
                             <div class="col-md-2">
-                                <label style="margin-bottom: 25px; display: block;"></label>
+                                <label style="margin-bottom: 35px; display: block;"></label>
                                 <div class="">
                                     <button type="submit" class="btn btn-success"><?php echo display('search') ?></button>
                                     <a  class="btn btn-warning" href="#" onclick="printDiv('purchase_div')"><?php echo display('print') ?></a>

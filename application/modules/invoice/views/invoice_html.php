@@ -5,7 +5,9 @@
                         <div class="panel-body">
                             <div class="row print_header">
                                 <div class="col-sm-6 text-left">
+                                    <a href="#"  style="float: right;" class="client-add-btn btn btn-success" aria-hidden="true" data-toggle="modal" data-target="#update-logs">View update logs</a>    
                                     <h2 class="m-t-0">Invoice #<?php echo $invoice_no?></h2>
+                                   
                                     <div class="m-b-15"><?php echo display('billing_date') ?>: <?php echo date("d-M-Y",strtotime($final_date));?></div>
                                     <form action="/invoice/invoice/update_order_status" class="form-vertical" id="insert_sale" name="insert_sale" onsubmit="if(!confirm('Are you sure want to update the status?')){return false}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                         <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
@@ -374,6 +376,45 @@
                 </div>
             </div>
         </div>
+            <div class="modal fade modal-success" id="update-logs" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="#" class="close" data-dismiss="modal">&times;</a>
+                            <h3 class="modal-title">Update Logs</h3>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-hover" cellspacing="0" width="100%" id="PrdScan"> 
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Update By</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        $count = 1;
+                                        foreach ($update_logs as $key => $logs) {
+                                        
+                                    ?>
+                                        <tr>
+                                            <td><?= $count ?></td>
+                                            <td><?= $logs['first_name'] . '' . $logs['last_name'] ?></td>
+                                            <td><?= $logs['upated_status'] ?></td>
+                                            <td><?= $logs['created_at'] ?></td>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        } 
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 <script>
     function changeLogistic(){
         $('input[name=awb]').attr('disabled', false);

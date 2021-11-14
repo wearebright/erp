@@ -1428,6 +1428,19 @@ if(!empty($this->input->post('paid_amount',TRUE))){
         return $result->quantity;
     }
 
+    public function getInvoiceUpdateLogs($inv_id){
+        $query = $this->db->select('status_upload_logs.*, users.last_name, users.first_name')
+        ->from('status_upload_logs')
+        ->join('users', 'users.user_id = status_upload_logs.updated_by')
+        ->where('status_upload_logs.invoice_id', $inv_id)
+        ->order_by('status_upload_logs.created_at', 'DESC')
+        ->get();
+        if ($query) {
+            return $query->result_array();
+        }
+        return false;
+    }
+
     public function getInvoiceProducts($invoice_id) {
         $this->db->select('*');
         $this->db->from('invoice_details');
@@ -1442,6 +1455,14 @@ if(!empty($this->input->post('paid_amount',TRUE))){
     function saveEditLog($data){
         try {
             return $this->db->insert('stock_edit_logs', $data);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    function saveStatusLog($data){
+        try {
+            return $this->db->insert('status_upload_logs', $data);
         } catch (\Throwable $th) {
             //throw $th;
         }

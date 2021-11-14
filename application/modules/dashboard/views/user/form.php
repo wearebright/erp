@@ -67,7 +67,9 @@
                             <label class="radio-inline">
                                 <?php echo form_radio('user_type', '1', (($user->user_type==1)?true:false), 'id="user_type"'); ?>Admin
                             </label>
-                           
+                            <label class="radio-inline">
+                                <?php echo form_radio('user_type', '2', (($user->user_type==1)?true:false), 'id="user_type"'); ?>Manager
+                            </label>
                         </div>
                     </div>
 

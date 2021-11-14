@@ -125,6 +125,8 @@ class Invoice extends MX_Controller {
 
         $outgoing_data = $this->invoice_model->getOutgoing($invoice_detail[0]['invoice_id']);
 
+        $update_logs = $this->invoice_model->getInvoiceUpdateLogs($invoice_detail[0]['invoice_id']);
+
         $data = array(
         'title'             => display('invoice_details'),
         'regions'           => $regions,
@@ -163,7 +165,8 @@ class Invoice extends MX_Controller {
         'is_serial'         => $isserial,
         'is_unit'           => $isunit,
         'awb'               => $invoice_detail[0]['awb'],
-        'outgoing_data'     => $outgoing_data
+        'outgoing_data'     => $outgoing_data,
+        'update_logs'       => $update_logs,
         );
         $data['module']     = "invoice";
         $data['page']       = "invoice_html"; 
@@ -243,6 +246,14 @@ class Invoice extends MX_Controller {
                 #set exception message
                 $this->session->set_flashdata('exception', display('please_try_again'));
             }
+
+            $data['invoice_id'] = $this->input->post('invoice_id', true);
+            $data['updated_by'] = $this->session->userdata('id');
+            $data['upated_status'] = $order_status;
+
+            $this->invoice_model->saveStatusLog($data);
+
+            
             redirect(base_url('invoice_details/'.$id));
         }
     }

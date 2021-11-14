@@ -291,7 +291,7 @@
         
 
       <!-- Stock menu start -->
-            <?php if($this->permission1->method('stock','read')->access()){?>
+            <?php if($this->permission1->method('stock_report','read')->access() || $this->permission1->method('audit_purchase','read')->access() || $this->permission1->method('stock_edit_logs','read')->access() || $this->permission1->method('edit_stocks','read')->access()){?>
         <li class="treeview <?php
         if ($this->uri->segment('1') == ("stock") || $this->uri->segment('1') === ('audit_purchase') || $this->uri->segment('1') === 'stock_logs' || $this->uri->segment('1') === 'outgoing_stocks' || $this->uri->segment('1') === 'edit_stocks' ) {
             echo "active";

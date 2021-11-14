@@ -354,7 +354,7 @@ class Report_model extends CI_Model {
     }
 
          //Retrieve all Report
-    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics, $team, $paytype) {
+    public function retrieve_dateWise_SalesReports($from_date, $to_date,$sales_channel, $logistics, $team, $paytype, $status) {
         $this->db->select("a.*,b.*, u.*");
         $this->db->from('invoice a');
         $this->db->join('customer_information b', 'b.customer_id = a.customer_id');
@@ -379,7 +379,9 @@ class Report_model extends CI_Model {
             $this->db->where('a.payment_type', $paytype);   
         }
 
-
+        if($status !== "All" && $status){
+            $this->db->where('a.order_status', $status);   
+        }
         
         $this->db->order_by('a.date', 'desc');
         $query = $this->db->get();

@@ -167,40 +167,40 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="mobile" class="col-sm-4 col-form-label"><?php echo display('customer_mobile') ?></label>
+                            <label for="mobile" class="col-sm-4 col-form-label"><?php echo display('customer_mobile') ?> <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                                <input class="form-control" name ="mobile" id="mobile" type="number" placeholder="<?php echo display('customer_mobile') ?>" min="0" tabindex="3">
+                                <input class="form-control" name ="mobile" id="mobile" type="number" placeholder="<?php echo display('customer_mobile') ?>" min="0" required tabindex="3">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="address " class="col-sm-4 col-form-label">Address</label>
+                            <label for="address " class="col-sm-4 col-form-label">Address <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                                <textarea class="form-control" name="address" id="address " rows="3" placeholder="#124 Blg 1, 2F, Unit 23" tabindex="4"></textarea>
+                                <textarea class="form-control" name="address" id="address " rows="3" placeholder="#124 Blg 1, 2F, Unit 23" tabindex="4" required></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address2 " class="col-sm-4 col-form-label">Barangay/Village</label>
+                            <label for="address2 " class="col-sm-4 col-form-label">Barangay/Village <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                                <input class="form-control" name ="address2" id="address2" type="text" placeholder="Brgy. Sampaguita" tabindex="5"> 
+                                <input class="form-control" name ="address2" id="address2" type="text" placeholder="Brgy. Sampaguita" required tabindex="5"> 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="city " class="col-sm-4 col-form-label">City/Municipality</label>
+                            <label for="city " class="col-sm-4 col-form-label">City/Municipality  <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                                <input class="form-control" name ="city" id="city" type="text" placeholder="Cavite/NCR" tabindex="6"> 
+                                <input class="form-control" name ="city" id="city" type="text" placeholder="Cavite/NCR" required tabindex="6"> 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="state " class="col-sm-4 col-form-label">State/Province</label>
+                            <label for="state " class="col-sm-4 col-form-label">State/Province  <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                            <input class="form-control" name ="state" id="state" type="text" placeholder="Cavite/NCR" tabindex="7"> 
+                            <input class="form-control" name ="state" id="state" type="text" placeholder="Cavite/NCR" required tabindex="7"> 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="zip " class="col-sm-4 col-form-label">ZIP Code</label>
+                            <label for="zip " class="col-sm-4 col-form-label">ZIP Code  <i class="text-danger">*</i></label>
                             <div class="col-sm-6">
-                            <input class="form-control" name ="zip" id="zip" type="text" placeholder="ZIP Code" tabindex="8"> 
+                            <input class="form-control" name ="zip" id="zip" type="text" placeholder="ZIP Code" required tabindex="8"> 
                             </div>
                         </div>
                     </div>
